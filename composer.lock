@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "edb6346da6b4743db24b346f52c14ad8",
+    "content-hash": "79d6343b4cae3a0edbf61f0e942ba283",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -240,6 +240,61 @@
                 "source": "https://github.com/cakephp/chronos"
             },
             "time": "2022-11-08T02:17:04+00:00"
+        },
+        {
+            "name": "david-griffiths/nova-dark-theme",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/David-Griffiths/Nova-Dark-Theme.git",
+                "reference": "dfd190f4d3454e5ec066b886ad687c135b680f3b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/David-Griffiths/Nova-Dark-Theme/zipball/dfd190f4d3454e5ec066b886ad687c135b680f3b",
+                "reference": "dfd190f4d3454e5ec066b886ad687c135b680f3b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "DavidGriffiths\\NovaDarkTheme\\ThemeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DavidGriffiths\\NovaDarkTheme\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Griffiths",
+                    "homepage": "https://github.com/David-Griffiths",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A dark theme for Laravel Nova",
+            "homepage": "https://github.com/David-Griffiths/Nova-Dark-Theme",
+            "keywords": [
+                "dark",
+                "laravel",
+                "nova",
+                "theme"
+            ],
+            "support": {
+                "issues": "https://github.com/David-Griffiths/Nova-Dark-Theme/issues",
+                "source": "https://github.com/David-Griffiths/Nova-Dark-Theme"
+            },
+            "time": "2019-02-16T22:07:27+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -948,6 +1003,42 @@
                 }
             ],
             "time": "2020-12-29T14:50:06+00:00"
+        },
+        {
+            "name": "example/miami-ice",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/MiamiIce",
+                "reference": "b6a004cba2833ab6a6cead52643f57b59e90d1c3"
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Example\\MiamiIce\\ThemeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Example\\MiamiIce\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova theme.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "fideloper/proxy",
@@ -2426,51 +2517,6 @@
             "time": "2020-01-05T04:49:34+00:00"
         },
         {
-            "name": "mustafakhaleddev/nova-rtl-support",
-            "version": "V0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mustafakhaleddev/NovaRTL.git",
-                "reference": "a9a8684d3019e9cc07c9660a449b6c430b6ae4a9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mustafakhaleddev/NovaRTL/zipball/a9a8684d3019e9cc07c9660a449b6c430b6ae4a9",
-                "reference": "a9a8684d3019e9cc07c9660a449b6c430b6ae4a9",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "MK\\NovaRTL\\NovaRTLServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "MK\\NovaRTL\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A Laravel Nova RTL support.",
-            "keywords": [
-                "laravel",
-                "nova"
-            ],
-            "support": {
-                "issues": "https://github.com/mustafakhaleddev/NovaRTL/issues",
-                "source": "https://github.com/mustafakhaleddev/NovaRTL/tree/master"
-            },
-            "time": "2019-05-01T20:13:56+00:00"
-        },
-        {
             "name": "nesbot/carbon",
             "version": "2.66.0",
             "source": {
@@ -3206,6 +3252,62 @@
             "time": "2023-03-05T17:13:09+00:00"
         },
         {
+            "name": "pishran/nova-rtl-theme",
+            "version": "v1.5.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pishran/nova-rtl-theme.git",
+                "reference": "4f58dd7ac8159f78d23ce4d8fcebe99771e983ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pishran/nova-rtl-theme/zipball/4f58dd7ac8159f78d23ce4d8fcebe99771e983ab",
+                "reference": "4f58dd7ac8159f78d23ce4d8fcebe99771e983ab",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Pishran\\NovaRtlTheme\\ThemeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pishran\\NovaRtlTheme\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Farid Aghili",
+                    "email": "farid@pishranit.ir",
+                    "homepage": "https://www.faridaghili.ir",
+                    "role": "Developer"
+                }
+            ],
+            "description": "RTL layout for Laravel Nova.",
+            "homepage": "https://github.com/pishran/nova-rtl-theme",
+            "keywords": [
+                "laravel",
+                "nova",
+                "rtl",
+                "theme"
+            ],
+            "support": {
+                "issues": "https://github.com/pishran/nova-rtl-theme/issues",
+                "source": "https://github.com/pishran/nova-rtl-theme/tree/v1.5.13"
+            },
+            "time": "2021-12-25T06:01:55+00:00"
+        },
+        {
             "name": "psr/container",
             "version": "1.1.2",
             "source": {
@@ -3871,6 +3973,66 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "runlinenl/nova-profile-tool",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/runlinenl/nova-profile-tool.git",
+                "reference": "37ded22a59f546d8661f6f98dd9f3e56fc335e96"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/runlinenl/nova-profile-tool/zipball/37ded22a59f546d8661f6f98dd9f3e56fc335e96",
+                "reference": "37ded22a59f546d8661f6f98dd9f3e56fc335e96",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "*",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.6",
+                "phpunit/phpunit": "7.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Runline\\ProfileTool\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Runline\\ProfileTool\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Patrick Bergman",
+                    "email": "patrick@runline.nl",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A tool for Laravel Nova to allow users to edit their profile data",
+            "homepage": "https://github.com/runlinenl/nova-profile-tool",
+            "keywords": [
+                "laravel",
+                "nova",
+                "profile",
+                "tool"
+            ],
+            "support": {
+                "issues": "https://github.com/runlinenl/nova-profile-tool/issues",
+                "source": "https://github.com/runlinenl/nova-profile-tool/tree/master"
+            },
+            "time": "2018-12-04T22:15:15+00:00"
         },
         {
             "name": "spatie/once",
