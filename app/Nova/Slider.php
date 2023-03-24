@@ -56,9 +56,9 @@ class Slider extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('المنتج', 'product', Category::class)->rules('required'),
-            Image::make("الصورة", 'image')->creationRules('required'),
-            Toggle::make('مفعل', 'is_active')->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
+            BelongsTo::make('المنتج', 'product', Category::class)->rules('required')->sortable(),
+            Image::make("الصورة", 'image')->squared()->maxWidth(100)->creationRules('required'),
+            Toggle::make('مفعل', 'is_active')->color('#1C75B8')->onColor('#7a38eb')->offColor('#ae0f04'),
 
         ];
     }
@@ -136,4 +136,6 @@ class Slider extends Resource
     {
         return 'sort';
     }
+
+
 }

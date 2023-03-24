@@ -14,7 +14,7 @@ class AddCategoryIdToCategories extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {//
-            $table->foreignId('country_id')->nullable()->references('id')->on('countries')->onDelete('restrict');
+            $table->foreignId('category_id')->nullable()->references('id')->on('categories')->onDelete('restrict');
         });
     }
 
