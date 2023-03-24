@@ -58,7 +58,7 @@ class Slider extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('المنتج', 'product', Category::class)->rules('required'),
             Image::make("الصورة", 'image')->creationRules('required'),
-            Toggle::make('مفعل', 'is_active')->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
+            Toggle::make('مفعل', 'is_active')->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
 
         ];
     }
