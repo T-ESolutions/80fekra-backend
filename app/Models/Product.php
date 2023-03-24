@@ -47,7 +47,7 @@ class Product extends Model
         return "";
     }
 
-    public function setImageAttribute($tags)
+    public function setTagsAttribute($tags)
     {
         if (isset($tags) && $tags != null) {
             $this->attributes['tags'] = json_encode($tags);

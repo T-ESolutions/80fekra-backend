@@ -54,6 +54,11 @@ class User extends Authenticatable
         $this->hasMany(Address::class, 'user_id');
     }
 
+    public function orders()
+    {
+        $this->hasMany(Order::class, 'user_id');
+    }
+
     public function setPasswordAttribute($password)
     {
         if (!empty($password)) {
@@ -80,11 +85,13 @@ class User extends Authenticatable
     }
 
 
-    public function userReviews(){
-        return $this->hasMany(ProductReview::class,'user_id');
+    public function userReviews()
+    {
+        return $this->hasMany(ProductReview::class, 'user_id');
     }
 
-    public function userCart(){
-        return $this->hasMany(Cart::class,'user_id');
+    public function userCart()
+    {
+        return $this->hasMany(Cart::class, 'user_id');
     }
 }
