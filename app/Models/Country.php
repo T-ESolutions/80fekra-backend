@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Ofcold\NovaSortable\SortableTrait;
 
 class Country extends Model
 {
-    use HasFactory;
+    use HasFactory,SortableTrait;
 
     protected $fillable = [
         'title_ar', 'title_en', 'is_active', 'sort_order', 'shipping_cost'
