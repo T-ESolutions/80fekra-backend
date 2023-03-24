@@ -10,15 +10,17 @@
     "require": {
         "php": "^7.3",
         "david-griffiths/nova-dark-theme": "^1.0",
+        "example/miami-ice": "*",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
         "laravel/nova": "*",
         "laravel/tinker": "^2.0",
+        "naif/toggle": "^1.3",
+        "ofcold/nova-sortable": "^1.0",
         "pishran/nova-rtl-theme": "^1.5",
-        "runlinenl/nova-profile-tool": "^1.1",
-        "example/miami-ice": "*"
+        "runlinenl/nova-profile-tool": "^1.1"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

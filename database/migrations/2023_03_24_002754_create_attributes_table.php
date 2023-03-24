@@ -18,7 +18,7 @@ class CreateAttributesTable extends Migration
             $table->string('title_ar');
             $table->string('title_en');
             $table->tinyInteger('is_active')->default(1);
-            $table->integer('sort')->default(1);
+            $table->integer('sort_order')->default(1);
             $table->timestamps();
         });
     }

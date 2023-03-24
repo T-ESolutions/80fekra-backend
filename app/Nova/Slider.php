@@ -3,8 +3,11 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Naif\Toggle\Toggle;
 
 class Slider extends Resource
 {
@@ -28,26 +31,42 @@ class Slider extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+
     ];
+
+    public static $priority = 2;
+
+    public static function label()
+    {
+        return "سلايدر";
+    }
+
+    public static function singularLabel()
+    {
+        return "سلايدر";
+    }
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function fields(Request $request)
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            BelongsTo::make('المنتج', 'product', Category::class)->rules('required'),
+            Image::make("الصورة", 'image')->creationRules('required'),
+            Toggle::make('مفعل', 'is_active')->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
+
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function cards(Request $request)
@@ -58,7 +77,7 @@ class Slider extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function filters(Request $request)
@@ -69,7 +88,7 @@ class Slider extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function lenses(Request $request)
@@ -80,11 +99,41 @@ class Slider extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        $query->when(empty($request->get('orderBy')), function ($q) {
+            $q->getQuery()->orders = [];
+            return $q->orderBy(static::$model::orderColumnName());
+        });
+
+        return $query;
+    }
+
+    /**
+     * Prepare the resource for JSON serialization.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param \Illuminate\Support\Collection $fields
+     *
+     * @return array
+     */
+    public function serializeForIndex(NovaRequest $request, $fields = null)
+    {
+        return array_merge(parent::serializeForIndex($request, $fields), [
+            'sortable' => true
+        ]);
+    }
+
+    public static function orderColumnName(): string
+    {
+        return 'sort';
     }
 }
