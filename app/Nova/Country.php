@@ -2,8 +2,10 @@
 
 namespace App\Nova;
 
+use BayAreaWebPro\NovaFieldCkEditor\CkEditor;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Country extends Resource
@@ -31,6 +33,15 @@ class Country extends Resource
         'title_ar', 'title_en',
     ];
 
+    public static function label()
+    {
+        return "المدن";
+    }
+
+    public static function singularLabel()
+    {
+        return "المدن";
+    }
     /**
      * Get the fields displayed by the resource.
      *
@@ -41,6 +52,9 @@ class Country extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            Text::make('الاسم بالعربية', 'title_ar')->rules('required')->sortable(),
+            Text::make('الاسم بالانجليزية', 'title_en')->rules('required')->sortable(),
+
         ];
     }
 
