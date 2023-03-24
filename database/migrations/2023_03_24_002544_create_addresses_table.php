@@ -16,7 +16,7 @@ class CreateAddressesTable extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('restrict');
-            $table->string('lat');
+            $table->string('lat'); //
             $table->string('lng');
             $table->string('address');
             $table->string('f_name');

@@ -14,7 +14,7 @@ class CreateProductReviewsTable extends Migration
     public function up()
     {
         Schema::create('product_reviews', function (Blueprint $table) {
-            $table->id();
+            $table->id();//
             $table->foreignId('product_id')->references('id')->on('products')->onDelete('restrict');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('restrict');
             $table->string('rate');

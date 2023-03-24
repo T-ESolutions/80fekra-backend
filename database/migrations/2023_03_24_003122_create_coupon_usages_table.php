@@ -14,7 +14,7 @@ class CreateCouponUsagesTable extends Migration
     public function up()
     {
         Schema::create('coupon_usages', function (Blueprint $table) {
-            $table->id();
+            $table->id();//
             $table->foreignId('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

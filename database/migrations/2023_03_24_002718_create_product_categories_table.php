@@ -14,7 +14,7 @@ class CreateProductCategoriesTable extends Migration
     public function up()
     {
         Schema::create('product_categories', function (Blueprint $table) {
-            $table->id();
+            $table->id();//
             $table->foreignId('product_id')->references('id')->on('products')->onDelete('restrict');
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('restrict');
             $table->timestamps();

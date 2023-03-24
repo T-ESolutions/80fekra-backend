@@ -14,7 +14,7 @@ class CreateAttributesTable extends Migration
     public function up()
     {
         Schema::create('attributes', function (Blueprint $table) {
-            $table->id();
+            $table->id();//
             $table->string('title_ar');
             $table->string('title_en');
             $table->tinyInteger('is_active')->default(1);

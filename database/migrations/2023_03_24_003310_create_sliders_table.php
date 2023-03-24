@@ -15,7 +15,7 @@ class CreateSlidersTable extends Migration
     {
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
+            $table->string('image');//
             $table->tinyInteger('is_active')->default(1);
             $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->integer('sort')->default(1);

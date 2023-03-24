@@ -14,7 +14,7 @@ class CreateProductAttributesTable extends Migration
     public function up()
     {
         Schema::create('product_attributes', function (Blueprint $table) {
-            $table->id();
+            $table->id();//
             $table->foreignId('product_id')->references('id')->on('products')->onDelete('restrict');
             $table->foreignId('attribute_id')->references('id')->on('attributes')->onDelete('restrict');
             $table->string('option');
