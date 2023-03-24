@@ -134,7 +134,7 @@ class Slider extends Resource
 
     public static function orderColumnName(): string
     {
-        return 'sort';
+        return 'sort_order';
     }
 
 

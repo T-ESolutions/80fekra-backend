@@ -5,8 +5,11 @@ namespace App\Nova;
 use BayAreaWebPro\NovaFieldCkEditor\CkEditor;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Naif\Toggle\Toggle;
+use Laravel\Nova\Fields\Boolean;
 
 class Country extends Resource
 {
@@ -42,10 +45,11 @@ class Country extends Resource
     {
         return "المدن";
     }
+
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function fields(Request $request)
@@ -54,6 +58,13 @@ class Country extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Text::make('الاسم بالعربية', 'title_ar')->rules('required')->sortable(),
             Text::make('الاسم بالانجليزية', 'title_en')->rules('required')->sortable(),
+            Number::make('تكلفة الشحن', 'shipping_cost')->rules('required')->sortable(),
+            Toggle::make('مفعل', 'is_active')->hideFromIndex()->hideFromDetail()->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
+            Boolean::make("مفعل", 'is_active')
+                ->sortable()
+                ->hideWhenCreating()
+                ->hideWhenUpdating()
+            ,
 
         ];
     }
@@ -61,7 +72,7 @@ class Country extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function cards(Request $request)
@@ -72,7 +83,7 @@ class Country extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function filters(Request $request)
@@ -83,7 +94,7 @@ class Country extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function lenses(Request $request)
@@ -94,11 +105,43 @@ class Country extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [];
     }
+
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        $query->when(empty($request->get('orderBy')), function ($q) {
+            $q->getQuery()->orders = [];
+            return $q->orderBy(static::$model::orderColumnName());
+        });
+
+        return $query;
+    }
+
+    /**
+     * Prepare the resource for JSON serialization.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param \Illuminate\Support\Collection $fields
+     *
+     * @return array
+     */
+    public function serializeForIndex(NovaRequest $request, $fields = null)
+    {
+        return array_merge(parent::serializeForIndex($request, $fields), [
+            'sortable' => true
+        ]);
+    }
+
+    public static function orderColumnName(): string
+    {
+        return 'sort_order';
+    }
+
 }
