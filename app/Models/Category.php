@@ -10,7 +10,7 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title_ar', 'title_en', 'image', 'is_active', 'sort', 'country_id'
+        'title_ar', 'title_en', 'image', 'is_active', 'sort_order', 'country_id'
     ];
 
     protected $appends = ['title'];
@@ -29,23 +29,23 @@ class Category extends Model
         $query->where('is_active', 1);
     }
 
-    public function getImageAttribute($image)
-    {
-        if (!empty($image)) {
-            return asset('uploads/categories') . '/' . $image;
-        }
-        return asset('defaults/user_default.png');
-    }
-
-    public function setImageAttribute($image)
-    {
-        if (is_file($image)) {
-            $imageFields = upload($image, 'categories');
-            $this->attributes['image'] = $imageFields;
-        } else {
-            $this->attributes['image'] = $image;
-        }
-    }
+//    public function getImageAttribute($image)
+//    {
+//        if (!empty($image)) {
+//            return asset('uploads/categories') . '/' . $image;
+//        }
+//        return asset('defaults/user_default.png');
+//    }
+//
+//    public function setImageAttribute($image)
+//    {
+//        if (is_file($image)) {
+//            $imageFields = upload($image, 'categories');
+//            $this->attributes['image'] = $imageFields;
+//        } else {
+//            $this->attributes['image'] = $image;
+//        }
+//    }
 
     public function parentCategory()
     {

@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title_ar', 'title_en', 'description_ar', 'description_en', 'is_active', 'sort', 'discount', 'tags'
+        'title_ar', 'title_en', 'description_ar', 'description_en', 'is_active', 'sort_order', 'discount', 'tags'
     ];
 
     protected $appends = ['title', 'description'];

@@ -21,7 +21,7 @@ class Product extends Resource
      *
      * @var string
      */
-    public static $title = 'title_ar';
+    //public static $title = 'title_ar';
 
 
     public function title()

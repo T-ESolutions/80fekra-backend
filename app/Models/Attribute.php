@@ -13,7 +13,7 @@ class Attribute extends Model
         'title_ar',
         'title_en',
         'is_active',
-        'sort',
+        'sort_order',
     ];
 
     protected $appends = ['title'];

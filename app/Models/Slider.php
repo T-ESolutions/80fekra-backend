@@ -14,7 +14,7 @@ class Slider extends Model
         'image',
         'is_active',
         'product_id',
-        'sort',
+        'sort_order',
     ];
 
 
