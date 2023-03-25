@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Attribute;
+use App\Models\ProductImage;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class AttributePolicy
+class ProductImagePolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class AttributePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Attribute  $attribute
+     * @param  \App\Models\ProductImage  $productImage
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Attribute $attribute)
+    public function view(User $user, ProductImage $productImage)
     {
         return true;
     }
@@ -48,10 +48,10 @@ class AttributePolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Attribute  $attribute
+     * @param  \App\Models\ProductImage  $productImage
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Attribute $attribute)
+    public function update(User $user, ProductImage $productImage)
     {
         return true;
     }
@@ -60,10 +60,10 @@ class AttributePolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Attribute  $attribute
+     * @param  \App\Models\ProductImage  $productImage
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Attribute $attribute)
+    public function delete(User $user, ProductImage $productImage)
     {
         return true;
     }
@@ -72,10 +72,10 @@ class AttributePolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Attribute  $attribute
+     * @param  \App\Models\ProductImage  $productImage
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Attribute $attribute)
+    public function restore(User $user, ProductImage $productImage)
     {
         return true;
     }
@@ -84,10 +84,10 @@ class AttributePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Attribute  $attribute
+     * @param  \App\Models\ProductImage  $productImage
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Attribute $attribute)
+    public function forceDelete(User $user, ProductImage $productImage)
     {
         return true;
     }

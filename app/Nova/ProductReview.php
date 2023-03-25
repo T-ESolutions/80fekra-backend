@@ -3,28 +3,32 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Naif\Toggle\Toggle;
+use Nikaia\Rating\Rating;
 
-class Category extends Resource
+class ProductReview extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Category::class;
+    public static $model = \App\Models\ProductReview::class;
+
+    public static $displayInNavigation = false;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'title_ar';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -32,17 +36,17 @@ class Category extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'title_ar', 'title_en'
+        'id',
     ];
 
     public static function label()
     {
-        return "الاقسام";
+        return "تقييمات المنتج";
     }
 
     public static function singularLabel()
     {
-        return "الاقسام";
+        return "تقييمات المنتج";
     }
 
     /**
@@ -55,16 +59,25 @@ class Category extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Image::make('صورة القسم', 'image')->squared()->disk('public')->maxWidth(200)->creationRules('required', 'image')->updateRules('nullable', 'image'),
-            Text::make('اسم القسم بالعربية', 'title_ar')
-                ->sortable()
-                ->rules('required', 'max:255'),
-            Text::make('اسم القسم بالانجليزية', 'title_en')
-                ->sortable()
-                ->rules('required', 'max:255'),
-            Toggle::make('مفعل', 'is_active')->hideFromIndex()->hideFromDetail()
+            BelongsTo::make('المنتج', 'product', Product::class)->readonly()->rules('required'),
+            BelongsTo::make('المستخدم', 'user', User::class)->readonly()->rules('required'),
+            Textarea::make('التعليق', 'comment')->readonly()->rules('required'),
+            Rating::make('التقييم', 'rate')->withStyles([
+                'star-size' => 30,
+                'active-color' => 'var(--warning)', // Primary nova theme color.
+                'inactive-color' => '#d8d8d8',
+                'border-color' => 'var(--60)',
+                'border-width' => 0,
+                'padding' => 10,
+                'rounded-corners' => false,
+                'inline' => false,
+                'glow' => 0,
+                'glow-color' => '#fff',
+                'text-class' => 'inline-block text-80 h-9 pt-2',
+            ])->min(0)->max(5)->increment(1)->readonly()->rules('required'),
+            Toggle::make('الموافقة من الادمن', 'is_approved')->hideFromIndex()->hideFromDetail()
                 ->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
-            Boolean::make("مفعل", 'is_active')
+            Boolean::make("الموافقة من الادمن", 'is_approved')
                 ->sortable()
                 ->hideWhenCreating()
                 ->hideWhenUpdating()        ];
@@ -113,37 +126,4 @@ class Category extends Resource
     {
         return [];
     }
-
-
-    public static function indexQuery(NovaRequest $request, $query)
-    {
-        $query->when(empty($request->get('orderBy')), function ($q) {
-            $q->getQuery()->orders = [];
-            return $q->orderBy(static::$model::orderColumnName());
-        });
-
-        return $query;
-    }
-
-    /**
-     * Prepare the resource for JSON serialization.
-     *
-     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
-     * @param \Illuminate\Support\Collection $fields
-     *
-     * @return array
-     */
-    public function serializeForIndex(NovaRequest $request, $fields = null)
-    {
-        return array_merge(parent::serializeForIndex($request, $fields), [
-            'sortable' => true
-        ]);
-    }
-
-    public static function orderColumnName(): string
-    {
-        return 'sort_order';
-    }
-
-
 }

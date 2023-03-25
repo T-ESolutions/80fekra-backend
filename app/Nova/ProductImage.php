@@ -3,17 +3,21 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Attribute extends Resource
+class ProductImage extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Attribute::class;
+    public static $model = \App\Models\ProductImage::class;
+
+    public static $displayInNavigation = false;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -30,7 +34,15 @@ class Attribute extends Resource
     public static $search = [
         'id',
     ];
+    public static function label()
+    {
+        return "صور المنتج";
+    }
 
+    public static function singularLabel()
+    {
+        return "صور المنتج";
+    }
     /**
      * Get the fields displayed by the resource.
      *
@@ -40,7 +52,9 @@ class Attribute extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            BelongsTo::make('المنتج', 'product', Product::class)->rules('required'),
+            Image::make('صورة المنتج', 'image')->squared()->disk('public')->maxWidth(200)->creationRules('required', 'image')->updateRules('nullable', 'image'),
+
         ];
     }
 

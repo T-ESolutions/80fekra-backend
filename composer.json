@@ -22,6 +22,7 @@
         "ofcold/nova-sortable": "^1.0",
         "pishran/nova-rtl-theme": "^1.5",
         "runlinenl/nova-profile-tool": "^1.1",
+        "nikaia/nova-rating-field": "^1.0",
         "spatie/nova-tags-field": "^3.4"
     },
     "require-dev": {

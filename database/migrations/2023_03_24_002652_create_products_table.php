@@ -17,8 +17,10 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('title_ar');//
             $table->string('title_en');
-            $table->text('description_ar')->nullable();
-            $table->text('description_en')->nullable();
+            $table->text('description_ar');
+            $table->text('description_en');
+            $table->text('attributes_ar');
+            $table->text('attributes_en');
             $table->tinyInteger('is_active')->default(1);
             $table->integer('sort_order')->default(1);
             $table->double('price')->default(0);

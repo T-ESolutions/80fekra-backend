@@ -11,7 +11,7 @@ class Product extends Model
     use \Spatie\Tags\HasTags;
 
     protected $fillable = [
-        'title_ar', 'title_en', 'description_ar', 'description_en', 'is_active', 'sort_order', 'discount', 'tags'
+        'title_ar', 'title_en', 'description_ar', 'description_en', 'is_active', 'sort_order', 'discount', 'tags','attributes_ar','attributes_en'
     ];
 
     protected $appends = ['title', 'description'];
@@ -57,26 +57,22 @@ class Product extends Model
 
     public function productCategories()
     {
-        return $this->belongsToMany(Category::class, 'product_categories', 'category_id', 'product_id');
-    }
+        return $this->belongsToMany(Category::class, 'product_categories', 'product_id', 'category_id');
 
-    public function productAttributes()
-    {
-        return $this->belongsToMany(Attribute::class, 'product_attributes', 'attribute_id', 'product_id');
     }
 
     public function productImages()
     {
-        $this->hasMany(ProductImage::class, 'product_id');
+        return $this->hasMany(ProductImage::class, 'product_id');
     }
 
     public function productReviews()
     {
-        $this->hasMany(ProductReview::class, 'product_id');
+        return $this->hasMany(ProductReview::class, 'product_id');
     }
 
     public function productReviewsApproved()
     {
-        $this->hasMany(ProductReview::class, 'product_id')->where('is_approved', 1);
+        return $this->hasMany(ProductReview::class, 'product_id')->where('is_approved', 1);
     }
 }

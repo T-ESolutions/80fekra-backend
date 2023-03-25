@@ -31,6 +31,17 @@ class Order extends Resource
         'id',
     ];
 
+    public static function label()
+    {
+        return "الطلبات";
+    }
+
+    public static function singularLabel()
+    {
+        return "الطلبات";
+    }
+
+
     /**
      * Get the fields displayed by the resource.
      *

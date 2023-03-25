@@ -4,6 +4,10 @@ namespace App\Nova;
 
 use BayAreaWebPro\NovaFieldCkEditor\CkEditor;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
@@ -27,7 +31,7 @@ class Product extends Resource
     //public static $title = 'title_ar';
     public function title()
     {
-        return $this->title_ar . ', ' . $this->title_en;
+        return $this->title_ar;
     }
 
     /**
@@ -60,6 +64,10 @@ class Product extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            BelongsToMany::make('الاقسام', 'productCategories', Category::class)->rules('required'),
+            HasMany::make('صور المنتج', 'productImages', ProductImage::class),
+            HasMany::make('تقييمات المنتج', 'productReviews', ProductReview::class),
+
             Text::make('اسم المنتج بالعربية', 'title_ar')
                 ->sortable()
                 ->rules('required', 'max:255'),
@@ -136,14 +144,88 @@ class Product extends Resource
                     'undo',
                     'redo'
                 ]),
+            CkEditor::make('مواصفات المنتج بالعربية','attributes_ar')
+                ->rules('required')
+                ->hideFromIndex()
+                ->mediaBrowser()
+                ->linkBrowser()
+                ->height(60)
+                ->stacked()
+
+                ->toolbar([
+                    'heading',
+                    'horizontalLine',
+                    '|',
+                    'link',
+                    'linkBrowser',
+                    '|',
+                    'bold',
+                    'italic',
+                    'alignment',
+                    'subscript',
+                    'superscript',
+                    'underline',
+                    'strikethrough',
+                    '|',
+                    'blockQuote',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'insertTable',
+                    'mediaEmbed',
+                    'mediaBrowser',
+                    'insertSnippet',
+                    '|',
+                    'undo',
+                    'redo'
+                ]),CkEditor::make('مواصفات المنتج بالانجليزية','attributes_en')
+                ->rules('required')
+                ->hideFromIndex()
+                ->mediaBrowser()
+                ->linkBrowser()
+                ->height(60)
+                ->stacked()
+
+                ->toolbar([
+                    'heading',
+                    'horizontalLine',
+                    '|',
+                    'link',
+                    'linkBrowser',
+                    '|',
+                    'bold',
+                    'italic',
+                    'alignment',
+                    'subscript',
+                    'superscript',
+                    'underline',
+                    'strikethrough',
+                    '|',
+                    'blockQuote',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'insertTable',
+                    'mediaEmbed',
+                    'mediaBrowser',
+                    'insertSnippet',
+                    '|',
+                    'undo',
+                    'redo'
+                ]),
             Number::make('سعر المنتج', 'price')
                 ->sortable()->default(0)
                 ->rules('required','min:0'),
             Number::make('قيمة الخصم (%)', 'discount')
                 ->sortable()->default(0)
                 ->rules('required','min:0'),
-            Toggle::make('مفعل', 'is_active')->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
-            Tags::make('tags','tags'),
+            Toggle::make('مفعل', 'is_active')->hideFromIndex()->hideFromDetail()
+                ->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
+            Boolean::make("مفعل", 'is_active')
+                ->sortable()
+                ->hideWhenCreating()
+                ->hideWhenUpdating()
+            //            Tags::make('tags','tags'),
 
         ];
     }
