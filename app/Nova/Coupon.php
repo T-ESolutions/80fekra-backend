@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\UserActive;
+use App\Nova\Actions\UserUnActive;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
@@ -121,6 +123,15 @@ class Coupon extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            UserActive::make()
+                ->confirmText('هل انت متأكد من التفعيل؟')
+                ->confirmButtonText('تفعيل')
+                ->cancelButtonText("لا"),
+            UserUnActive::make()
+                ->confirmText('هل انت متأكد من الغاء التفعيل؟')
+                ->confirmButtonText('الغاء التفعيل')
+                ->cancelButtonText("لا"),
+        ];
     }
 }

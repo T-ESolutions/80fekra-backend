@@ -95,7 +95,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new \Runline\ProfileTool\ProfileTool,
+           // new \Runline\ProfileTool\ProfileTool,
         ];
     }
 
