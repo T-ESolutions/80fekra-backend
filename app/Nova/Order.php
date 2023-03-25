@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\OrderPaymentStatus;
 use App\Nova\Actions\OrderStatus;
 use Armincms\Json\Json;
 use Illuminate\Http\Request;
@@ -148,6 +149,12 @@ class Order extends Resource
                 ->confirmText('هل انت متأكد ؟')
                 ->confirmButtonText('نعم')
                 ->cancelButtonText("لا"),
+            OrderPaymentStatus::make()
+                ->confirmText('هل انت متأكد ؟')
+                ->confirmButtonText('نعم')
+                ->cancelButtonText("لا"),
         ];
     }
+
+
 }
