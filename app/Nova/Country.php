@@ -53,6 +53,8 @@ class Country extends Resource
         return "المدن";
     }
 
+    
+
     /**
      * Get the fields displayed by the resource.
      *
