@@ -30,7 +30,8 @@
         "runlinenl/nova-profile-tool": "^1.1",
         "simplesquid/nova-enum-field": "^2.7",
         "spatie/nova-tags-field": "^3.4",
-        "superlatif/nova-tag-input": "3.0"
+        "superlatif/nova-tag-input": "3.0",
+        "example/miami-ice": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
@@ -97,6 +98,10 @@
         "2": {
             "type": "path",
             "url": "./nova-components/NovaTheme"
+        },
+        "3": {
+            "type": "path",
+            "url": "./nova-components/MiamiIce"
         }
     }
 }
