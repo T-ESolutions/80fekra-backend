@@ -148,6 +148,7 @@
       <path value="$PROJECT_DIR$/vendor/superlatif/nova-tag-input" />
       <path value="$PROJECT_DIR$/vendor/coroowicaksono/chart-js-integration" />
       <path value="$PROJECT_DIR$/vendor/beyondcode/nova-theme" />
+      <path value="$PROJECT_DIR$/vendor/anaseqal/nova-sidebar-icons" />
     </include_path>
   </component>
   <component name="PhpUnit">

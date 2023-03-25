@@ -9,8 +9,10 @@
     "license": "MIT",
     "require": {
         "php": "^7.3",
+        "anaseqal/nova-sidebar-icons": "^0.0.3",
         "armincms/json": "^0.5.2",
         "bayareawebpro/nova-field-ckeditor": "^1.1",
+        "beyondcode/nova-theme": "*",
         "bytelaunch/readonly-on-update": "dev-main",
         "coroowicaksono/chart-js-integration": "^0.3.5",
         "david-griffiths/nova-dark-theme": "^1.0",
@@ -28,8 +30,7 @@
         "runlinenl/nova-profile-tool": "^1.1",
         "simplesquid/nova-enum-field": "^2.7",
         "spatie/nova-tags-field": "^3.4",
-        "superlatif/nova-tag-input": "3.0",
-        "beyondcode/nova-theme": "*"
+        "superlatif/nova-tag-input": "3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

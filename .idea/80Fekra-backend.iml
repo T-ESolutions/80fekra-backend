@@ -9,6 +9,7 @@
       <sourceFolder url="file://$MODULE_DIR$/database/factories" isTestSource="false" packagePrefix="Database\Factories\" />
       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/database/seeders" isTestSource="false" packagePrefix="Database\Seeders\" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/anaseqal/nova-sidebar-icons" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/armincms/json" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/asm89/stack-cors" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bayareawebpro/nova-field-ckeditor" />

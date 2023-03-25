@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Anaseqal\NovaSidebarIcons\NovaSidebarIcons;
 use App\Nova\Address;
 use App\Nova\Admin;
 use App\Nova\Category;
@@ -178,6 +179,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             //   new \Runline\ProfileTool\ProfileTool,
+            new NovaSidebarIcons,
         ];
     }
 
