@@ -85,8 +85,8 @@ class User extends Resource
             PasswordConfirmation::make('تاكيد كلمة المرور')->rules('same:password')->onlyOnForms(),
 
             BelongsTo::make('المدينة', 'country', Country::class)->rules('required'),
-            HasMany::make('العناوين', 'addresses', Address::class),
             HasMany::make('الطلبات', 'orders', Order::class),
+            HasMany::make('العناوين', 'addresses', Address::class),
         ];
     }
 
