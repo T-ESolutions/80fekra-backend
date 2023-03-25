@@ -12,7 +12,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
 use Naif\Toggle\Toggle;
-use Spatie\TagsField\Tags;
+use Superlatif\NovaTagInput\Tags;
 
 class Product extends Resource
 {
@@ -220,6 +220,21 @@ class Product extends Resource
             Number::make('قيمة الخصم (%)', 'discount')
                 ->sortable()->default(0)
                 ->rules('required','min:0'),
+
+            Tags::make( 'الكلمات المفتاحية','tags')
+                ->help("Press ENTER to add tag")
+                ->placeholder("Add a new tag")
+                ->allowEditTags(true)
+                ->addOnKeys([13, ':', ';', ',']) // 13 = Enter key
+                ->autocompleteItems([
+                    'Arizona',
+                    'California',
+                    'Colorado',
+                    'Michigan',
+                    'New York',
+                    'Texas',
+                ]),
+
             Toggle::make('مفعل', 'is_active')->hideFromIndex()->hideFromDetail()
                 ->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
             Boolean::make("مفعل", 'is_active')

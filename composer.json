@@ -27,7 +27,8 @@
         "pishran/nova-rtl-theme": "^1.5",
         "runlinenl/nova-profile-tool": "^1.1",
         "simplesquid/nova-enum-field": "^2.7",
-        "spatie/nova-tags-field": "^3.4"
+        "spatie/nova-tags-field": "^3.4",
+        "superlatif/nova-tag-input": "3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

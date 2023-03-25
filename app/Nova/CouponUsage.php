@@ -16,6 +16,7 @@ class CouponUsage extends Resource
      */
     public static $model = \App\Models\CouponUsage::class;
 
+    public static $displayInNavigation = false;
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

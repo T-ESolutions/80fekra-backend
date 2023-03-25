@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    use \Spatie\Tags\HasTags;
+//    use \Spatie\Tags\HasTags;
 
     protected $fillable = [
         'title_ar', 'title_en', 'description_ar', 'description_en', 'is_active', 'sort_order', 'discount', 'tags','attributes_ar','attributes_en'
@@ -40,19 +40,23 @@ class Product extends Model
         $query->where('is_active', 1);
     }
 
-    public function getTagsAttribute()
-    {
-        if ($this->attributes['tags'] != null) {
-            return json_decode($this->attributes['tags']);
-        }
-        return "";
-    }
-
+//    public function getTagsAttribute()
+//    {
+//        if ($this->attributes['tags'] != null) {
+//            return json_decode($this->attributes['tags']);
+//        }
+//        return "";
+//    }
+//
     public function setTagsAttribute($tags)
     {
-        if (isset($tags) && $tags != null) {
-            $this->attributes['tags'] = json_encode($tags);
-        }
+        $tags_string = implode(" ",$tags) ;
+        $this->attributes['tags']  = $tags_string;
+
+//
+//        if (isset($tags) && $tags != null) {
+//            $this->attributes['tags'] = json_encode($tags);
+//        }
     }
 
     public function productCategories()
