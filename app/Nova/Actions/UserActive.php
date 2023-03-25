@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Actions\DestructiveAction;
 use Laravel\Nova\Fields\ActionFields;
+use Laravel\Nova\Fields\Text;
 
 class UserActive extends DestructiveAction
 {
@@ -39,7 +40,9 @@ class UserActive extends DestructiveAction
      */
     public function fields()
     {
-        return [];
+        return [
+
+        ];
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\OrderStatus;
 use Armincms\Json\Json;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
@@ -54,7 +55,7 @@ class Order extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function fields(Request $request)
@@ -68,24 +69,33 @@ class Order extends Resource
             Json::make("address", [
                 Select::make(__("Discount Type"), "type")
                     ->options([
-                        'percent' => __('Percent'),
-                        'amount' => __('Amount'),
-                    ])->rules('required')->default('percent'),
+                        'percent' => "نسبة",
+                        'amount' => "مبلغ",
+                    ])->displayUsingLabels()->rules('required')->default('percent'),
                 Number::make(__("Discount Value"), "value")
                     ->rules("min:0")
                     ->withMeta([
                         'min' => 0
                     ]),
             ]),
-            Number::make('الاجمالي الفرعي', 'subtotal')->rules('required','min:0'),
-            Number::make('قيمة الخصم', 'discount')->rules('required','min:0'),
-            Number::make('سعر الشحن', 'shipping_cost')->rules('required','min:0'),
-            Number::make('الاجمالي', 'total')->rules('required','min:0'),
-            Select::make('حالة الدفع', 'payment_status')->options(['paid'=>'مدفوع','not_paid'=>'لم يتم الدفع']),
-            Select::make('طريقة الدفع', 'payment_type')->options(['cash'=>'كاش','visa'=>'فيزا']),
-            Select::make('حالة الطلب', 'status')->options(['pending'=>'طلب جديد','on_progress'=>'جاري التجهيز',
-                'shipped'=>'تم الشحن','delivered'=>'تم التوصيل','rejected'=>'مرفوض','canceled_by_user'=>'تم الالغاء عن طريق المستخدم',
-                'canceled_by_admin'=>'تم الالغاء عن طريق الادمن']),
+            Number::make('الاجمالي الفرعي', 'subtotal')->rules('required', 'min:0'),
+            Number::make('قيمة الخصم', 'discount')->rules('required', 'min:0'),
+            Number::make('سعر الشحن', 'shipping_cost')->rules('required', 'min:0'),
+            Number::make('الاجمالي', 'total')->rules('required', 'min:0'),
+            Select::make('حالة الدفع', 'payment_status')
+                ->options(['paid' => 'مدفوع', 'not_paid' => 'لم يتم الدفع'])
+                ->displayUsingLabels(),
+            Select::make('طريقة الدفع', 'payment_type')
+                ->options(['cash' => 'كاش', 'visa' => 'فيزا'])
+                ->displayUsingLabels(),
+            Select::make('حالة الطلب', 'status')
+                ->options([
+                    'pending' => 'طلب جديد', 'on_progress' => 'جاري التجهيز',
+                    'shipped' => 'تم الشحن', 'delivered' => 'تم التوصيل', 'rejected' => 'مرفوض',
+                    'canceled_by_user' => 'تم الالغاء عن طريق المستخدم',
+                    'canceled_by_admin' => 'تم الالغاء عن طريق الادمن'
+                ])
+                ->displayUsingLabels(),
             HasMany::make('منتجات الطلب', 'orderDetails', OrderDetail::class),
 
 
@@ -95,7 +105,7 @@ class Order extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function cards(Request $request)
@@ -106,7 +116,7 @@ class Order extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function filters(Request $request)
@@ -117,7 +127,7 @@ class Order extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function lenses(Request $request)
@@ -128,11 +138,16 @@ class Order extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            OrderStatus::make()
+                ->confirmText('هل انت متأكد ؟')
+                ->confirmButtonText('نعم')
+                ->cancelButtonText("لا"),
+        ];
     }
 }

@@ -73,11 +73,25 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function cards()
     {
-        $data = [];
-        for($x=1; $x<=12; $x++){
-            $order = \App\Models\Order::whereYear('created_at',date('Y'))
-                ->whereMonth('created_at','=',$x)->count();
-            array_push($data,$order);
+        $order_completed = [];
+        for ($x = 1; $x <= 12; $x++) {
+            $order = \App\Models\Order::whereYear('created_at', date('Y'))
+                ->whereMonth('created_at', '=', $x)->where('status', \App\Models\Order::STATUS_DELIVERED)->count();
+            array_push($order_completed, $order);
+        }
+
+        $order_not_completed = [];
+        for ($x = 1; $x <= 12; $x++) {
+            $order = \App\Models\Order::whereYear('created_at', date('Y'))
+                ->whereMonth('created_at', '=', $x)->where('status', '!=', \App\Models\Order::STATUS_DELIVERED)->count();
+            array_push($order_not_completed, $order);
+        }
+
+        $users = [];
+        for ($x = 1; $x <= 12; $x++) {
+            $order = \App\Models\User::whereYear('created_at', date('Y'))
+                ->whereMonth('created_at', '=', $x)->where('type','user')->count();
+            array_push($users, $order);
         }
 
         return [
@@ -90,16 +104,36 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 ])
                 ->series(array([
                     'barPercentage' => 0.8,
-                    'label' => 'الطلبات',
+                    'label' => 'الطلبات المكتملة',
                     'backgroundColor' => '#6E0572',
-                    'data' => $data,
+                    'data' => $order_completed,
                 ],
-//                    [
-//                    'barPercentage' => 0.8,
-//                    'label' => 'الطلبات',
-//                    'backgroundColor' => 'red',
-//                    'data' => $data,
-//                ]
+                    [
+                        'barPercentage' => 0.8,
+                        'label' => 'الطلبات الغير مكتملة',
+                        'backgroundColor' => 'red',
+                        'data' => $order_not_completed,
+                    ]
+                ))
+                ->options([
+                    'xaxis' => [
+                        'categories' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']
+                    ],
+                ])
+                ->width('2/3'),
+
+            (new StackedChart())
+                ->title('المستخدمين')
+                ->animations([
+                    'enabled' => true,
+                    'easing' => 'easeinout',
+                ])
+                ->series(array([
+                    'barPercentage' => 0.8,
+                    'label' => 'المستخدمين',
+                    'backgroundColor' => 'green',
+                    'data' => $users,
+                ],
                 ))
                 ->options([
                     'xaxis' => [
@@ -109,6 +143,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 ->width('2/3'),
 
         ];
+
+
     }
 
     /**
@@ -129,7 +165,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            // new \Runline\ProfileTool\ProfileTool,
+            //   new \Runline\ProfileTool\ProfileTool,
         ];
     }
 

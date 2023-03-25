@@ -96,7 +96,9 @@ class Admin extends Resource
             Select::make('النوع', 'type')->options([
                 \App\Models\User::ADMIN => 'مدير',
                 \App\Models\User::EMPLOYEE => 'موظف',
-            ])->default(\App\Models\User::EMPLOYEE),
+            ])
+                ->displayUsingLabels()
+                ->default(\App\Models\User::EMPLOYEE),
 
             BelongsTo::make('المدينة', 'country', Country::class)->rules('required'),
         ];
