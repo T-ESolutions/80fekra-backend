@@ -22,6 +22,10 @@ class Coupon extends Model
         'is_active',
     ];
 
+    protected $casts =[
+        'start_date'=>'date',
+        'end_date'=>'date',
+    ];
 
     public function scopeActive($query): void
     {

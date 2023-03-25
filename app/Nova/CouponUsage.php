@@ -2,47 +2,45 @@
 
 namespace App\Nova;
 
-use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Naif\Toggle\Toggle;
 
-class Address extends Resource
+class CouponUsage extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Address::class;
+    public static $model = \App\Models\CouponUsage::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $search = [
-        'address'
-    ];
-    public static $title = 'address';
+    public static $title = 'id';
 
-    public static $priority = 2;
+    /**
+     * The columns that should be searched.
+     *
+     * @var array
+     */
+    public static $search = [
+        'id',
+    ];
 
     public static function label()
     {
-        return "عناوين المستخدمين";
+        return "استخدامات كوبون الخصم";
     }
 
     public static function singularLabel()
     {
-        return "عناوين المستخدمين";
+        return "استخدامات كوبون الخصم";
     }
-
 
     /**
      * Get the fields displayed by the resource.
@@ -55,21 +53,7 @@ class Address extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('المستخدم', 'user', User::class)->rules('required'),
-            Text::make('العنوان', 'address')->rules('required')->sortable(),
-            Text::make('الاسم الاول', 'f_name')->rules('required')->sortable(),
-            Text::make('الاسم الاخير', 'l_name')->rules('required')->sortable(),
-            Number::make('رقم الهاتف', 'phone')->sortable()
-                ->rules('required', 'max:255')
-            ,
-            Text::make('البريد الالكتروني', 'email')->sortable()
-                ->rules('required', 'email', 'max:255')->hideFromIndex(),
-            BelongsTo::make('المدينة', 'country', Country::class)->rules('required'),
-            Boolean::make('العنوان الاساسي؟', 'is_default'),
-            MapMarker::make("Location")
-                ->latitude('lat')
-                ->longitude('lng')->hideFromIndex(),
-
-
+            BelongsTo::make('كود الخصم', 'coupon', Coupon::class)->rules('required'),
         ];
     }
 

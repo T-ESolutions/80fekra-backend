@@ -138,8 +138,9 @@
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-translatable" />
       <path value="$PROJECT_DIR$/vendor/spatie/nova-tags-field" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-tags" />
-      <path value="$PROJECT_DIR$/vendor/genealabs/nova-map-marker-field" />
+      <path value="$PROJECT_DIR$/vendor/nikaia/nova-rating-field" />
       <path value="$PROJECT_DIR$/vendor/symfony/thanks" />
+      <path value="$PROJECT_DIR$/vendor/genealabs/nova-map-marker-field" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
