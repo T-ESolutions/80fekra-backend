@@ -65,11 +65,15 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewNova', function ($user) {
-            return in_array($user->email, [
-                //
-            ]);
+//            return in_array($user->email, [
+//                //
+//            ]);
+
+            return $user->type == "admin" ? true : false;
         });
     }
+
+
 
     /**
      * Get the cards that should be displayed on the default Nova dashboard.
@@ -125,13 +129,13 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         'categories' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']
                     ],
                 ])
-                //->width('3/4')
-        ,
+            //->width('3/4')
+            ,
 
             new OrdersPerDay(),
             new OrderPerStatus(),
             new NewOrder(),
-            new NewUsers() ,
+            new NewUsers(),
             (new StackedChart())
                 ->title('المستخدمين')
                 ->animations([
@@ -151,8 +155,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     ],
                 ])
                 ->width('2/3'),
-
-
 
 
         ];

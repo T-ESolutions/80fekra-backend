@@ -59,12 +59,12 @@ class User extends Authenticatable
         return $this->hasMany(Order::class, 'user_id');
     }
 
-    public function setPasswordAttribute($password)
-    {
-        if (!empty($password)) {
-            $this->attributes['password'] = bcrypt($password);
-        }
-    }
+//    public function setPasswordAttribute($password)
+//    {
+//        if (!empty($password)) {
+//            $this->attributes['password'] = bcrypt($password);
+//        }
+//    }
 
 
     public function userReviews()
