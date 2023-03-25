@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\UserActive;
+use App\Nova\Actions\UserUnActive;
 use BayAreaWebPro\NovaFieldCkEditor\CkEditor;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
@@ -12,7 +14,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
 use Naif\Toggle\Toggle;
-use Superlatif\NovaTagInput\Tags;
+use Spatie\TagsField\Tags;
 
 class Product extends Resource
 {
@@ -286,5 +288,18 @@ class Product extends Resource
      * @return array
      */
 
+    public function actions(Request $request)
+    {
+        return [
+            UserActive::make()
+                ->confirmText('هل انت متأكد من التفعيل؟')
+                ->confirmButtonText('تفعيل')
+                ->cancelButtonText("لا"),
+            UserUnActive::make()
+                ->confirmText('هل انت متأكد من الغاء التفعيل؟')
+                ->confirmButtonText('الغاء التفعيل')
+                ->cancelButtonText("لا"),
+        ];
+    }
 
 }

@@ -49,6 +49,6 @@ class UserActive extends DestructiveAction
      */
     public function name()
     {
-        return "تفعيل";
+        return "تفعيل ";
     }
 }

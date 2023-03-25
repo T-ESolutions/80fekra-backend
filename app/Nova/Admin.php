@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\UserActive;
+use App\Nova\Actions\UserUnActive;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
@@ -92,9 +94,9 @@ class Admin extends Resource
             PasswordConfirmation::make('تاكيد كلمة المرور')->rules('same:password')->onlyOnForms(),
 
             Select::make('النوع', 'type')->options([
-              //  \App\Models\User::ADMIN => 'admin',
+                //  \App\Models\User::ADMIN => 'admin',
                 \App\Models\User::EMPLOYEE => 'موظف',
-            ])->default( \App\Models\User::EMPLOYEE),
+            ])->default(\App\Models\User::EMPLOYEE),
 
             BelongsTo::make('المدينة', 'country', Country::class)->rules('required'),
         ];
@@ -141,12 +143,21 @@ class Admin extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            UserActive::make()
+                ->confirmText('هل انت متأكد من التفعيل؟')
+                ->confirmButtonText('تفعيل')
+                ->cancelButtonText("لا"),
+            UserUnActive::make()
+                ->confirmText('هل انت متأكد من الغاء التفعيل؟')
+                ->confirmButtonText('الغاء التفعيل')
+                ->cancelButtonText("لا"),
+        ];
     }
 
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->where('type', '!=' ,"user");
+        return $query->where('type', '!=', "user");
     }
 }

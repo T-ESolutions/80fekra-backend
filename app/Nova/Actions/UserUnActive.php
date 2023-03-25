@@ -40,4 +40,9 @@ class UserUnActive extends DestructiveAction
     {
         return [];
     }
+
+    public function name()
+    {
+        return "الغاء تفعيل ";
+    }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28e99d53afb1366773fc7b4d2957ac25",
+    "content-hash": "5e01782fa6d329b98e66c3e32202ace2",
     "packages": [
         {
             "name": "armincms/json",
@@ -5197,6 +5197,59 @@
             "time": "2020-10-29T18:22:10+00:00"
         },
         {
+            "name": "superlatif/nova-tag-input",
+            "version": "3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/superlatif-io/nova-tag-input.git",
+                "reference": "b7a95d717bbb743e03c83f13c0d359a32ce38fcc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/superlatif-io/nova-tag-input/zipball/b7a95d717bbb743e03c83f13c0d359a32ce38fcc",
+                "reference": "b7a95d717bbb743e03c83f13c0d359a32ce38fcc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Superlatif\\NovaTagInput\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Superlatif\\NovaTagInput\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simon Rapin",
+                    "email": "simon@superlatif.io",
+                    "homepage": "https://superlatif.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tag input field for Laravel Nova.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "support": {
+                "issues": "https://github.com/superlatif-io/nova-tag-input/issues",
+                "source": "https://github.com/superlatif-io/nova-tag-input/tree/3.0"
+            },
+            "time": "2022-08-24T13:28:51+00:00"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v6.3.0",
             "source": {
@@ -10105,7 +10158,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "bytelaunch/readonly-on-update": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
