@@ -21,7 +21,8 @@
         "naif/toggle": "^1.3",
         "ofcold/nova-sortable": "^1.0",
         "pishran/nova-rtl-theme": "^1.5",
-        "runlinenl/nova-profile-tool": "^1.1"
+        "runlinenl/nova-profile-tool": "^1.1",
+        "spatie/nova-tags-field": "^3.4"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

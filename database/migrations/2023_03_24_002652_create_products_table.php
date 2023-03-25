@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->text('description_en')->nullable();
             $table->tinyInteger('is_active')->default(1);
             $table->integer('sort_order')->default(1);
+            $table->double('price')->default(0);
             $table->double('discount')->default(0);
             $table->json('tags')->nullable();
             $table->timestamps();
