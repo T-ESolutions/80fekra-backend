@@ -122,11 +122,11 @@ class Order extends Resource
                 Select::make('نوع الخصم', 'type')->options([
                     \App\Models\Coupon::PERCENTAGE => 'نسبة %',
                     \App\Models\Coupon::AMOUNT => 'مبلغ $',
-                ]),
+                ])->hideFromIndex(),
 
-                Number::make('الخصم', 'discount')->rules('required')->sortable(),
-                Date::make('تاريخ البدء', 'start_date')->rules('required')->sortable(),
-                Date::make('تاريخ النهاية', 'end_date')->rules('required', 'after:start_date')->sortable(),
+                Number::make('الخصم', 'discount')->rules('required')->sortable()->hideFromIndex(),
+                Date::make('تاريخ البدء', 'start_date')->rules('required')->sortable()->hideFromIndex(),
+                Date::make('تاريخ النهاية', 'end_date')->rules('required', 'after:start_date')->sortable()->hideFromIndex(),
 
             ])
         ];

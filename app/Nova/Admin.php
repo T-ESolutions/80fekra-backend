@@ -32,12 +32,12 @@ class Admin extends Resource
      * @var string
      */
     public static $title = 'f_name';
-    public static function icon()
-    {
-        // Assuming you have a blade file containing an image
-        // in resources/views/vendor/nova/svg/icon-user.blade.php
-        return view('nova::svg.icon-user')->render();
-    }
+//    public static function icon()
+//    {
+//        // Assuming you have a blade file containing an image
+//        // in resources/views/vendor/nova/svg/icon-user.blade.php
+//        return view('nova::svg.icon-user')->render();
+//    }
     /**
      * The columns that should be searched.
      *
