@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\UserActive;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
@@ -13,6 +15,7 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\PasswordConfirmation;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\ActionRequest;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Naif\Toggle\Toggle;
 
@@ -132,7 +135,13 @@ class User extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            UserActive::make()
+                ->showOnTableRow()
+                ->confirmText('هل انت متأكد من التفعيل؟')
+                ->confirmButtonText('تفعيل')
+                ->cancelButtonText("لا"),
+        ];
     }
 
     public static function indexQuery(NovaRequest $request, $query)
