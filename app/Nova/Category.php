@@ -19,6 +19,7 @@ class Category extends Resource
      */
     public static $model = \App\Models\Category::class;
 
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -26,6 +27,7 @@ class Category extends Resource
      */
     public static $title = 'title_ar';
 
+    public static $priority = 2;
     /**
      * The columns that should be searched.
      *

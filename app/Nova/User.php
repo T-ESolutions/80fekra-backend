@@ -36,6 +36,7 @@ class User extends Resource
         'f_name', 'l_name', 'email', 'phone', 'whats_app',
     ];
 
+    public static $priority = 6;
 
     public static function label()
     {

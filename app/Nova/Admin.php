@@ -41,6 +41,8 @@ class Admin extends Resource
     ];
 
 
+    public static $priority = 7;
+
     public static function label()
     {
         return "المديرين";

@@ -11,6 +11,7 @@
         "php": "^7.3",
         "armincms/json": "^0.5.2",
         "bayareawebpro/nova-field-ckeditor": "^1.1",
+        "bytelaunch/readonly-on-update": "dev-main",
         "david-griffiths/nova-dark-theme": "^1.0",
         "example/miami-ice": "*",
         "fideloper/proxy": "^4.2",

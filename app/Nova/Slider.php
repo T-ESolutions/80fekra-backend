@@ -31,11 +31,12 @@ class Slider extends Resource
      *
      * @var array
      */
+    public static $priority = 5;
     public static $search = [
 
     ];
 
-    public static $priority = 2;
+
 
     public static function label()
     {

@@ -28,6 +28,7 @@ class Product extends Resource
      *
      * @var string
      */
+    public static $priority = 3;
     //public static $title = 'title_ar';
     public function title()
     {

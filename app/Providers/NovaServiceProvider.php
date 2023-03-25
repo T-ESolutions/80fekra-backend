@@ -2,6 +2,20 @@
 
 namespace App\Providers;
 
+use App\Nova\Address;
+use App\Nova\Admin;
+use App\Nova\Category;
+use App\Nova\Country;
+use App\Nova\Coupon;
+use App\Nova\CouponUsage;
+use App\Nova\Order;
+use App\Nova\OrderDetail;
+use App\Nova\Product;
+use App\Nova\ProductImage;
+use App\Nova\ProductReview;
+use App\Nova\Setting;
+use App\Nova\Slider;
+use App\Nova\User;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
@@ -17,6 +31,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+        Nova::sortResourcesBy(function ($resource) {
+            return $resource::$priority ?? 9999;
+        });
     }
 
     /**
@@ -90,5 +107,26 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function register()
     {
         //
+    }
+
+    protected function resources()
+    {
+        Nova::resources([
+            Address::class,
+            Admin::class,
+            Category::class,
+            Country::class,
+            Coupon::class,
+            CouponUsage::class,
+            Order::class,
+            OrderDetail::class,
+            Product::class,
+            ProductImage::class,
+            ProductReview::class,
+            Setting::class,
+            Slider::class,
+            User::class,
+
+        ]);
     }
 }
