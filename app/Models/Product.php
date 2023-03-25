@@ -40,23 +40,23 @@ class Product extends Model
         $query->where('is_active', 1);
     }
 
-//    public function getTagsAttribute()
-//    {
-//        if ($this->attributes['tags'] != null) {
-//            return json_decode($this->attributes['tags']);
-//        }
-//        return "";
-//    }
-//
+    public function getTagsAttribute()
+    {
+        if ($this->attributes['tags'] != null) {
+            return json_decode($this->attributes['tags']);
+        }
+        return "";
+    }
+
     public function setTagsAttribute($tags)
     {
-        $tags_string = implode(" ",$tags) ;
-        $this->attributes['tags']  = $tags_string;
+//        $tags_string = implode(" ",$tags) ;
+//        $this->attributes['tags']  = $tags_string;
 
 //
-//        if (isset($tags) && $tags != null) {
-//            $this->attributes['tags'] = json_encode($tags);
-//        }
+        if (isset($tags) && $tags != null) {
+            $this->attributes['tags'] = json_encode($tags);
+        }
     }
 
     public function productCategories()
