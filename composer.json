@@ -14,7 +14,6 @@
         "bytelaunch/readonly-on-update": "dev-main",
         "coroowicaksono/chart-js-integration": "^0.3.5",
         "david-griffiths/nova-dark-theme": "^1.0",
-        "example/miami-ice": "*",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "genealabs/nova-map-marker-field": "^0.3.1",
@@ -29,7 +28,8 @@
         "runlinenl/nova-profile-tool": "^1.1",
         "simplesquid/nova-enum-field": "^2.7",
         "spatie/nova-tags-field": "^3.4",
-        "superlatif/nova-tag-input": "3.0"
+        "superlatif/nova-tag-input": "3.0",
+        "beyondcode/nova-theme": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
@@ -92,6 +92,10 @@
         "1": {
             "type": "path",
             "url": "./nova-components/MiamiIce"
+        },
+        "2": {
+            "type": "path",
+            "url": "./nova-components/NovaTheme"
         }
     }
 }

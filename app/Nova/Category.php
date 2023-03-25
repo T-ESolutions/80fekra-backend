@@ -5,7 +5,9 @@ namespace App\Nova;
 use App\Nova\Actions\UserActive;
 use App\Nova\Actions\UserUnActive;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
@@ -71,7 +73,10 @@ class Category extends Resource
             Boolean::make("مفعل", 'is_active')
                 ->sortable()
                 ->hideWhenCreating()
-                ->hideWhenUpdating()        ];
+                ->hideWhenUpdating(),
+            belongsToMany::make('المنتجات', 'categoryProducts', Product::class),
+
+        ];
     }
 
     /**

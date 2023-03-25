@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f77b4aa56c59dbc06a9a66c0a5ac64e7",
+    "content-hash": "d44605c06c3c1c8f23b7b454eb34f11f",
     "packages": [
         {
             "name": "armincms/json",
@@ -241,6 +241,42 @@
                 }
             ],
             "time": "2022-01-31T19:46:11+00:00"
+        },
+        {
+            "name": "beyondcode/nova-theme",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/NovaTheme",
+                "reference": "7930b4a819a8d2e9cce7de653253416093c77963"
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Beyondcode\\NovaTheme\\ThemeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Beyondcode\\NovaTheme\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova theme.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "brick/math",
@@ -1291,42 +1327,6 @@
                 }
             ],
             "time": "2020-12-29T14:50:06+00:00"
-        },
-        {
-            "name": "example/miami-ice",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "./nova-components/MiamiIce",
-                "reference": "b6a004cba2833ab6a6cead52643f57b59e90d1c3"
-            },
-            "require": {
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Example\\MiamiIce\\ThemeServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Example\\MiamiIce\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "A Laravel Nova theme.",
-            "keywords": [
-                "laravel",
-                "nova"
-            ],
-            "transport-options": {
-                "relative": true
-            }
         },
         {
             "name": "fideloper/proxy",

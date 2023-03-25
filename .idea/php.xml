@@ -126,7 +126,6 @@
       <path value="$PROJECT_DIR$/vendor/pishran/nova-rtl-theme" />
       <path value="$PROJECT_DIR$/vendor/runlinenl/nova-profile-tool" />
       <path value="$PROJECT_DIR$/vendor/david-griffiths/nova-dark-theme" />
-      <path value="$PROJECT_DIR$/vendor/example/miami-ice" />
       <path value="$PROJECT_DIR$/vendor/ofcold/nova-sortable" />
       <path value="$PROJECT_DIR$/vendor/naif/toggle" />
       <path value="$PROJECT_DIR$/vendor/intervention/image" />
@@ -148,6 +147,7 @@
       <path value="$PROJECT_DIR$/vendor/simplesquid/nova-enum-field" />
       <path value="$PROJECT_DIR$/vendor/superlatif/nova-tag-input" />
       <path value="$PROJECT_DIR$/vendor/coroowicaksono/chart-js-integration" />
+      <path value="$PROJECT_DIR$/vendor/beyondcode/nova-theme" />
     </include_path>
   </component>
   <component name="PhpUnit">
