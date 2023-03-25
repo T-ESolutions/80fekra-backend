@@ -53,7 +53,7 @@ class Country extends Resource
         return "المدن";
     }
 
-    
+
 
     /**
      * Get the fields displayed by the resource.
@@ -75,7 +75,7 @@ class Country extends Resource
                 ->hideWhenUpdating()
             ,
             HasMany::make("المستخدمين", 'users', User::class),
-            HasMany::make("العناوين", 'addresses', User::class),
+            HasMany::make("العناوين", 'addresses', Address::class),
 
         ];
     }

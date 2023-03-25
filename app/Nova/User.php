@@ -62,7 +62,7 @@ class User extends Resource
     public function fields(Request $request)
     {
         return [
-            // ID::make(__('ID'), 'id')->sortable(),
+            ID::make(__('ID'), 'id')->sortable(),
             Image::make('صورة', 'image')->squared()->disk('public')->maxWidth(200)->creationRules('nullable', 'image')->updateRules('nullable', 'image'),
             Text::make('الاسم الاول', 'f_name')->rules('required')->sortable(),
             Text::make('الاسم الاخير', 'l_name')->rules('required')->sortable(),
@@ -91,8 +91,8 @@ class User extends Resource
             PasswordConfirmation::make('تاكيد كلمة المرور')->rules('same:password')->onlyOnForms(),
 
             BelongsTo::make('المدينة', 'country', Country::class)->rules('required'),
-            HasMany::make('الطلبات', 'orders', Order::class),
             HasMany::make('العناوين', 'addresses', Address::class),
+            HasMany::make('الطلبات', 'orders', Order::class),
         ];
     }
 

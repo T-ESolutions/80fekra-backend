@@ -5,16 +5,16 @@ namespace App\Nova;
 use App\Nova\Actions\OrderPaymentStatus;
 use App\Nova\Actions\OrderStatus;
 use Armincms\Json\Json;
+use GeneaLabs\NovaMapMarkerField\MapMarker;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use SimpleSquid\Nova\Fields\Enum\Enum;
+use Laravel\Nova\Panel;
 
 class Order extends Resource
 {
@@ -64,21 +64,7 @@ class Order extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('المستخدم', 'user', User::class)->rules('required'),
-//            Text::make('العنوان', 'address')->rules('required'),
-//            Textarea::make('كوبون الخصم', 'coupon')->rules('nullable'),
 
-            Json::make("address", [
-                Select::make(__("Discount Type"), "type")
-                    ->options([
-                        'percent' => "نسبة",
-                        'amount' => "مبلغ",
-                    ])->displayUsingLabels()->rules('required')->default('percent'),
-                Number::make(__("Discount Value"), "value")
-                    ->rules("min:0")
-                    ->withMeta([
-                        'min' => 0
-                    ]),
-            ]),
             Number::make('الاجمالي الفرعي', 'subtotal')->rules('required', 'min:0'),
             Number::make('قيمة الخصم', 'discount')->rules('required', 'min:0'),
             Number::make('سعر الشحن', 'shipping_cost')->rules('required', 'min:0'),
@@ -91,16 +77,60 @@ class Order extends Resource
                 ->displayUsingLabels(),
             Select::make('حالة الطلب', 'status')
                 ->options([
-                    'pending' => 'طلب جديد', 'on_progress' => 'جاري التجهيز',
-                    'shipped' => 'تم الشحن', 'delivered' => 'تم التوصيل', 'rejected' => 'مرفوض',
+                    'pending' => 'طلب جديد',
+                    'on_progress' => 'جاري التجهيز',
+                    'shipped' => 'تم الشحن',
+                    'delivered' => 'تم التوصيل',
+                    'rejected' => 'مرفوض',
                     'canceled_by_user' => 'تم الالغاء عن طريق المستخدم',
                     'canceled_by_admin' => 'تم الالغاء عن طريق الادمن'
                 ])
                 ->displayUsingLabels(),
+            new Panel('تفاصيل عنوان الطلب', $this->addressFields()),
+            new Panel('تفاصيل كود الخصم', $this->couponFields()),
+
             HasMany::make('منتجات الطلب', 'orderDetails', OrderDetail::class),
 
 
         ];
+    }
+
+    private function addressFields()
+    {
+        return [
+            Json::make("address", [
+                Text::make(" الاسم الاول", 'f_name')->hideFromIndex(),
+                Text::make("الاسم الاخير ", 'l_name')->hideFromIndex(),
+                Text::make("رقم الجوال ", 'phone')->hideFromIndex(),
+                Text::make("العنوان ", 'address')->hideFromIndex(),
+                Text::make("المدينة ", 'country')->hideFromIndex(),
+//                MapMarker::make("الموقع على الخريطة", "Location")
+//                    ->latitude('lat')
+//                    ->longitude('lng')
+//                    ->hideFromIndex(),
+
+            ])
+        ];
+
+    }
+
+    private function couponFields()
+    {
+        return [
+            Json::make("address", [
+                Text::make('كود الخصم', 'code')->rules('required')->sortable(),
+                Select::make('نوع الخصم', 'type')->options([
+                    \App\Models\Coupon::PERCENTAGE => 'نسبة %',
+                    \App\Models\Coupon::AMOUNT => 'مبلغ $',
+                ]),
+
+                Number::make('الخصم', 'discount')->rules('required')->sortable(),
+                Date::make('تاريخ البدء', 'start_date')->rules('required')->sortable(),
+                Date::make('تاريخ النهاية', 'end_date')->rules('required', 'after:start_date')->sortable(),
+
+            ])
+        ];
+
     }
 
     /**

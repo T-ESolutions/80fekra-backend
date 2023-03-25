@@ -2,6 +2,7 @@
 
 namespace App\Nova\Actions;
 
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -27,7 +28,7 @@ class OrderStatus extends Action
             $model->update(['status' => $fields->status]);
         }
 
-        return Action::message('Status Changed. (' . $models->count() . ')');
+        return Action::message('تم تغيير حالة الطلب. (' . $models->count() . ')');
     }
 
     /**
@@ -40,15 +41,16 @@ class OrderStatus extends Action
         return [
             Select::make('حالة الطلب', 'status')
                 ->options([
-                    'pending' => 'طلب جديد',
-                    'on_progress' => 'جاري التجهيز',
-                    'shipped' => 'تم الشحن',
-                    'delivered' => 'تم التوصيل',
-                    'rejected' => 'مرفوض',
-                    'canceled_by_user' => 'تم الالغاء عن طريق المستخدم',
-                    'canceled_by_admin' => 'تم الالغاء عن طريق الادمن'
+                    Order::STATUS_PENDING => 'طلب جديد',
+                    Order::STATUS_ON_PROGRESS => 'جاري التجهيز',
+                    Order::STATUS_SHIPPED => 'تم الشحن',
+                    Order::STATUS_DELIVERED => 'تم التوصيل',
+                    Order::STATUS_REJECTED => 'مرفوض',
+                    Order::STATUS_CANCELLED_BY_USER => 'تم الالغاء عن طريق المستخدم',
+                    Order::STATUS_CANCELLED_BY_ADMIN => 'تم الالغاء عن طريق الادمن'
                 ])
-                ->displayUsingLabels(),
+                ->displayUsingLabels()
+                ->rules('required'),
         ];
     }
 

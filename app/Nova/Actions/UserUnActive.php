@@ -28,7 +28,7 @@ class UserUnActive extends DestructiveAction
             $model->update(['is_active' => 0]);
         }
 
-        return Action::message('Activated users. (' . $models->count() . ')');
+        return Action::message('تم الغاء التفعيل. (' . $models->count() . ')');
     }
 
     /**

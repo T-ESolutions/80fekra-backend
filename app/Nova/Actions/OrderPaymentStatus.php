@@ -2,6 +2,7 @@
 
 namespace App\Nova\Actions;
 
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -17,17 +18,17 @@ class OrderPaymentStatus extends Action
     /**
      * Perform the action on the given models.
      *
-     * @param  \Laravel\Nova\Fields\ActionFields  $fields
-     * @param  \Illuminate\Support\Collection  $models
+     * @param \Laravel\Nova\Fields\ActionFields $fields
+     * @param \Illuminate\Support\Collection $models
      * @return mixed
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-         foreach ($models as $model) {
+        foreach ($models as $model) {
             $model->update(['payment_status' => $fields->payment_status]);
         }
 
-        return Action::message('Payment Status Changed. (' . $models->count() . ')');
+        return Action::message('تم تغيير حالة الدفع. (' . $models->count() . ')');
     }
 
     /**
@@ -39,8 +40,13 @@ class OrderPaymentStatus extends Action
     {
         return [
             Select::make('حالة الدفع', 'payment_status')
-                ->options(['paid' => 'مدفوع', 'not_paid' => 'لم يتم الدفع'])
-                ->displayUsingLabels(),];
+                ->options([
+                    Order::PAYMENT_STATUS_PAID => 'مدفوع',
+                    Order::PAYMENT_STATUS_NOT_PAID => 'لم يتم الدفع'
+                ])
+                ->displayUsingLabels()
+                ->rules('required'),
+        ];
     }
 
     /**

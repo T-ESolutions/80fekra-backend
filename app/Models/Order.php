@@ -49,20 +49,21 @@ class Order extends Model
         return $this->hasMany(OrderDetail::class, 'order_id');
     }
 
-//    public function getAddressAttribute()
-//    {
-//        if ($this->attributes['address'] != null) {
-//            return json_decode($this->attributes['address']);
-//        }
-//        return "";
-//    }
+    public function getAddressAttribute($value)
+    {
+        if ($value != null ) {
+            return json_decode($value);
+        }
+        return "";
+
+    }
 //
-//    public function setAddressAttribute($address)
-//    {
-//        if (isset($address) && $address != null) {
-//            $this->attributes['address'] = json_encode($address);
-//        }
-//    }
+    public function setAddressAttribute($address)
+    {
+        if (isset($address) && $address != null) {
+            $this->attributes['address'] = json_encode($address);
+        }
+    }
 
     public function getCouponAttribute()
     {

@@ -16,7 +16,7 @@
     <p v-else-if="hasValue">
       {{ field.pivotValue || field.value }}
     </p>
-    <p v-else>&mdash;</p>
+    <p v-else>&mdash; </p>
   </div>
 </template>
 

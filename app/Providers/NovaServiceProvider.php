@@ -8,6 +8,10 @@ use App\Nova\Category;
 use App\Nova\Country;
 use App\Nova\Coupon;
 use App\Nova\CouponUsage;
+use App\Nova\Metrics\NewOrder;
+use App\Nova\Metrics\NewUsers;
+use App\Nova\Metrics\OrderPerStatus;
+use App\Nova\Metrics\OrdersPerDay;
 use App\Nova\Order;
 use App\Nova\OrderDetail;
 use App\Nova\Product;
@@ -90,7 +94,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         $users = [];
         for ($x = 1; $x <= 12; $x++) {
             $order = \App\Models\User::whereYear('created_at', date('Y'))
-                ->whereMonth('created_at', '=', $x)->where('type','user')->count();
+                ->whereMonth('created_at', '=', $x)->where('type', 'user')->count();
             array_push($users, $order);
         }
 
@@ -120,8 +124,13 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         'categories' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']
                     ],
                 ])
-                ->width('2/3'),
+                //->width('3/4')
+        ,
 
+            new OrdersPerDay(),
+            new OrderPerStatus(),
+            new NewOrder(),
+            new NewUsers() ,
             (new StackedChart())
                 ->title('المستخدمين')
                 ->animations([
@@ -141,6 +150,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     ],
                 ])
                 ->width('2/3'),
+
+
+
 
         ];
 

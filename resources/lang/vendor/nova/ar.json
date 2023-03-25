@@ -422,5 +422,13 @@
     "Remember Me": "تذكرني",
     "Login": "تسجيل دخول",
     "Forgot Your Password?": "هل نسيت كلمة المرور؟",
-    "Dark Theme": "الوضع الليلي"
+    "Dark Theme": "الوضع الليلي",
+    "pending":  "طلب جديد",
+    "on_progress":  "جاري التجهيز",
+    "shipped":  "تم الشحن",
+    "delivered":  "تم التوصيل",
+    "rejected":  "مرفوض",
+    "canceled_by_user":  "تم الالغاء عن طريق المستخدم",
+    "canceled_by_admin":  "تم الالغاء عن طريق الادمن"
+
 }

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Address;
+use App\Models\Coupon;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;

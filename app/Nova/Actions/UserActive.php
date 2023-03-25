@@ -30,7 +30,7 @@ class UserActive extends DestructiveAction
             $model->update(['is_active' => 1]);
         }
 
-        return Action::message('Activated users. (' . $models->count() . ')');
+        return Action::message('تم التفعيل. (' . $models->count() . ')');
     }
 
     /**
