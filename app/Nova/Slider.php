@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -56,10 +57,14 @@ class Slider extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('المنتج', 'product', Category::class)->rules('required'),
+            BelongsTo::make('المنتج', 'product', Product::class)->rules('required'),
             Image::make("الصورة", 'image')->creationRules('required'),
-            Toggle::make('مفعل', 'is_active')->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
-
+            Toggle::make('مفعل', 'is_active')->hideFromIndex()->hideFromDetail()
+                ->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
+            Boolean::make("مفعل", 'is_active')
+                ->sortable()
+                ->hideWhenCreating()
+                ->hideWhenUpdating()
         ];
     }
 

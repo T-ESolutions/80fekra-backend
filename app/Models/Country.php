@@ -8,7 +8,7 @@ use Ofcold\NovaSortable\SortableTrait;
 
 class Country extends Model
 {
-    use HasFactory,SortableTrait;
+    use HasFactory, SortableTrait;
 
     protected $fillable = [
         'title_ar', 'title_en', 'is_active', 'sort_order', 'shipping_cost'
@@ -32,11 +32,11 @@ class Country extends Model
 
     public function users()
     {
-        $this->hasMany(User::class, 'country_id');
+        return $this->hasMany(User::class, 'country_id');
     }
 
     public function addresses()
     {
-        $this->hasMany(Address::class, 'country_id');
+        return $this->hasMany(Address::class, 'country_id');
     }
 }

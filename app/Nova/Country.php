@@ -4,6 +4,8 @@ namespace App\Nova;
 
 use BayAreaWebPro\NovaFieldCkEditor\CkEditor;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -25,7 +27,10 @@ class Country extends Resource
      *
      * @var string
      */
-    public static $title = 'title_ar';
+    public function title()
+    {
+        return $this->title_ar . ' , ' . $this->title_en;
+    }
 
     /**
      * The columns that should be searched.
@@ -65,6 +70,8 @@ class Country extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
             ,
+            HasMany::make("المستخدمين", 'users', User::class),
+            HasMany::make("العناوين", 'addresses', User::class),
 
         ];
     }

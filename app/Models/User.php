@@ -66,23 +66,6 @@ class User extends Authenticatable
         }
     }
 
-    public function getImageAttribute($image)
-    {
-        if (!empty($image)) {
-            return asset('uploads/users') . '/' . $image;
-        }
-        return asset('defaults/user_default.png');
-    }
-
-    public function setImageAttribute($image)
-    {
-        if (is_file($image)) {
-            $imageFields = upload($image, 'users');
-            $this->attributes['image'] = $imageFields;
-        } else {
-            $this->attributes['image'] = $image;
-        }
-    }
 
 
     public function userReviews()
