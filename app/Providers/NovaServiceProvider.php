@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Coroowicaksono\ChartJsIntegration\StackedChart;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -44,9 +45,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function routes()
     {
         Nova::routes()
-                ->withAuthenticationRoutes()
-                ->withPasswordResetRoutes()
-                ->register();
+            ->withAuthenticationRoutes()
+            ->withPasswordResetRoutes()
+            ->register();
     }
 
     /**
@@ -72,8 +73,41 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function cards()
     {
+        $data = [];
+        for($x=1; $x<=12; $x++){
+            $order = \App\Models\Order::whereYear('created_at',date('Y'))
+                ->whereMonth('created_at','=',$x)->count();
+            array_push($data,$order);
+        }
+
         return [
-            new Help,
+
+            (new StackedChart())
+                ->title('الطلبيات')
+                ->animations([
+                    'enabled' => true,
+                    'easing' => 'easeinout',
+                ])
+                ->series(array([
+                    'barPercentage' => 0.8,
+                    'label' => 'الطلبات',
+                    'backgroundColor' => '#6E0572',
+                    'data' => $data,
+                ],
+//                    [
+//                    'barPercentage' => 0.8,
+//                    'label' => 'الطلبات',
+//                    'backgroundColor' => 'red',
+//                    'data' => $data,
+//                ]
+                ))
+                ->options([
+                    'xaxis' => [
+                        'categories' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']
+                    ],
+                ])
+                ->width('2/3'),
+
         ];
     }
 
@@ -95,7 +129,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-           // new \Runline\ProfileTool\ProfileTool,
+            // new \Runline\ProfileTool\ProfileTool,
         ];
     }
 

@@ -147,6 +147,7 @@
       <path value="$PROJECT_DIR$/vendor/armincms/json" />
       <path value="$PROJECT_DIR$/vendor/simplesquid/nova-enum-field" />
       <path value="$PROJECT_DIR$/vendor/superlatif/nova-tag-input" />
+      <path value="$PROJECT_DIR$/vendor/coroowicaksono/chart-js-integration" />
     </include_path>
   </component>
   <component name="PhpUnit">

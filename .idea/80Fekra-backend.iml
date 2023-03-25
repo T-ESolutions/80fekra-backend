@@ -18,6 +18,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytelaunch/readonly-on-update" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/chronos" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/coroowicaksono/chart-js-integration" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/david-griffiths/nova-dark-theme" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dflydev/dot-access-data" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />

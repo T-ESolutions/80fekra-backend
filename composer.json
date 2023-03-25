@@ -12,6 +12,7 @@
         "armincms/json": "^0.5.2",
         "bayareawebpro/nova-field-ckeditor": "^1.1",
         "bytelaunch/readonly-on-update": "dev-main",
+        "coroowicaksono/chart-js-integration": "^0.3.5",
         "david-griffiths/nova-dark-theme": "^1.0",
         "example/miami-ice": "*",
         "fideloper/proxy": "^4.2",
