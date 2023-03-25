@@ -2,9 +2,17 @@
 
 namespace App\Nova;
 
+use Armincms\Json\Json;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use SimpleSquid\Nova\Fields\Enum\Enum;
 
 class Order extends Resource
 {
@@ -52,6 +60,34 @@ class Order extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            BelongsTo::make('المستخدم', 'user', User::class)->rules('required'),
+//            Text::make('العنوان', 'address')->rules('required'),
+//            Textarea::make('كوبون الخصم', 'coupon')->rules('nullable'),
+
+            Json::make("address", [
+                Select::make(__("Discount Type"), "type")
+                    ->options([
+                        'percent' => __('Percent'),
+                        'amount' => __('Amount'),
+                    ])->rules('required')->default('percent'),
+                Number::make(__("Discount Value"), "value")
+                    ->rules("min:0")
+                    ->withMeta([
+                        'min' => 0
+                    ]),
+            ]),
+            Number::make('الاجمالي الفرعي', 'subtotal')->rules('required','min:0'),
+            Number::make('قيمة الخصم', 'discount')->rules('required','min:0'),
+            Number::make('سعر الشحن', 'shipping_cost')->rules('required','min:0'),
+            Number::make('الاجمالي', 'total')->rules('required','min:0'),
+            Select::make('حالة الدفع', 'payment_status')->options(['paid'=>'مدفوع','not_paid'=>'لم يتم الدفع']),
+            Select::make('طريقة الدفع', 'payment_type')->options(['cash'=>'كاش','visa'=>'فيزا']),
+            Select::make('حالة الطلب', 'status')->options(['pending'=>'طلب جديد','on_progress'=>'جاري التجهيز',
+                'shipped'=>'تم الشحن','delivered'=>'تم التوصيل','rejected'=>'مرفوض','canceled_by_user'=>'تم الالغاء عن طريق المستخدم',
+                'canceled_by_admin'=>'تم الالغاء عن طريق الادمن']),
+            HasMany::make('منتجات الطلب', 'orderDetails', OrderDetail::class),
+
+
         ];
     }
 
