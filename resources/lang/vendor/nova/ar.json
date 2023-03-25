@@ -6,7 +6,7 @@
     "Sorry! You are not authorized to perform this action.": ".عذراً! لست مخولاً للقيام بهذا الإجراء",
     "You are receiving this email because we received a password reset request for your account.": ".لقد تلقيت هذا البريد الإلكتروني لأننا تلقينا طلبًا لإعادة تعيين كلمة المرور لحسابك",
     "Confirm Password": "تأكيد كلمة المرور",
-    "Dashboard": "لوحة المعلومات",
+    "Dashboard": "لوحة التحكم",
     "Email Address": "عنوان البريد الإلكتروني",
     "Forgot Password": "نسيت كلمة المرور الخاصة بك؟ ",
     "Forgot your password?": "نسيت كلمة المرور الخاصة بك؟ ",
@@ -419,5 +419,8 @@
     ":resource Details: :title": ":resource تفاصيل: :title",
     "Profile": "الصفحة الشخصيه",
     "Update Profile": "تحديث الصفحة الشخصيه",
+    "Remember Me": "تذكرني",
+    "Login": "تسجيل دخول",
+    "Forgot Your Password?": "هل نسيت كلمة المرور؟",
     "Dark Theme": "الوضع الليلي"
 }

@@ -94,7 +94,7 @@ class Admin extends Resource
             PasswordConfirmation::make('تاكيد كلمة المرور')->rules('same:password')->onlyOnForms(),
 
             Select::make('النوع', 'type')->options([
-                //  \App\Models\User::ADMIN => 'admin',
+                \App\Models\User::ADMIN => 'مدير',
                 \App\Models\User::EMPLOYEE => 'موظف',
             ])->default(\App\Models\User::EMPLOYEE),
 
