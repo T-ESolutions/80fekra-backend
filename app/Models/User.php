@@ -51,12 +51,12 @@ class User extends Authenticatable
 
     public function addresses()
     {
-        $this->hasMany(Address::class, 'user_id');
+        return $this->hasMany(Address::class, 'user_id');
     }
 
     public function orders()
     {
-        $this->hasMany(Order::class, 'user_id');
+        return $this->hasMany(Order::class, 'user_id');
     }
 
     public function setPasswordAttribute($password)
@@ -65,7 +65,6 @@ class User extends Authenticatable
             $this->attributes['password'] = bcrypt($password);
         }
     }
-
 
 
     public function userReviews()

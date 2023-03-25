@@ -71,7 +71,8 @@ class Admin extends Resource
                 ->updateRules('unique:users,email,{{resourceId}}'),
             Number::make('رقم الهاتف', 'phone')->sortable()
                 ->rules('required', 'max:255')
-                ->creationRules('unique:users,phone'),
+                ->creationRules('unique:users,phone')
+                ->updateRules('unique:users,phone,{{resourceId}}'),
             Number::make('الواتس اب', 'whats_app')->sortable()
                 ->rules('required', 'max:255')
                 ->creationRules('unique:users,whats_app')
@@ -86,12 +87,12 @@ class Admin extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:6')
                 ->updateRules('nullable', 'string', 'min:6')->onlyOnForms(),
-            PasswordConfirmation::make('تاكيد كلمة المرور')->onlyOnForms(),
+            PasswordConfirmation::make('تاكيد كلمة المرور')->rules('same:password')->onlyOnForms(),
 
             Select::make('النوع', 'type')->options([
               //  \App\Models\User::ADMIN => 'admin',
                 \App\Models\User::EMPLOYEE => 'موظف',
-            ])->default('employee'),
+            ])->default( \App\Models\User::EMPLOYEE),
 
             BelongsTo::make('المدينة', 'country', Country::class)->rules('required'),
         ];
@@ -144,6 +145,6 @@ class Admin extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->where('type', "admin");
+        return $query->where('type', '!=' ,"user");
     }
 }
