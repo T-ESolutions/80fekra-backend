@@ -150,6 +150,7 @@
       <path value="$PROJECT_DIR$/vendor/beyondcode/nova-theme" />
       <path value="$PROJECT_DIR$/vendor/anaseqal/nova-sidebar-icons" />
       <path value="$PROJECT_DIR$/vendor/example/miami-ice" />
+      <path value="$PROJECT_DIR$/vendor/gregoriohc/laravel-nova-theme-responsive" />
     </include_path>
   </component>
   <component name="PhpUnit">
