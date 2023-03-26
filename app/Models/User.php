@@ -6,8 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
@@ -75,5 +76,17 @@ class User extends Authenticatable
     public function userCart()
     {
         return $this->hasMany(Cart::class, 'user_id');
+    }
+
+    public function getJWTIdentifier()
+    {
+        // Implement getJWTIdentifier() method.
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        // Implement getJWTCustomClaims() method.
+        return [];
     }
 }
