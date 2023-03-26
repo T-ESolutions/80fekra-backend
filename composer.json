@@ -16,9 +16,11 @@
         "bytelaunch/readonly-on-update": "dev-main",
         "coroowicaksono/chart-js-integration": "^0.3.5",
         "david-griffiths/nova-dark-theme": "^1.0",
+        "example/miami-ice": "*",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "genealabs/nova-map-marker-field": "^0.3.1",
+        "gregoriohc/laravel-nova-theme-responsive": "^0.8.1",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
         "laravel/nova": "*",
@@ -31,8 +33,7 @@
         "simplesquid/nova-enum-field": "^2.7",
         "spatie/nova-tags-field": "^3.4",
         "superlatif/nova-tag-input": "3.0",
-        "tymon/jwt-auth": "^1.0",
-        "example/miami-ice": "*"
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
