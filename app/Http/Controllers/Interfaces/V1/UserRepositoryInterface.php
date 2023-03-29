@@ -6,7 +6,7 @@
  * Time: 08:32 ص
  */
 
-namespace App\Http\Controllers\Interfaces\V1\User;
+namespace App\Http\Controllers\Interfaces\V1;
 
 
 interface UserRepositoryInterface

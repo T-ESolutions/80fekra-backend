@@ -24,11 +24,11 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg',
-            'phone' => 'nullable',
-            'fcm_token' => 'nullable',
+            'f_name' => 'required|string|max:255',
+            'l_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,'.auth()->user()->id,
+            'phone' => 'required|max:255|unique:users,phone,'.auth()->user()->id,
+            'whats_app' => 'required',
         ];
     }
 }

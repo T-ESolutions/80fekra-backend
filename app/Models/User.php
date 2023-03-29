@@ -26,6 +26,14 @@ class User extends Authenticatable implements JWTSubject
         'password', 'type', 'whats_app', 'country_id'
     ];
 
+    public function setPasswordAttribute($password)
+    {
+        if (!empty($password)) {
+            $this->attributes['password'] = bcrypt($password);
+        }
+    }
+
+
     /**
      * The attributes that should be hidden for arrays.
      *

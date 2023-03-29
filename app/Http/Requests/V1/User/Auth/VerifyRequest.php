@@ -24,9 +24,8 @@ class VerifyRequest extends FormRequest
     public function rules()
     {
         return [
-            'country_code' => 'required',
-            'phone' => 'required|exists:users,phone',
-            'code' => 'required|min:4',
+            'email' => 'required|email|exists:users,email',
+            'code' => 'required|digits:4',
         ];
     }
 }

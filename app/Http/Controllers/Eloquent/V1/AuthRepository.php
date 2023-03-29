@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Eloquent\V1\User;
+namespace App\Http\Controllers\Eloquent\V1;
 
-use App\Http\Controllers\Interfaces\V1\User\AuthRepositoryInterface;
+use App\Http\Controllers\Interfaces\V1\AuthRepositoryInterface;
 use App\Models\User;
 use App\Models\Verfication;
 use Carbon\Carbon;
@@ -13,9 +13,11 @@ use JWTAuth;
 use TymonJWTAuthExceptionsJWTException;
 use Mail;
 
-class AuthRepository implements AuthRepositoryInterface {
+class AuthRepository implements AuthRepositoryInterface
+{
 
-    public function logIn($request){
+    public function logIn($request)
+    {
         $credentials = [
             'email' => $request['email'],
             'password' => $request['password']
@@ -31,6 +33,9 @@ class AuthRepository implements AuthRepositoryInterface {
 //            if ($user->active == 0) {
 //                return "not_active";
 //            }
+            if ($user->email_verified_at == null) {
+                return "email_not_verified";
+            }
             $user->save();
             $user->jwt = $jwt_token;
             return $user;
@@ -44,17 +49,17 @@ class AuthRepository implements AuthRepositoryInterface {
 //            'active' => 0,
 //        ]);
         $user = User::create($request);
-        return $this->sendCode($request['phone'], "activate");
+        return $this->sendCode($request['email'], "activate");
     }
 
-    public function sendCode($phone, $type)
+    public function sendCode($email, $type)
     {
 //        $code = rand(0000, 9999);
         $code = 1111;
         $verified = Verfication::updateOrcreate
         (
             [
-                'phone' => $phone,
+                'phone' => $email,
                 'code' => $code,
                 'type' => $type,
                 'expired_at' => Carbon::now()->addHour()->toDateTimeString()
@@ -64,42 +69,32 @@ class AuthRepository implements AuthRepositoryInterface {
         return true;
     }
 
-    public function resendCode($request){
-        $user_phone = $request['country_code'] . '' . $request['phone'];
-        $user = User::where('user_phone', $user_phone)->first();
-        $type = $user->active == 0 ? "activate" : "reset";
-        return $this->sendCode($user_phone, $type);
+    public function resendCode($request)
+    {
+        $user = User::where('email', $request['email'])->first();
+        return $this->sendCode($request['email'], 'reset');
     }
 
-    public function verify($request){
-        $user_phone = $request['country_code'] . '' . $request['phone'];
-
-        $user = User::where('user_phone', $user_phone)->first();
-//        if ($user->suspend == 1) {
-//            return "suspended";
-//        }
-        if ($user->active == 0) {
-//        $type = $user->active == 0 ? "activate" : "reset";
-            $verfication = Verfication::where('phone', $user_phone)
-                ->where('code', $request['code'])
-//            ->where('type', $type)
-                ->first();
-            if ($verfication) {
-                if (!$verfication->expired_at > Carbon::now()->toDateTimeString()) {
-                    return response()->json(msg(failed(), trans('lang.codeExpired')));
-                }
-                $user->active = 1;
-                $user->save();
-                $user->jwt = JWTAuth::fromUser($user);
-                return $user;
-            } else {
-                return false;
+    public function verify($request)
+    {
+        $user = User::where('email', $request['email'])->first();
+        $verfication = Verfication::where('phone', $request['email'])
+            ->where('code', $request['code'])
+            ->first();
+        if ($verfication) {
+            if (!$verfication->expired_at > Carbon::now()->toDateTimeString()) {
+                return response()->json(msg(failed(), trans('lang.codeExpired')));
             }
-        }else{
+            $user->email_verified_at = Carbon::now();
+            $user->save();
             $user->jwt = JWTAuth::fromUser($user);
-            return $user;
-        }
 
+            //remove verification row from DB ...
+            $verfication->delete();
+            return $user;
+        } else {
+            return false;
+        }
     }
 
     public function socialLogin($request)
@@ -111,9 +106,9 @@ class AuthRepository implements AuthRepositoryInterface {
 //            $userFound->email = $request->email;
             $user->fcm_token = $request['fcm_token'];
             $user->save();
-        }else{
+        } else {
             $user = User::create([
-                'name' => isset($request['name']) ? $request['name'] : 'User'.rand(10000,99999),
+                'name' => isset($request['name']) ? $request['name'] : 'User' . rand(10000, 99999),
                 'social_id' => $request['social_id'],
                 'fcm_token' => $request['fcm_token'],
                 'email' => isset($request['email']) ? $request['email'] : null,
@@ -131,23 +126,17 @@ class AuthRepository implements AuthRepositoryInterface {
     public function updateProfile($request)
     {
         $user = auth()->user();
-        $user->name = $request['name'];
-        $user->email = $request['email'];
-        $user->image = $request['image'];
-        $user->phone = $request['phone'];
-        $user->save();
-        $user->jwt = JWTAuth::fromUser($user);
+        User::where('id', $user->id)->update($request);
         return $user;
     }
 
     public function changePassword($request)
     {
         $user = auth()->user();
-        if ($request['old_password']) {
+        if (isset($request['old_password'])) {
             $old_password = Hash::check($request['old_password'], $user->password);
             if ($old_password != true) {
                 return false;
-
             }
         }
         $user->password = $request['password'];

@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\User\AuthController;
-use App\Http\Controllers\Api\V1\User\HomeController;
+use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\HomeController;
+use App\Http\Controllers\Api\V1\HelpersController;
 
 
 /*
@@ -26,11 +27,19 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
         Route::post('/resend-code', [AuthController::class, 'resendCode']);
     });
 
-    Route::get('/home', [HomeController::class, 'services']);
+    Route::get('/home', [HomeController::class, 'home']);
+    Route::get('/helpers/countries', [HelpersController::class, 'countries']);
+
+    Route::group(['prefix' => "helpers"], function () {
+        Route::get('/countries', [HelpersController::class, 'countries']);
+    });
 
     Route::group(['middleware' => ['auth:api']], function () {
         Route::group(['prefix' => "auth"], function () {
+            Route::get('/logout', [AuthController::class, 'logout']);
+
             Route::post('/change-password', [AuthController::class, 'changePassword']);
+            Route::get('/profile', [AuthController::class, 'profile']);
             Route::post('/update-profile', [AuthController::class, 'updateProfile']);
             Route::post('/check_location', [AuthController::class, 'check_location']);
         });
@@ -42,5 +51,7 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
         });
 
     });
-});
+
+
+    });
 

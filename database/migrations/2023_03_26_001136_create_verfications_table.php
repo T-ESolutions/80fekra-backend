@@ -17,7 +17,7 @@ class CreateVerficationsTable extends Migration
             $table->id();
             $table->string('phone');
             $table->string('code');
-            $table->enum('type', ['activate', 'reset'])->default('activate');
+            $table->enum('type', ['activate', 'reset','forget'])->default('activate');
             $table->string('expired_at')->nullable();
             $table->timestamps();
         });
