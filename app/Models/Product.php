@@ -41,14 +41,15 @@ class Product extends Model
         $query->where('is_active', 1);
     }
 
-    public function getTagsAttribute()
-    {
-        if ($this->attributes['tags'] != null) {
-            return json_decode($this->attributes['tags']);
-        }
-        return json_decode('["as"]');
-
-    }
+//    public function getTagsAttribute()
+//    {
+//        if ($this->attributes['tags'] != null) {
+//            return json_decode($this->attributes['tags']);
+//        }
+//        $json = json_encode(["as","asasa","asasssa","asassasa","California"]);
+//        $json_decoded = json_decode($json, true);
+//        return $json_decoded;
+//    }
 
 //
     public function setTagsAttribute($tags)
