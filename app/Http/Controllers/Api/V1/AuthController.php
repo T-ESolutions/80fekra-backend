@@ -36,15 +36,14 @@ class AuthController extends Controller
 
         $data = $this->userAuthRepository->logIn($data);
         if (is_string($data)) {
-            if ($data = "email_not_verified") {
-                return response()->json(msg(not_acceptable(), trans('lang.email_not_verified')));
-            }
             if ($data == "phoneOrPasswordIncorrect") {
                 return response()->json(msg(failed(), trans('lang.phoneOrPasswordIncorrect')));
             } elseif ($data = "suspended") {
                 return response()->json(msg(suspend(), trans('lang.suspended')));
             } elseif ($data = "not_active") {
                 return response()->json(msg(not_active(), trans('lang.not_active')));
+            } elseif ($data = "email_not_verified") {
+                return response()->json(msg(not_acceptable(), trans('lang.email_not_verified')));
             }
         } else {
             $data = (new UsersResources($data))->token($data->jwt);
@@ -116,6 +115,7 @@ class AuthController extends Controller
         return response()->json(msg(success(), trans('lang.success')));
 
     }
+
     public function logout()
     {
         auth()->logout();

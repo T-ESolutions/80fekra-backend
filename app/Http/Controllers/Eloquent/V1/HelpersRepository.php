@@ -17,7 +17,7 @@ class HelpersRepository implements HelpersRepositoryInterface
     public function countries($request)
     {
         $data = Country::active()->orderBy('sort_order','asc')
-            ->paginate(config('app.paginate'));
+            ->get();
         return $data;
     }
 

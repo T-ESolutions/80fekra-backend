@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\HelpersController;
+use App\Http\Controllers\Api\V1\AddressesController;
 
 
 /*
@@ -43,10 +44,12 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
             Route::post('/update-profile', [AuthController::class, 'updateProfile']);
             Route::post('/check_location', [AuthController::class, 'check_location']);
         });
-        Route::group(['prefix' => "user"], function () {
-            //home
-            Route::group(['prefix' => "home"], function () {
-            });
+        Route::group(['prefix' => "addresses"], function () {
+
+            //addresses
+            Route::get('/', [AddressesController::class, 'index']);
+            Route::post('/store', [AddressesController::class, 'store']);
+
 
         });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Eloquent\V1;
 
 use App\Http\Controllers\Interfaces\V1\AuthRepositoryInterface;
+use App\Models\Address;
 use App\Models\User;
 use App\Models\Verfication;
 use Carbon\Carbon;
@@ -144,5 +145,4 @@ class AuthRepository implements AuthRepositoryInterface
         $user->jwt = JWTAuth::fromUser($user);
         return $user;
     }
-
 }

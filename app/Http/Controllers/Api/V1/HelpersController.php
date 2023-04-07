@@ -20,7 +20,7 @@ class HelpersController extends Controller
     public function countries(Request $request)
     {
         $data = $this->helpersRepo->countries($request);
-        $data = (CountriesResources::collection($data))->response()->getData(true);
+        $data = (CountriesResources::collection($data));
         return response()->json(msgdata(success(), trans('lang.success'), $data));
     }
 
