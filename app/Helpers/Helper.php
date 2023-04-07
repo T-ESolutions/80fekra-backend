@@ -1,46 +1,60 @@
 <?php
 
-use App\Models\Store;
-use App\Models\User;
-use App\Models\WalletTransaction;
+
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Notification;
-use Kreait\Firebase\Factory;
+
 
 //use Kreait\Firebase\Factory;
 
-// Status Codes
+function msgdata($status, $key, $data)
+{
+    $msg['status'] = $status;
+    $msg['msg'] = $key;
+    $msg['data'] = $data;
+    return $msg;
+}
+
+
+function msg($status, $key)
+{
+    $msg['status'] = $status;
+    $msg['msg'] = $key;
+    return $msg;
+}
+
+function currents()
+{
+    return 'current';
+}
+
+function finished()
+{
+    return 'finished';
+}
+
+
 function success()
 {
     return 200;
 }
 
-function register()
-{
-    return 201;
-}
-function validation()
-{
-    return 400;
-}
-
-
-function error()
+function failed()
 {
     return 401;
 }
 
-function code_sent()
-{
-    return 402;
-}
-
-function token_expired()
+function not_authoize()
 {
     return 403;
+}
+
+function not_acceptable()
+{
+    return 406;
 }
 
 function not_found()
@@ -48,24 +62,13 @@ function not_found()
     return 404;
 }
 
-function complete_register()
+function not_active()
 {
     return 405;
 }
-
-function not_accepted()
+function suspend()
 {
-    return 406;
-}
-
-function nearest_radius()
-{
-    return 100; // 100km
-}
-
-function limousine_first_radius()
-{
-    return 3; // 3km
+    return 407;
 }
 
 
@@ -74,25 +77,7 @@ function google_api_key()
     return "AIzaSyAGlTpZIZ49RVV5VX8KhzafRqjzaTRbnn0";
 }
 
-function providerOrderCommision($order,$price,$percent = 10){
-    $total = ( $price * $percent ) / 100;
-    if($wallet = Auth::guard('provider')->user()->wallet > $total){
-        $discount = $wallet - $total;
-        WalletTransaction::create([
-            'price'=>$total,
-            'type'=>'outcome',
-            'provider_id'=>Auth::guard('provider')->id(),
-            'default_wallet'=>$wallet,
-            'description_ar'=>' عملية  خصم خاصة بالطلب رقم   ' . $order->id,
-            'description_enr'=>' Discount Transaction for order No   ' . $order->id,
-            'order_id'=> $order->id,
-        ]);
-        Auth::guard('provider')->user()->update(['wallet'=>$discount]);
-        return $price;
-    }else{
-      return $price  - $total;
-    }
-}
+
 function otp_code()
 {
     $code = mt_rand(1000, 9999);
@@ -244,23 +229,6 @@ if (!function_exists('ArabicDate')) {
 }
 
 
-function distance($lat1, $lon1, $lat2, $lon2, $unit = 'K')
-{
-    $theta = $lon1 - $lon2;
-    $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
-    $dist = acos($dist);
-    $dist = rad2deg($dist);
-    $miles = $dist * 60 * 1.1515;
-    $unit = strtoupper($unit);
-
-    if ($unit == "K") {
-        return ($miles * 1.609344);
-    } else if ($unit == "N") {
-        return ($miles * 0.8684);
-    } else {
-        return $miles;
-    }
-}
 
 function upload($file, $dir)
 {
@@ -293,78 +261,3 @@ function unlinkImage($image)
     }
     return true;
 }
-
-// Firebase Connect
-
-function firebase_connect()
-{
-    $firebase = (new Factory)
-        ->withServiceAccount(app_path('goapp-90825-firebase-adminsdk-cp0vq-17f2269a1a.json'))
-        ->withDatabaseUri('https://goapp-90825-default-rtdb.firebaseio.com/')
-        ->createDatabase();
-    return $firebase;
-}
-
-function driverChangeOrderStatus($status, $order_type)
-{
-    if ($order_type == 'Magic') {
-        return [
-            'AcceptedDelivery' => 'GoToStore',
-            'GoToStore' => 'ArriveToStore', // 3
-            'ArriveToStore' => 'SendPriceList', // 4
-            'AcceptedList' => 'OnWay', // 6
-            'OnWay' => 'Arrived',
-            'Arrived' => 'Completed',
-        ][$status];
-    }
-    // subscribed
-    return [
-        'AcceptedDelivery' => 'GoToStore',
-        'GoToStore' => 'ArriveToStore', // 3
-        'ArriveToStore' => 'OnWay', // 6
-        'OnWay' => 'Arrived',
-        'Arrived' => 'Completed',
-    ][$status];
-}
-
-// Admin Helper Functions
-
-if (!function_exists('company_parent')) {
-    function company_parent()
-    {
-        if (Auth::guard('companies')->user()->type == 'Admin') {
-            return Auth::guard('companies')->user()->id;
-        } else {
-            return Auth::guard('companies')->user()->company_id;
-        }
-    }
-}
-
-if (!function_exists('admin_url')) {
-    function admin_url($url = null)
-    {
-        return url('admin/' . $url);
-    }
-}
-
-
-if (!function_exists('company_url')) {
-    function company_url($url = null)
-    {
-        return url('company/' . $url);
-    }
-}
-if (!function_exists('admin')) {
-    function admin()
-    {
-        return auth()->guard('admins');
-    }
-}
-if (!function_exists('store')) {
-    function store()
-    {
-        return auth()->guard('stores');
-    }
-}
-
-

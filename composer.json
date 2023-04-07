@@ -33,7 +33,8 @@
         "simplesquid/nova-enum-field": "^2.7",
         "spatie/nova-tags-field": "^3.4",
         "superlatif/nova-tag-input": "3.0",
-        "spatie/laravel-permission": "^3.0|^4.0"
+        "spatie/laravel-permission": "^3.0|^4.0",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
