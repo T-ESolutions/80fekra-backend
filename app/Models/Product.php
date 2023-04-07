@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
 //    use \Spatie\Tags\HasTags;
 
     protected $fillable = [
-        'title_ar', 'title_en', 'description_ar', 'description_en', 'is_active', 'sort_order', 'discount', 'tags','attributes_ar','attributes_en'
+        'title_ar', 'title_en', 'description_ar', 'description_en', 'is_active', 'sort_order', 'discount', 'tags', 'attributes_ar', 'attributes_en'
     ];
 
     protected $appends = ['title', 'description'];
@@ -45,9 +46,10 @@ class Product extends Model
         if ($this->attributes['tags'] != null) {
             return json_decode($this->attributes['tags']);
         }
-        return [];
+        return json_decode('[""]');
 
     }
+
 //
     public function setTagsAttribute($tags)
     {
