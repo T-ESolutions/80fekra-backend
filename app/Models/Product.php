@@ -46,7 +46,7 @@ class Product extends Model
         if ($this->attributes['tags'] != null) {
             return json_decode($this->attributes['tags']);
         }
-        return json_decode('[""]');
+        return json_decode('["as"]');
 
     }
 
