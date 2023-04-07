@@ -26,6 +26,7 @@ use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Coroowicaksono\ChartJsIntegration\StackedChart;
+use Silvanite\NovaToolPermissions\NovaToolPermissions;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -65,11 +66,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewNova', function ($user) {
-//            return in_array($user->email, [
-//                //
-//            ]);
-
-            return $user->type == "admin" ? true : false;
+////            return in_array($user->email, [
+////                //
+////            ]);
+//
+            return $user->type == "user" ? false : true;
         });
     }
 

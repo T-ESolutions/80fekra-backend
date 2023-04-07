@@ -429,6 +429,13 @@
     "delivered":  "تم التوصيل",
     "rejected":  "مرفوض",
     "canceled_by_user":  "تم الالغاء عن طريق المستخدم",
-    "canceled_by_admin":  "تم الالغاء عن طريق الادمن"
+    "canceled_by_admin":  "تم الالغاء عن طريق الادمن",
 
+    "assignRoles":  "اعطاء صلاحية",
+    "canBeGivenAccess":  "يعطي تصريح بالدخول",
+    "manageRoles":  "التحكم فى الصلاحيات",
+    "manageUsers":  "التحكم فى المديرين",
+    "viewNova":  "الدخول للوحة التحكم",
+    "viewRoles":  "عرض الصلاحيات",
+    "viewUsers":  "عرض المديرين"
 }

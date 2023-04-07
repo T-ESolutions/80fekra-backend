@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use phpseclib3\Crypt\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -22,7 +23,7 @@ class UserSeeder extends Seeder
                 'phone' => '900000000',
                 'email' => 'admin@admin.com',
                 'email_verified_at' => \Carbon\Carbon::now(),
-                'password' => '123456',
+                'password' => Hash::make("123456"),
                 'type' => 'admin',
                 'country_id' => 1,
             ]);

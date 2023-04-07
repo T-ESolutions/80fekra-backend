@@ -151,6 +151,7 @@
       <path value="$PROJECT_DIR$/vendor/anaseqal/nova-sidebar-icons" />
       <path value="$PROJECT_DIR$/vendor/example/miami-ice" />
       <path value="$PROJECT_DIR$/vendor/gregoriohc/laravel-nova-theme-responsive" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
     </include_path>
   </component>
   <component name="PhpUnit">
