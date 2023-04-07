@@ -30,6 +30,6 @@ class SettingSeeder extends Seeder
             'ios_version' => 1,
             'accessKey' => 'accessKey9A3q9p6V0eKVizqYt9Su9KAMfORbccWrvoJVUCGPKqHBvEgvtJq',
         ];
-        Setting::setMany($data);
+        Setting::create($data);
     }
 }
