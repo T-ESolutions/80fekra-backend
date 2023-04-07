@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\HomeController;
@@ -38,7 +39,6 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
     Route::group(['middleware' => ['auth:api']], function () {
         Route::group(['prefix' => "auth"], function () {
             Route::get('/logout', [AuthController::class, 'logout']);
-
             Route::post('/change-password', [AuthController::class, 'changePassword']);
             Route::get('/profile', [AuthController::class, 'profile']);
             Route::post('/update-profile', [AuthController::class, 'updateProfile']);
@@ -53,8 +53,20 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
 
         });
 
+        Route::group(['prefix' => "cart"], function () {
+
+            //addresses
+            Route::get('/get-cart', [CartController::class, 'getCart']);
+            Route::post('/add-cart', [CartController::class, 'addCart']);
+            Route::get('/plus-cart/{id}', [CartController::class, 'plusCart']);
+            Route::get('/minus-cart/{id}', [CartController::class, 'minusCart']);
+            Route::get('/delete-cart/{id}', [CartController::class, 'deleteCart']);
+
+
+        });
+
     });
 
 
-    });
+});
 

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\Interfaces\V1\CartRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -48,6 +49,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Http\Controllers\Eloquent\V1\AddressesRepository'
         );
 
+        $this->app->bind(
+            'App\Http\Controllers\Interfaces\V1\CartRepositoryInterface',
+            'App\Http\Controllers\Eloquent\V1\CartRepository'
+        );
 
     }
 }
