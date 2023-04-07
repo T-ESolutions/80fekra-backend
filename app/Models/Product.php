@@ -40,14 +40,15 @@ class Product extends Model
         $query->where('is_active', 1);
     }
 
-    public function getTagsAttribute()
-    {
-        if ($this->attributes['tags'] != null) {
-            return json_decode($this->attributes['tags']);
-        }
-        return "";
-    }
-
+//    public function getTagsAttribute()
+//    {
+//        if ($this->attributes['tags'] != null) {
+//            return json_decode($this->attributes['tags']);
+//        }
+//        return '[]';
+//
+//    }
+//
     public function setTagsAttribute($tags)
     {
 //        $tags_string = implode(" ",$tags) ;

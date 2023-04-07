@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
                 'phone' => '900000000',
                 'email' => 'admin@admin.com',
                 'email_verified_at' => \Carbon\Carbon::now(),
-                'password' => Hash::make("123456"),
+                'password' => encrypt("123456"),
                 'type' => 'admin',
                 'country_id' => 1,
             ]);
