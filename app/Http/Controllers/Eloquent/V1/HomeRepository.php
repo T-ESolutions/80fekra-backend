@@ -42,12 +42,22 @@ class HomeRepository implements HomeRepositoryInterface
         return $data;
     }
 
+    public function productRelated($request)
+    {
+        $main_product = Product::whereId($request['id'])->active()->first();
+        $product_categories = $main_product->categories->toArray('category_id');
+        $products = Product::where('id', '!=', $request['id'])->active()->whereHas('categories', function ($q) use ($product_categories) {
+            $q->whereIn('category_id', $product_categories);
+        })->paginate(Config('app.paginate'));
+        $data = ProductResources::collection($products)->response()->getData(true);
+        return $data;
+    }
+
     public function productByCategory($request)
     {
 
 //        $sections = Section::select('id','name_'.$lang .' as title','image')->get()->makeHidden('name')->toArray();
         $categories = Category::active()->orderBy('sort_order', 'asc')->get();
-
 
 
         $categories = (CategoryCustomResources::customCollection($categories, $request));
@@ -60,7 +70,7 @@ class HomeRepository implements HomeRepositoryInterface
 //            'selected' => 0,
 //        ];
 //        array_unshift($categories, $all);
-        $data['categories'] = $categories ;
+        $data['categories'] = $categories;
         $products = Product::Query();
         if (isset($request['category_id'])) {
             $products = $products->whereHas('categories', function ($q) use ($request) {

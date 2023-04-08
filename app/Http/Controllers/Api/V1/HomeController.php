@@ -31,6 +31,12 @@ class HomeController extends Controller
         return response()->json(msgdata(success(), trans('lang.success'), $data));
     }
 
+    public function productRelated(ProductDetailsRequest $request)
+    {
+        $data = $this->homeRepo->productRelated($request);
+        return response()->json(msgdata(success(), trans('lang.success'), $data));
+    }
+
     public function productByCategory(productByCategoryRequest $request)
     {
         $request = $request->validated();

@@ -13,6 +13,7 @@ interface HomeRepositoryInterface
 {
     public function home($request);
     public function productDetails($request);
+    public function productRelated($request);
     public function productByCategory($request);
     public function AddReview($request);
     public function settings($request);

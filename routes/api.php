@@ -56,6 +56,7 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
         });
 
         Route::get('/product/details', [HomeController::class, 'productDetails']);
+        Route::get('/product/related', [HomeController::class, 'productRelated']);
         Route::get('/product/by-category', [HomeController::class, 'productByCategory']);
         Route::post('/product/add-review', [HomeController::class, 'AddReview']);
 
