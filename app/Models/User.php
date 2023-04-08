@@ -26,6 +26,21 @@ class User extends Authenticatable implements JWTSubject
         'password', 'type', 'whats_app', 'country_id'
     ];
 
+    protected $appends =['name','image_path'];
+
+    public function getImagePathAttribute($image)
+    {
+        if (!empty($this->image)) {
+            return asset('/storage') . '/' . $this->image;
+        }
+        return asset('defaults/user_default.png');
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->f_name.' '.$this->l_name;
+    }
+
     public function setPasswordAttribute($password)
     {
         if (!empty($password)) {

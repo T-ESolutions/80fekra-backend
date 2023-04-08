@@ -14,22 +14,14 @@ class Setting extends Model
         'value',
         'image',
     ];
+    protected $appends = ['image_path'];
 
-//    public function getImageAttribute($image)
-//    {
-//        if (!empty($image)) {
-//            return asset('uploads/settings') . '/' . $image;
-//        }
-//        return asset('defaults/user_default.png');
-//    }
-//
-//    public function setImageAttribute($image)
-//    {
-//        if (is_file($image)) {
-//            $imageFields = upload($image, 'settings');
-//            $this->attributes['image'] = $imageFields;
-//        } else {
-//            $this->attributes['image'] = $image;
-//        }
-//    }
+
+    public function getImagePathAttribute($image)
+    {
+        if (!empty($this->image)) {
+            return asset('/storage') . '/' . $this->image;
+        }
+        return asset('defaults/default_image.png');
+    }
 }

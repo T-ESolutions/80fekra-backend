@@ -57,40 +57,41 @@ class Setting extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make("اسم الاعداد", 'key')->creationRules('required')->readonlyOnUpdate(),
-            CkEditor::make('القيمة', 'value')
-                ->rules('required')
-                ->hideFromIndex()
-                ->mediaBrowser()
-                ->linkBrowser()
-                ->height(60)
-                ->stacked()
-                ->toolbar([
-                    'heading',
-                    'horizontalLine',
-                    '|',
-                    'link',
-                    'linkBrowser',
-                    '|',
-                    'bold',
-                    'italic',
-                    'alignment',
-                    'subscript',
-                    'superscript',
-                    'underline',
-                    'strikethrough',
-                    '|',
-                    'blockQuote',
-                    'bulletedList',
-                    'numberedList',
-                    '|',
-                    'insertTable',
-                    'mediaEmbed',
-                    'mediaBrowser',
-                    'insertSnippet',
-                    '|',
-                    'undo',
-                    'redo'
-                ]),
+            Text::make("القيمة", 'value')->creationRules('required'),
+//            CkEditor::make('القيمة', 'value')
+//                ->rules('required')
+//                ->hideFromIndex()
+//                ->mediaBrowser()
+//                ->linkBrowser()
+//                ->height(60)
+//                ->stacked()
+//                ->toolbar([
+//                    'heading',
+//                    'horizontalLine',
+//                    '|',
+//                    'link',
+//                    'linkBrowser',
+//                    '|',
+//                    'bold',
+//                    'italic',
+//                    'alignment',
+//                    'subscript',
+//                    'superscript',
+//                    'underline',
+//                    'strikethrough',
+//                    '|',
+//                    'blockQuote',
+//                    'bulletedList',
+//                    'numberedList',
+//                    '|',
+//                    'insertTable',
+//                    'mediaEmbed',
+//                    'mediaBrowser',
+//                    'insertSnippet',
+//                    '|',
+//                    'undo',
+//                    'redo'
+//                ]),
             Image::make("الصورة", 'image')->prunable(),
         ];
     }

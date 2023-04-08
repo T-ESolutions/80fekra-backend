@@ -17,6 +17,7 @@ class Slider extends Model
         'sort_order',
     ];
 
+    protected $appends = ['image_path'];
 
     public function scopeActive($query): void
     {
@@ -27,5 +28,14 @@ class Slider extends Model
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+
+
+    public function getImagePathAttribute($image)
+    {
+        if (!empty($this->image)) {
+            return asset('/storage') . '/' . $this->image;
+        }
+        return asset('defaults/default_image.png');
     }
 }

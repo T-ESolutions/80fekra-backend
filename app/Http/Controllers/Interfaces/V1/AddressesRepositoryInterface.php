@@ -13,5 +13,8 @@ interface AddressesRepositoryInterface
 {
     public function index($request);
     public function store($request);
+    public function update($request);
+    public function makeDefault($request);
+    public function delete($request);
 
 }

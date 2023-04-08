@@ -20,16 +20,51 @@ class AddressesRepository implements AddressesRepositoryInterface
 
     public function index($request)
     {
-        $data['addresses'] = Address::where('user_id',JWTAuth::user()->id)->orderBy('created_at','desc')->paginate(Config('app.paginate'));
+        $data = Address::where('user_id',JWTAuth::user()->id)->orderBy('created_at','desc')->paginate(Config('app.paginate'));
         return $data;
     }
 
     public function store($request)
     {
-
+        //check if this first address or not
+        $exists_address = Address::where('user_id',JWTAuth::user()->id)->first();
+        if(!$exists_address){
+            $request['is_default'] = 1;
+        }
         $request['user_id'] = JWTAuth::user()->id;
         $data = Address::create($request);
         return $data;
+    }
+
+    public function update($request)
+    {
+        Address::where('id',$request['id'])->update($request);
+        return true;
+    }
+
+    public function makeDefault($request)
+    {
+        //check if this first address or not
+        $exists_address = Address::where('user_id',JWTAuth::user()->id)->where('id',$request['id'])->first();
+        if(!$exists_address){
+            return false;
+        }else{
+            Address::where('user_id',JWTAuth::user()->id)->update(['is_default'=>0]);
+            $exists_address->is_default = 1;
+            $exists_address->save();
+            return true;
+        }
+    }
+    public function delete($request)
+    {
+        //check if this first address or not
+        $exists_address = Address::where('user_id',JWTAuth::user()->id)->where('id',$request['id'])->first();
+        if(!$exists_address){
+            return false;
+        }else{
+            $exists_address->delete();
+            return true;
+        }
     }
 
 }

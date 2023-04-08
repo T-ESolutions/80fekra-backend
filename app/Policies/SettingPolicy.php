@@ -41,7 +41,7 @@ class SettingPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -65,7 +65,7 @@ class SettingPolicy
      */
     public function delete(User $user, Setting $setting)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -77,7 +77,7 @@ class SettingPolicy
      */
     public function restore(User $user, Setting $setting)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -89,6 +89,6 @@ class SettingPolicy
      */
     public function forceDelete(User $user, Setting $setting)
     {
-        return true;
+        return false;
     }
 }

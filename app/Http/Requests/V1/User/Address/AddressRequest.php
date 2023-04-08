@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Requests\V1\User;
+namespace App\Http\Requests\V1\User\Address;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AddressRequest extends FormRequest
 {
@@ -25,6 +26,12 @@ class AddressRequest extends FormRequest
     {
 //        request()->user_phone = request()->country_code . '' . request()->phone;
         return [
+            'id' => [
+                'nullable',
+                'numeric',
+                'exists:addresses,id',
+                Rule::requiredIf($this->routeIs('addresses.update')),
+            ],
             'lat' => 'required|string|max:255',
             'lng' => 'required|string|max:255',
             'address' => 'required|string|max:255',

@@ -15,21 +15,93 @@ class SettingSeeder extends Seeder
     public function run()
     {
         $data = [
-            'site_name_ar' => 'ليما',
-            'site_name_en' => 'lima',
-            'phone' => '8484858845855',
-            'email' => 'info@lima.com',
-            'logo' => 'uploads/setting/web_logo.png',
-            'login_pg' => 'uploads/setting/login_pg.png',
-            'logo_login' => 'uploads/setting/login_page_logo.png',
-            'location' => null,
-            'address_ar' => 'المنوفية',
-            'address_en' => 'al mnofia',
-            'app_gif' => null,
-            'android_version' => 1,
-            'ios_version' => 1,
-            'accessKey' => 'accessKey9A3q9p6V0eKVizqYt9Su9KAMfORbccWrvoJVUCGPKqHBvEgvtJq',
+            [
+                'id' => 1,
+                'key' => 'site_name_ar',
+                'value' => '80 فكرة',
+                'image' => null,
+            ],
+            [
+                'id' => 2,
+                'key' => 'site_name_en',
+                'value' => '80 Fekra',
+                'image' => null,
+            ],
+            [
+                'id' => 3,
+                'key' => 'phone',
+                'value' => '01201636129',
+                'image' => null,
+            ],
+            [
+                'id' => 4,
+                'key' => 'email',
+                'value' => 'info@80fekra.com',
+                'image' => null,
+            ],
+            [
+                'id' => 5,
+                'key' => 'logo_ar',
+                'value' => null,
+                'image' => 'logo_ar.png',
+            ],
+            [
+                'id' => 6,
+                'key' => 'logo_en',
+                'value' => null,
+                'image' => 'logo_en.png',
+            ],
+            [
+                'id' => 7,
+                'key' => 'address_ar',
+                'value' => '15 شارع خالد اباظة - القاهرة',
+                'image' => null,
+            ],
+            [
+                'id' => 8,
+                'key' => 'address_en',
+                'value' => 'cairo',
+                'image' => null,
+            ],
+            [
+                'id' => 9,
+                'key' => 'facebook',
+                'value' => 'https://www.facebook.com/',
+                'image' => null,
+            ],
+            [
+                'id' => 10,
+                'key' => 'youtube',
+                'value' => 'https://www.youtube.com/',
+                'image' => null,
+            ],
+            [
+                'id' => 11,
+                'key' => 'instagram',
+                'value' => 'https://www.instagram.com/',
+                'image' => null,
+            ],
+            [
+                'id' => 12,
+                'key' => 'twitter',
+                'value' => 'https://www.twitter.com/',
+                'image' => null,
+            ],
+            [
+                'id' => 13,
+                'key' => 'footer_text_ar',
+                'value' => 'منظومة تعليمية تعمل على تربية طفلك',
+                'image' => null,
+            ],
+            [
+                'id' => 14,
+                'key' => 'footer_text_en',
+                'value' => 'An educational system that works to raise your child',
+                'image' => null,
+            ],
         ];
-        Setting::setMany($data);
+        foreach ($data as $row){
+            Setting::updateOrCreate($row);
+        }
     }
 }
