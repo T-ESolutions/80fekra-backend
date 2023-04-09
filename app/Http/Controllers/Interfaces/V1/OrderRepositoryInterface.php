@@ -13,5 +13,7 @@ interface OrderRepositoryInterface
 {
 
     public function placeOrder($request);
+    public function myOrders($request);
+    public function orderDetails($request ,$id);
 
 }

@@ -103,30 +103,29 @@ class Order extends Resource
                 Text::make("الاسم الاخير ", 'l_name')->hideFromIndex(),
                 Text::make("رقم الجوال ", 'phone')->hideFromIndex(),
                 Text::make("العنوان ", 'address')->hideFromIndex(),
-                Text::make("المدينة ", 'country')->hideFromIndex(),
-//                MapMarker::make("الموقع على الخريطة", "Location")
-//                    ->latitude('lat')
-//                    ->longitude('lng')
-//                    ->hideFromIndex(),
+                Json::make("country", [
+                    Text::make(" المدينة", 'title_ar')->hideFromIndex(),
+                ])
+            ]),
 
-            ])
         ];
 
     }
 
+
     private function couponFields()
     {
         return [
-            Json::make("address", [
+            Json::make("coupon", [
                 Text::make('كود الخصم', 'code')->rules('required')->sortable(),
                 Select::make('نوع الخصم', 'type')->options([
                     \App\Models\Coupon::PERCENTAGE => 'نسبة %',
                     \App\Models\Coupon::AMOUNT => 'مبلغ $',
-                ])->hideFromIndex(),
+                ])->displayUsingLabels()->hideFromIndex(),
 
                 Number::make('الخصم', 'discount')->rules('required')->sortable()->hideFromIndex(),
-                Date::make('تاريخ البدء', 'start_date')->rules('required')->sortable()->hideFromIndex(),
-                Date::make('تاريخ النهاية', 'end_date')->rules('required', 'after:start_date')->sortable()->hideFromIndex(),
+//                Date::make('تاريخ البدء', 'start_date')->rules('required')->sortable()->hideFromIndex(),
+//                Date::make('تاريخ النهاية', 'end_date')->rules('required', 'after:start_date')->sortable()->hideFromIndex(),
 
             ])
         ];

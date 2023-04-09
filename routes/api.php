@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\CartController;
+use App\Http\Controllers\Api\V1\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\HomeController;
@@ -61,6 +62,13 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
             Route::get('/plus-cart/{id}', [CartController::class, 'plusCart']);
             Route::get('/minus-cart/{id}', [CartController::class, 'minusCart']);
             Route::get('/delete-cart/{id}', [CartController::class, 'deleteCart']);
+
+
+        });
+        Route::group(['prefix' => "order"], function () {
+
+            Route::post('/place-order', [OrderController::class, 'placeOrder']);
+            Route::get('/my-orders', [OrderController::class, 'myOrders']);
 
 
         });

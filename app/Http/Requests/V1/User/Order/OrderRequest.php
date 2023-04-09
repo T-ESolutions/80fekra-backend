@@ -26,7 +26,7 @@ class OrderRequest extends FormRequest
     {
         return [
             "address_id" => 'required|exists:addresses,id',
-            "coupon_code" => 'required|exists:coupons,code',
+            "coupon_code" => 'nullable|exists:coupons,code',
             "payment_type" => "required|in:" . Order::PAYMENT_TYPE_CASH . "," . Order::PAYMENT_TYPE_VISA,
         ];
     }

@@ -20,7 +20,7 @@ class AddressesRepository implements AddressesRepositoryInterface
 
     public function index($request)
     {
-        $data['addresses'] = Address::where('user_id',JWTAuth::user()->id)->orderBy('created_at','desc')->paginate(Config('app.paginate'));
+        $data['addresses'] = Address::where('user_id',JWTAuth::user()->id)->orderBy('id','desc')->paginate(Config('app.paginate'));
         return $data;
     }
 

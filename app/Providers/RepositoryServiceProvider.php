@@ -53,6 +53,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Http\Controllers\Interfaces\V1\CartRepositoryInterface',
             'App\Http\Controllers\Eloquent\V1\CartRepository'
         );
+        $this->app->bind(
+            'App\Http\Controllers\Interfaces\V1\OrderRepositoryInterface',
+            'App\Http\Controllers\Eloquent\V1\OrderRepository'
+        );
 
     }
 }
