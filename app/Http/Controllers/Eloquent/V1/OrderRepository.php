@@ -94,13 +94,34 @@ class OrderRepository implements OrderRepositoryInterface
         return $order;
     }
 
-    public function orderDetails($request ,$id)
+    public function orderDetails($request, $id)
     {
         $order = Order::where('user_id', JWTAuth::user()->id)
-            ->where('id',$id)
+            ->where('id', $id)
             ->with('orderDetails')
             ->first();
 
+
+        return $order;
+    }
+
+    public function cancelOrder($request, $id)
+    {
+        $order = Order::where('user_id', JWTAuth::user()->id)
+            ->where('id', $id)
+            ->with('orderDetails')
+            ->first();
+
+        if ($order) {
+            if ($order->status == Order::STATUS_PENDING) {
+                $order->status = Order::STATUS_CANCELLED_BY_USER;
+                $order->save();
+            } else {
+                return "cannot_delete";
+            }
+        } else {
+            return "not_found";
+        }
 
         return $order;
     }

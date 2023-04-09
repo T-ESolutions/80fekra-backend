@@ -36,9 +36,21 @@ class OrderController extends Controller
         return response()->json(msgdata(success(), trans('lang.success'), $data));
     }
 
-    public function orderDetails(Request $request ,$id)
+    public function orderDetails(Request $request, $id)
     {
-        $data = $this->targetRepo->orderDetails($request ,$id);
+        $data = $this->targetRepo->orderDetails($request, $id);
+        $data = OrderResource::make($data);
+        return response()->json(msgdata(success(), trans('lang.success'), $data));
+    }
+
+    public function deleteOrder(Request $request, $id)
+    {
+        $data = $this->targetRepo->cancelOrder($request, $id);
+        if ($data == "not_found") {
+            return response()->json(msg(not_found(), trans('lang.not_found')));
+        } elseif ($data == "cannot_delete") {
+            return response()->json(msg(failed(), trans('lang.cannot_delete')));
+        }
         $data = OrderResource::make($data);
         return response()->json(msgdata(success(), trans('lang.success'), $data));
     }

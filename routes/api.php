@@ -76,6 +76,8 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
 
             Route::post('/place-order', [OrderController::class, 'placeOrder']);
             Route::get('/my-orders', [OrderController::class, 'myOrders']);
+            Route::get('/order-details/{id}', [OrderController::class, 'orderDetails']);
+            Route::get('/delete-order/{id}', [OrderController::class, 'deleteOrder']);
 
 
         });

@@ -26,7 +26,7 @@ class OrderResource extends JsonResource
             'status' => (string)$this->status,
             'address' => $this->address,
             'coupon' => $this->coupon,
-            'order_details'=> $this->whenLoaded('orderDetails')
+            'order_details'=> OrderDetailsResource::collection($this->whenLoaded('orderDetails'))
 
         ];
     }
