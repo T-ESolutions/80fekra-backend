@@ -31,6 +31,7 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
     });
 
     Route::get('/home', [HomeController::class, 'home']);
+    Route::get('/settings', [HomeController::class, 'settings']);
     Route::get('/helpers/countries', [HelpersController::class, 'countries']);
 
     Route::group(['prefix' => "helpers"], function () {
@@ -50,9 +51,15 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
             //addresses
             Route::get('/', [AddressesController::class, 'index']);
             Route::post('/store', [AddressesController::class, 'store']);
-
-
+            Route::post('/update', [AddressesController::class, 'update'])->name('addresses.update');
+            Route::post('/make-default', [AddressesController::class, 'makeDefault']);
+            Route::post('/delete', [AddressesController::class, 'delete']);
         });
+
+        Route::get('/product/details', [HomeController::class, 'productDetails']);
+        Route::get('/product/related', [HomeController::class, 'productRelated']);
+        Route::get('/product/by-category', [HomeController::class, 'productByCategory']);
+        Route::post('/product/add-review', [HomeController::class, 'AddReview']);
 
         Route::group(['prefix' => "cart"], function () {
 

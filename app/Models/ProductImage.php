@@ -14,26 +14,19 @@ class ProductImage extends Model
         'image',
     ];
 
+    protected $appends = ['image_path'];
+
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
 
-//    public function getImageAttribute($image)
-//    {
-//        if (!empty($image)) {
-//            return asset('uploads/products') . '/' . $image;
-//        }
-//        return asset('defaults/user_default.png');
-//    }
-//
-//    public function setImageAttribute($image)
-//    {
-//        if (is_file($image)) {
-//            $imageFields = upload($image, 'products');
-//            $this->attributes['image'] = $imageFields;
-//        } else {
-//            $this->attributes['image'] = $image;
-//        }
-//    }
+    public function getImagePathAttribute($image)
+    {
+        if (!empty($this->image)) {
+            return asset('/storage') . '/' . $this->image;
+        }
+        return asset('defaults/default_image.png');
+    }
 }

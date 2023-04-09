@@ -26,6 +26,8 @@ class UsersResources extends JsonResource
 
         return [
             'id' => (int)$this->id,
+            'image' => (string)$this->image_path ,
+            'name' => (string)$this->f_name ? $this->name : "",
             'f_name' => (string)$this->f_name ? $this->f_name : "",
             'l_name' => (string)$this->l_name ? $this->l_name : "",
             'email' => (string)$this->email ? $this->email : "",

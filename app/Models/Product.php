@@ -12,10 +12,10 @@ class Product extends Model
 //    use \Spatie\Tags\HasTags;
 
     protected $fillable = [
-        'title_ar', 'title_en', 'description_ar', 'description_en', 'is_active', 'sort_order', 'discount', 'tags', 'attributes_ar', 'attributes_en'
+        'title_ar', 'title_en', 'description_ar', 'description_en', 'is_active', 'sort_order', 'priceprice', 'discount', 'tags', 'attributes_ar', 'attributes_en'
     ];
 
-    protected $appends = ['title', 'description'];
+    protected $appends = ['title', 'description', 'attributes'];
 
     public function getTitleAttribute()
     {
@@ -35,11 +35,25 @@ class Product extends Model
         }
     }
 
+    public function getAttributesAttribute()
+    {
+        if (\app()->getLocale() == "en") {
+            return $this->attributes_en;
+        } else {
+            return $this->attributes_ar;
+        }
+    }
 
     public function scopeActive($query): void
     {
         $query->where('is_active', 1);
     }
+
+    public function scopeHome($query): void
+    {
+        $query->where('is_home', 1);
+    }
+
 
     public function getTagsAttribute()
     {
@@ -70,6 +84,11 @@ class Product extends Model
     public function productImages()
     {
         return $this->hasMany(ProductImage::class, 'product_id');
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(ProductCategory::class, 'product_id');
     }
 
     public function productReviews()
