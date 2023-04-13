@@ -245,9 +245,9 @@ class Product extends Resource
                 ->hideWhenUpdating(),
             //            Tags::make('tags','tags'),
 
-             Toggle::make('مفعل', 'is_home')->hideFromIndex()->hideFromDetail()
+             Toggle::make('الظهور في الصفحة الرئيسية', 'is_home')->hideFromIndex()->hideFromDetail()
                  ->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
-            Boolean::make("مفعل", 'is_home')
+            Boolean::make("الظهور في الصفحة الرئيسية", 'is_home')
                 ->sortable()
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
