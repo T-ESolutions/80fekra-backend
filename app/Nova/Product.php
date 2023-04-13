@@ -242,8 +242,15 @@ class Product extends Resource
             Boolean::make("مفعل", 'is_active')
                 ->sortable()
                 ->hideWhenCreating()
-                ->hideWhenUpdating()
+                ->hideWhenUpdating(),
             //            Tags::make('tags','tags'),
+
+             Toggle::make('مفعل', 'is_home')->hideFromIndex()->hideFromDetail()
+                 ->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
+            Boolean::make("مفعل", 'is_home')
+                ->sortable()
+                ->hideWhenCreating()
+                ->hideWhenUpdating()
 
         ];
     }
