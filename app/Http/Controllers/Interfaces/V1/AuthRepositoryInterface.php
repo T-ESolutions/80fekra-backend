@@ -11,6 +11,7 @@ interface AuthRepositoryInterface{
     public function verify($request);
     public function updateProfile($request);
     public function checkEmailToUpdate($request);
+    public function checkEmailCodeToUpdate($request);
     public function changePassword($request);
 
 

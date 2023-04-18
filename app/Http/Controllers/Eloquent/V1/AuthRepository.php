@@ -137,6 +137,28 @@ class AuthRepository implements AuthRepositoryInterface
         return $this->sendCode($request['email'], "activate");
     }
 
+    public function checkEmailCodeToUpdate($request)
+    {
+        $verfication = Verfication::where('phone', $request['email'])
+            ->where('code', $request['code'])
+            ->first();
+        if ($verfication) {
+            if (!$verfication->expired_at > Carbon::now()->toDateTimeString()) {
+                return response()->json(msg(failed(), trans('lang.codeExpired')));
+            }
+            $user = auth()->user();
+            $user->email = $request['email'];
+            $user->save();
+            $user->jwt = JWTAuth::fromUser($user);
+
+            //remove verification row from DB ...
+            $verfication->delete();
+            return $user;
+        } else {
+            return false;
+        }
+    }
+
     public function changePassword($request)
     {
         $user = auth()->user();
