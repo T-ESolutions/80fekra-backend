@@ -24,7 +24,7 @@ class CheckEmailToUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|max:255|unique:users,email,'.auth()->user()->id,
+            'email' => 'required|email|max:255|unique:users,email',
         ];
     }
 }
