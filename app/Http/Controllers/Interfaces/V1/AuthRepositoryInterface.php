@@ -10,6 +10,7 @@ interface AuthRepositoryInterface{
     public function resendCode($request);
     public function verify($request);
     public function updateProfile($request);
+    public function checkEmailToUpdate($request);
     public function changePassword($request);
 
 

@@ -131,6 +131,12 @@ class AuthRepository implements AuthRepositoryInterface
         return $user;
     }
 
+    public function checkEmailToUpdate($request)
+    {
+        $user = auth()->user();
+        return $this->sendCode($request['email'], "activate");
+    }
+
     public function changePassword($request)
     {
         $user = auth()->user();

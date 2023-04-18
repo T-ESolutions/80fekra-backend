@@ -41,6 +41,11 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
         Route::get('/page/details', [HelpersController::class, 'pageDetails']);
 
     });
+    Route::group(['prefix' => "product"], function () {
+        Route::get('/details', [ProductController::class, 'productDetails']);
+        Route::get('/related', [ProductController::class, 'productRelated']);
+        Route::get('/by-category', [ProductController::class, 'productByCategory']);
+    });
 
     Route::group(['middleware' => ['auth:api']], function () {
         Route::group(['prefix' => "auth"], function () {
@@ -48,6 +53,7 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
             Route::post('/change-password', [AuthController::class, 'changePassword']);
             Route::get('/profile', [AuthController::class, 'profile']);
             Route::post('/update-profile', [AuthController::class, 'updateProfile']);
+            Route::post('/update-profile/check/email', [AuthController::class, 'checkEmailToUpdate']);
             Route::post('/check_location', [AuthController::class, 'check_location']);
         });
         Route::group(['prefix' => "addresses"], function () {
@@ -59,9 +65,6 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
             Route::post('/delete', [AddressesController::class, 'delete']);
         });
         Route::group(['prefix' => "product"], function () {
-            Route::get('/details', [ProductController::class, 'productDetails']);
-            Route::get('/related', [ProductController::class, 'productRelated']);
-            Route::get('/by-category', [ProductController::class, 'productByCategory']);
             Route::post('/add-review', [ProductController::class, 'AddReview']);
         });
         Route::group(['prefix' => "cart"], function () {

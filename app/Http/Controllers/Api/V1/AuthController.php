@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Interfaces\V1\AuthRepositoryInterface;
 use App\Http\Requests\V1\User\Auth\ChangePasswordRequest;
+use App\Http\Requests\V1\User\Auth\CheckEmailToUpdateRequest;
 use App\Http\Requests\V1\User\Auth\ForgetPasswordRequest;
 use App\Http\Requests\V1\User\Auth\UpdateProfileRequest;
 use App\Http\Requests\V1\User\Auth\ResendCodeRequest;
@@ -89,6 +90,13 @@ class AuthController extends Controller
     {
         $data = $request->validated();
         $this->userAuthRepository->updateProfile($data);
+        return response()->json(msg(success(), trans('lang.success')));
+    }
+
+    public function checkEmailToUpdate(CheckEmailToUpdateRequest $request)
+    {
+        $data = $request->validated();
+        $this->userAuthRepository->checkEmailToUpdate($data);
         return response()->json(msg(success(), trans('lang.success')));
     }
 
