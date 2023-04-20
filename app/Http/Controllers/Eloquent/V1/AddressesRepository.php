@@ -22,7 +22,7 @@ class AddressesRepository implements AddressesRepositoryInterface
     {
         $data['addresses'] = Address::where('user_id',JWTAuth::user()->id)
             ->orderBy('id','desc')
-            ->get();
+            ->paginate(Config('app.paginate'));
 
         return $data;
     }
