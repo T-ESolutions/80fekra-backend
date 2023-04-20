@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\V1\User\Order;
 
-use App\Http\Requests\V1\User\Product\ProductDetailsRequest;
+use App\Http\Resources\V1\ProductResources;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CartResource extends JsonResource
@@ -20,7 +20,7 @@ class CartResource extends JsonResource
             'id' => (int)$this->id,
             'qty' => (int)$this->qty,
             'total' => (double) $this->qty * $price,
-            'product' => new ProductDetailsRequest($this->product),
+            'product' => new ProductResources($this->product),
 
         ];
     }
