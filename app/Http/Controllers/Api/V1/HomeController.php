@@ -25,36 +25,6 @@ class HomeController extends Controller
         return response()->json(msgdata(success(), trans('lang.success'), $data));
     }
 
-    public function productDetails(ProductDetailsRequest $request)
-    {
-        $data = $this->homeRepo->productDetails($request);
-        return response()->json(msgdata(success(), trans('lang.success'), $data));
-    }
-
-    public function productRelated(ProductDetailsRequest $request)
-    {
-        $data = $this->homeRepo->productRelated($request);
-        return response()->json(msgdata(success(), trans('lang.success'), $data));
-    }
-
-    public function productByCategory(productByCategoryRequest $request)
-    {
-        $request = $request->validated();
-        $data = $this->homeRepo->productByCategory($request);
-        return response()->json(msgdata(success(), trans('lang.success'), $data));
-    }
-
-    public function AddReview(AddReviewRequest $request)
-    {
-        $request = $request->validated();
-        $data = $this->homeRepo->AddReview($request);
-        if ($data == false) {
-            return response()->json(msg(failed(), trans('lang.rate_added_before')));
-
-        }
-        return response()->json(msg(success(), trans('lang.added_s_wait_approved')));
-    }
-
     public function settings(Request $request)
     {
         $data = $this->homeRepo->settings($request);

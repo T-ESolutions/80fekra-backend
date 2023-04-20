@@ -31,7 +31,7 @@ class Country extends Resource
     public static $priority = 1;
     public function title()
     {
-        return $this->title_ar . ' , ' . $this->title_en;
+        return $this->title_ar;
     }
 
     /**

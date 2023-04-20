@@ -1,32 +1,44 @@
-<?php namespace App\Models;
+<?php
 
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Page extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
-        'title',
-        'slug',
-        'excerpt',
-        'content',
-        'meta_title',
-        'meta_description',
-        'meta_robots',
-        'media_id',
+        'title_ar', 'title_en', 'body_ar', 'body_en', 'image'
     ];
 
-    protected $appends = [
-        'url'
-    ];
+    protected $appends = ['title', 'body','image_path'];
 
-    public function media(): HasOne
+    public function getTitleAttribute()
     {
-        return $this->hasOne(Media::class);
+        if (\app()->getLocale() == "en") {
+            return $this->title_en;
+        } else {
+            return $this->title_ar;
+        }
     }
 
-    public function getUrlAttribute()
+    public function getBodyAttribute()
     {
-        return url($this->slug);
+        if (\app()->getLocale() == "en") {
+            return $this->body_en;
+        } else {
+            return $this->body_ar;
+        }
     }
+
+    public function getImagePathAttribute($image)
+    {
+        if (!empty($this->image)) {
+            return asset('/storage') . '/' . $this->image;
+        }
+        return asset('defaults/default_image.png');
+    }
+
 }

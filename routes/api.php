@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\HelpersController;
 use App\Http\Controllers\Api\V1\AddressesController;
+use App\Http\Controllers\Api\V1\ProductController;
 
 
 /*
@@ -36,6 +37,14 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
 
     Route::group(['prefix' => "helpers"], function () {
         Route::get('/countries', [HelpersController::class, 'countries']);
+        Route::get('/pages', [HelpersController::class, 'pages']);
+        Route::get('/page/details', [HelpersController::class, 'pageDetails']);
+
+    });
+    Route::group(['prefix' => "product"], function () {
+        Route::get('/details', [ProductController::class, 'productDetails']);
+        Route::get('/related', [ProductController::class, 'productRelated']);
+        Route::get('/by-category', [ProductController::class, 'productByCategory']);
     });
 
     Route::group(['middleware' => ['auth:api']], function () {
@@ -44,10 +53,11 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
             Route::post('/change-password', [AuthController::class, 'changePassword']);
             Route::get('/profile', [AuthController::class, 'profile']);
             Route::post('/update-profile', [AuthController::class, 'updateProfile']);
+            Route::post('/update-profile/check/email', [AuthController::class, 'checkEmailToUpdate']);
+            Route::post('/update-profile/check/email/code', [AuthController::class, 'checkEmailCodeToUpdate']);
             Route::post('/check_location', [AuthController::class, 'check_location']);
         });
         Route::group(['prefix' => "addresses"], function () {
-
             //addresses
             Route::get('/', [AddressesController::class, 'index']);
             Route::post('/store', [AddressesController::class, 'store']);
@@ -55,31 +65,21 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
             Route::post('/make-default', [AddressesController::class, 'makeDefault']);
             Route::post('/delete', [AddressesController::class, 'delete']);
         });
-
-        Route::get('/product/details', [HomeController::class, 'productDetails']);
-        Route::get('/product/related', [HomeController::class, 'productRelated']);
-        Route::get('/product/by-category', [HomeController::class, 'productByCategory']);
-        Route::post('/product/add-review', [HomeController::class, 'AddReview']);
-
+        Route::group(['prefix' => "product"], function () {
+            Route::post('/add-review', [ProductController::class, 'AddReview']);
+        });
         Route::group(['prefix' => "cart"], function () {
-
-            //addresses
             Route::get('/get-cart', [CartController::class, 'getCart']);
             Route::post('/add-cart', [CartController::class, 'addCart']);
             Route::get('/plus-cart/{id}', [CartController::class, 'plusCart']);
             Route::get('/minus-cart/{id}', [CartController::class, 'minusCart']);
             Route::get('/delete-cart/{id}', [CartController::class, 'deleteCart']);
-
-
         });
         Route::group(['prefix' => "order"], function () {
-
             Route::post('/place-order', [OrderController::class, 'placeOrder']);
             Route::get('/my-orders', [OrderController::class, 'myOrders']);
             Route::get('/order-details/{id}', [OrderController::class, 'orderDetails']);
             Route::get('/delete-order/{id}', [OrderController::class, 'deleteOrder']);
-
-
         });
 
     });
