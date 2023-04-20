@@ -13,7 +13,7 @@ class Page extends Model
         'title_ar', 'title_en', 'body_ar', 'body_en', 'image'
     ];
 
-    protected $appends = ['title', 'body','image_path'];
+    protected $appends = ['title', 'body', 'image_path'];
 
     public function getTitleAttribute()
     {

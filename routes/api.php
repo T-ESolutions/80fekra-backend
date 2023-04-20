@@ -33,6 +33,7 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
 
     Route::get('/home', [HomeController::class, 'home']);
     Route::get('/settings', [HomeController::class, 'settings']);
+    Route::get('/setting/{id}', [HomeController::class, 'setting']);
     Route::get('/helpers/countries', [HelpersController::class, 'countries']);
 
     Route::group(['prefix' => "helpers"], function () {

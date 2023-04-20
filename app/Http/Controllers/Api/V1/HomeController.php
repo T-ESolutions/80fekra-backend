@@ -31,4 +31,10 @@ class HomeController extends Controller
         return response()->json(msgdata(success(), trans('lang.success'), $data));
     }
 
+    public function setting(Request $request ,$id)
+    {
+        $data = $this->homeRepo->setting($request ,$id);
+        return response()->json(msgdata(success(), trans('lang.success'), $data));
+    }
+
 }

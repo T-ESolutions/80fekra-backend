@@ -13,5 +13,6 @@ interface HomeRepositoryInterface
 {
     public function home($request);
     public function settings($request);
+    public function setting($request,$id);
 
 }

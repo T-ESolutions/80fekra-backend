@@ -40,4 +40,10 @@ class HomeRepository implements HomeRepositoryInterface
         return $data;
     }
 
+    public function setting($request ,$id)
+    {
+        $data = (new SettingResources(Setting::whereId($id)->first()));
+        return $data;
+    }
+
 }
