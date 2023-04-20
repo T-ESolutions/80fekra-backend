@@ -88,8 +88,19 @@ class OrderRepository implements OrderRepositoryInterface
     public function myOrders($request)
     {
         $order = Order::where('user_id', JWTAuth::user()->id)
-            ->orderBy('id', 'desc')
-            ->paginate(Config('app.paginate'));
+            ->orderBy('id', 'desc');
+        if ($request->status == 'current') {
+            $order->where('status', Order::STATUS_PENDING)
+                ->orWhere('status', Order::STATUS_ON_PROGRESS)
+                ->orWhere('status', Order::STATUS_SHIPPED);
+        } else {
+            $order->where('status', Order::STATUS_DELIVERED)
+                ->orWhere('status', Order::STATUS_REJECTED)
+                ->orWhere('status', Order::STATUS_CANCELLED_BY_USER)
+                ->orWhere('status', Order::STATUS_CANCELLED_BY_ADMIN);
+        }
+
+        $order->paginate(Config('app.paginate'));
 
         return $order;
     }
