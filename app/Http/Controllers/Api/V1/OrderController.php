@@ -39,8 +39,12 @@ class OrderController extends Controller
     public function orderDetails(Request $request, $id)
     {
         $data = $this->targetRepo->orderDetails($request, $id);
-        $data = OrderResource::make($data);
-        return response()->json(msgdata(success(), trans('lang.success'), $data));
+        if ($data != null) {
+            $data = OrderResource::make($data);
+            return response()->json(msgdata(success(), trans('lang.success'), $data));
+        } else {
+            return response()->json(msg(not_found(), trans('lang.not_found')));
+        }
     }
 
     public function deleteOrder(Request $request, $id)
