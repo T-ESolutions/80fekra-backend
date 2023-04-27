@@ -24,9 +24,11 @@ class OrderResource extends JsonResource
             'payment_status' => (string)$this->payment_status,
             'payment_type' => (string)$this->payment_type,
             'status' => (string)$this->status,
+            'status_text' => trans('lang.'.(string)$this->status),
             'address' => $this->address,
             'coupon' => $this->coupon,
-            'order_details'=> OrderDetailsResource::collection('orderDetails')
+            'created_at' => $this->created_at->format('Y-m-d'),
+            'order_details'=> OrderDetailsResource::collection($this->orderDetails)
 
         ];
     }

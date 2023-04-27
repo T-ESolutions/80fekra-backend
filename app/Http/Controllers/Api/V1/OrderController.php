@@ -32,7 +32,7 @@ class OrderController extends Controller
     public function myOrders(Request $request)
     {
         $data = $this->targetRepo->myOrders($request);
-        $data = OrderResource::collection($data)->response()->getData(true);
+        $data = (OrderResource::collection($data))->response()->getData(true);
         return response()->json(msgdata(success(), trans('lang.success'), $data));
     }
 

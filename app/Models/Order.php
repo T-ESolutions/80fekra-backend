@@ -20,6 +20,7 @@ class Order extends Model
     const  STATUS_PENDING = "pending";
     const  STATUS_ON_PROGRESS = "on_progress";
     const  STATUS_SHIPPED = "shipped";
+
     const  STATUS_DELIVERED = "delivered";
     const  STATUS_REJECTED = "rejected";
     const  STATUS_CANCELLED_BY_USER = "canceled_by_user";

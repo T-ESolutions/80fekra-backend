@@ -22,11 +22,8 @@ class AddressesController extends Controller
     public function index(Request $request)
     {
         $data = $this->targetRepo->index($request);
-
         $data = (AddressesResources::collection($data))->response()->getData(true);
         return response()->json(msgdata(success(), trans('lang.success'), $data));
-
-
     }
 
     public function store(AddressRequest $request)

@@ -2,6 +2,13 @@
 
 return [
 
+    'pending' => 'طلب جديد',
+    'on_progress' => 'قيد التنفيذ',
+    'shipped' => 'تم الشحن',
+    'delivered' => 'تم التوصيل',
+    'rejected' => 'مرفوض',
+    'canceled_by_user' => 'تم الإلغاء عن طريق المستخدم',
+    'canceled_by_admin' => 'تم الإلغاء عن طريق الإدارة',
     'all_categories' => 'كل الأقسام',
     'email_not_verified' => 'لم يتم التحقق من البريد الإلكتروني بعد',
     'CodeSent' => 'تم ارسال الرمز بنجاح',
