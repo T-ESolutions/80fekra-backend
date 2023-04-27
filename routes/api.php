@@ -56,6 +56,10 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
             Route::post('/update-profile', [AuthController::class, 'updateProfile']);
             Route::post('/update-profile/check/email', [AuthController::class, 'checkEmailToUpdate']);
             Route::post('/update-profile/check/email/code', [AuthController::class, 'checkEmailCodeToUpdate']);
+
+            Route::post('/update-profile/check/phone', [AuthController::class, 'checkPhoneToUpdate']);
+            Route::post('/update-profile/check/phone/code', [AuthController::class, 'checkPhoneCodeToUpdate']);
+
             Route::post('/check_location', [AuthController::class, 'check_location']);
         });
         Route::group(['prefix' => "addresses"], function () {

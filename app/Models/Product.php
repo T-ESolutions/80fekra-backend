@@ -15,7 +15,9 @@ class Product extends Model
         'title_ar', 'title_en', 'description_ar', 'description_en', 'is_active', 'sort_order', 'priceprice', 'discount', 'tags', 'attributes_ar', 'attributes_en'
     ];
 
-    protected $appends = ['title', 'description', 'attributes'];
+    protected $appends = ['title', 'description', 'attributes','rate'];
+
+
 
     public function getTitleAttribute()
     {
@@ -100,4 +102,17 @@ class Product extends Model
     {
         return $this->hasMany(ProductReview::class, 'product_id')->where('is_approved', 1);
     }
+
+    public function getRateAttribute()
+    {
+        $review_count =  $this->productReviewsApproved->count() ;
+        $review_sum =  $this->productReviewsApproved->sum('rate') ;
+        if($review_count == 0){
+            return 0 ;
+        }else{
+            return $review_sum /$review_count ;
+        }
+    }
+
+
 }

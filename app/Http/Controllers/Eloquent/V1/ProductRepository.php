@@ -16,6 +16,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductReview;
 use JWTAuth;
+use League\Flysystem\Config;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -25,6 +26,19 @@ class ProductRepository implements ProductRepositoryInterface
     {
         $data['product'] = new ProductResources(Product::active()->whereId($request['id'])->first());
         $reviews = ProductReview::approval()->where('product_id', $request['id'])->orderBy('created_at', 'desc')->paginate(Config('app.paginate'));
+
+        $rates_one = ProductReview::approval()->where('product_id', $request['id'])->where('rate', 1)->get()->count();
+        $rates_tow = ProductReview::approval()->where('product_id', $request['id'])->where('rate', 2)->get()->count();
+        $rates_three = ProductReview::approval()->where('product_id', $request['id'])->where('rate', 3)->get()->count();
+        $rates_four = ProductReview::approval()->where('product_id', $request['id'])->where('rate', 4)->get()->count();
+        $rates_five = ProductReview::approval()->where('product_id', $request['id'])->where('rate', 5)->get()->count();
+
+        $data['reviews_count'][] = ['five' => $rates_five];
+        $data['reviews_count'][] = ['four' => $rates_four];
+        $data['reviews_count'][] = ['three' => $rates_three];
+        $data['reviews_count'][] = ['tow' => $rates_tow];
+        $data['reviews_count'][] = ['one' => $rates_one];
+
         $data['reviews'] = (ProductReviewsResources::collection($reviews))->response()->getData(true);
         return $data;
     }
@@ -79,6 +93,9 @@ class ProductRepository implements ProductRepositoryInterface
             return false;
         }
         $request['user_id'] = JWTAuth::user()->id;
+        if (Config('app.env') == 'local') {
+            $request['is_approved'] = 1;
+        }
         $data = ProductReview::create($request);
         return $data;
     }
