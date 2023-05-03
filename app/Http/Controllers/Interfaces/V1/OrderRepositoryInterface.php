@@ -13,6 +13,7 @@ interface OrderRepositoryInterface
 {
 
     public function placeOrder($request);
+    public function applyCoupon($request);
     public function myOrders($request);
     public function orderDetails($request ,$id);
     public function cancelOrder($request ,$id);

@@ -6,6 +6,7 @@ use App\Nova\Actions\UserActive;
 use App\Nova\Actions\UserUnActive;
 use BayAreaWebPro\NovaFieldCkEditor\CkEditor;
 use Illuminate\Http\Request;
+use Inspheric\Fields\Url;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
@@ -31,6 +32,7 @@ class Product extends Resource
      * @var string
      */
     public static $priority = 3;
+
     //public static $title = 'title_ar';
     public function title()
     {
@@ -77,14 +79,13 @@ class Product extends Resource
             Text::make('اسم المنتج بالانجليزية', 'title_en')
                 ->sortable()
                 ->rules('required', 'max:255'),
-            CkEditor::make('وصف المنتج بالعربية','description_ar')
+            CkEditor::make('وصف مختصر للمنتج بالعربية', 'short_desc_ar')
                 ->rules('required')
                 ->hideFromIndex()
                 ->mediaBrowser()
                 ->linkBrowser()
                 ->height(60)
                 ->stacked()
-
                 ->toolbar([
                     'heading',
                     'horizontalLine',
@@ -112,14 +113,13 @@ class Product extends Resource
                     'undo',
                     'redo'
                 ]),
-            CkEditor::make('وصف المنتج بالانجليزية','description_en')
+            CkEditor::make('وصف مختصر للمنتج بالانجليزية', 'short_desc_en')
                 ->rules('required')
                 ->hideFromIndex()
                 ->mediaBrowser()
                 ->linkBrowser()
                 ->height(60)
                 ->stacked()
-
                 ->toolbar([
                     'heading',
                     'horizontalLine',
@@ -147,48 +147,13 @@ class Product extends Resource
                     'undo',
                     'redo'
                 ]),
-            CkEditor::make('مواصفات المنتج بالعربية','attributes_ar')
+            CkEditor::make('وصف المنتج بالعربية', 'description_ar')
                 ->rules('required')
                 ->hideFromIndex()
                 ->mediaBrowser()
                 ->linkBrowser()
                 ->height(60)
                 ->stacked()
-
-                ->toolbar([
-                    'heading',
-                    'horizontalLine',
-                    '|',
-                    'link',
-                    'linkBrowser',
-                    '|',
-                    'bold',
-                    'italic',
-                    'alignment',
-                    'subscript',
-                    'superscript',
-                    'underline',
-                    'strikethrough',
-                    '|',
-                    'blockQuote',
-                    'bulletedList',
-                    'numberedList',
-                    '|',
-                    'insertTable',
-                    'mediaEmbed',
-                    'mediaBrowser',
-                    'insertSnippet',
-                    '|',
-                    'undo',
-                    'redo'
-                ]),CkEditor::make('مواصفات المنتج بالانجليزية','attributes_en')
-                ->rules('required')
-                ->hideFromIndex()
-                ->mediaBrowser()
-                ->linkBrowser()
-                ->height(60)
-                ->stacked()
-
                 ->toolbar([
                     'heading',
                     'horizontalLine',
@@ -216,12 +181,114 @@ class Product extends Resource
                     'undo',
                     'redo'
                 ]),
+            CkEditor::make('وصف المنتج بالانجليزية', 'description_en')
+                ->rules('required')
+                ->hideFromIndex()
+                ->mediaBrowser()
+                ->linkBrowser()
+                ->height(60)
+                ->stacked()
+                ->toolbar([
+                    'heading',
+                    'horizontalLine',
+                    '|',
+                    'link',
+                    'linkBrowser',
+                    '|',
+                    'bold',
+                    'italic',
+                    'alignment',
+                    'subscript',
+                    'superscript',
+                    'underline',
+                    'strikethrough',
+                    '|',
+                    'blockQuote',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'insertTable',
+                    'mediaEmbed',
+                    'mediaBrowser',
+                    'insertSnippet',
+                    '|',
+                    'undo',
+                    'redo'
+                ]),
+            CkEditor::make('مواصفات المنتج بالعربية', 'attributes_ar')
+                ->rules('required')
+                ->hideFromIndex()
+                ->mediaBrowser()
+                ->linkBrowser()
+                ->height(60)
+                ->stacked()
+                ->toolbar([
+                    'heading',
+                    'horizontalLine',
+                    '|',
+                    'link',
+                    'linkBrowser',
+                    '|',
+                    'bold',
+                    'italic',
+                    'alignment',
+                    'subscript',
+                    'superscript',
+                    'underline',
+                    'strikethrough',
+                    '|',
+                    'blockQuote',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'insertTable',
+                    'mediaEmbed',
+                    'mediaBrowser',
+                    'insertSnippet',
+                    '|',
+                    'undo',
+                    'redo'
+                ]), CkEditor::make('مواصفات المنتج بالانجليزية', 'attributes_en')
+                ->rules('required')
+                ->hideFromIndex()
+                ->mediaBrowser()
+                ->linkBrowser()
+                ->height(60)
+                ->stacked()
+                ->toolbar([
+                    'heading',
+                    'horizontalLine',
+                    '|',
+                    'link',
+                    'linkBrowser',
+                    '|',
+                    'bold',
+                    'italic',
+                    'alignment',
+                    'subscript',
+                    'superscript',
+                    'underline',
+                    'strikethrough',
+                    '|',
+                    'blockQuote',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'insertTable',
+                    'mediaEmbed',
+                    'mediaBrowser',
+                    'insertSnippet',
+                    '|',
+                    'undo',
+                    'redo'
+                ]),
+            Url::make('رابط الفيديو', 'video_url')->rules('url', /* ... */),
             Number::make('سعر المنتج', 'price')
                 ->sortable()->default(0)
-                ->rules('required','min:0'),
+                ->rules('required', 'min:0'),
             Number::make('قيمة الخصم (%)', 'discount')
                 ->sortable()->default(0)
-                ->rules('required','min:0'),
+                ->rules('required', 'min:0'),
 
 //            Tags::make( 'الكلمات المفتاحية','tags')
 //                ->help("Press ENTER to add tag")
@@ -245,8 +312,8 @@ class Product extends Resource
                 ->hideWhenUpdating(),
             //            Tags::make('tags','tags'),
 
-             Toggle::make('الظهور في الصفحة الرئيسية', 'is_home')->hideFromIndex()->hideFromDetail()
-                 ->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
+            Toggle::make('الظهور في الصفحة الرئيسية', 'is_home')->hideFromIndex()->hideFromDetail()
+                ->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
             Boolean::make("الظهور في الصفحة الرئيسية", 'is_home')
                 ->sortable()
                 ->hideWhenCreating()

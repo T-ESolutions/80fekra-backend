@@ -22,6 +22,7 @@
         "genealabs/nova-map-marker-field": "^0.3.1",
         "gregoriohc/laravel-nova-theme-responsive": "^0.8.1",
         "guzzlehttp/guzzle": "^7.0.1",
+        "inspheric/nova-url-field": "^1.4",
         "laravel/framework": "^8.0",
         "laravel/nova": "*",
         "laravel/tinker": "^2.0",
@@ -31,9 +32,9 @@
         "pishran/nova-rtl-theme": "^1.5",
         "runlinenl/nova-profile-tool": "^1.1",
         "simplesquid/nova-enum-field": "^2.7",
+        "spatie/laravel-permission": "^3.0|^4.0",
         "spatie/nova-tags-field": "^3.4",
         "superlatif/nova-tag-input": "3.0",
-        "spatie/laravel-permission": "^3.0|^4.0",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

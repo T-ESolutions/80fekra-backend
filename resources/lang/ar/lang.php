@@ -2,6 +2,7 @@
 
 return [
 
+    'coupon_used_before' => 'تم استخدام الكوبون من قبل',
     'pending' => 'طلب جديد',
     'on_progress' => 'قيد التنفيذ',
     'shipped' => 'تم الشحن',

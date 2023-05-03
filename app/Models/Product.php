@@ -12,7 +12,8 @@ class Product extends Model
 //    use \Spatie\Tags\HasTags;
 
     protected $fillable = [
-        'title_ar', 'title_en', 'description_ar', 'description_en', 'is_active', 'sort_order', 'priceprice', 'discount', 'tags', 'attributes_ar', 'attributes_en'
+        'title_ar', 'title_en', 'description_ar', 'description_en', 'is_active', 'sort_order', 'priceprice', 'discount', 'tags', 'attributes_ar', 'attributes_en',
+        'video_url','short_desc_ar','short_desc_en'
     ];
 
     protected $appends = ['title', 'description', 'attributes','rate'];

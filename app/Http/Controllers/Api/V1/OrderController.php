@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Interfaces\V1\AddressesRepositoryInterface;
 use App\Http\Controllers\Interfaces\V1\OrderRepositoryInterface;
 use App\Http\Requests\V1\User\AddressRequest;
+use App\Http\Requests\V1\User\Order\ApplyCouponRequest;
 use App\Http\Requests\V1\User\Order\OrderRequest;
 use App\Http\Resources\V1\User\Order\OrderResource;
 use Illuminate\Http\Request;
@@ -26,7 +27,22 @@ class OrderController extends Controller
         if ($data == "cart_empty") {
             return response()->json(msg(failed(), trans('lang.cart_empty')));
         }
+        if ($data == "coupon_used_before") {
+            return response()->json(msg(failed(), trans('lang.coupon_used_before')));
+        }
         return response()->json(msg(success(), trans('lang.success')));
+    }
+
+    public function applyCoupon(ApplyCouponRequest $request)
+    {
+        $data = $this->targetRepo->applyCoupon($request);
+        if ($data == "cart_empty") {
+            return response()->json(msg(failed(), trans('lang.cart_empty')));
+        }
+        if ($data == "coupon_used_before") {
+            return response()->json(msg(failed(), trans('lang.coupon_used_before')));
+        }
+        return response()->json(msgdata(success(), trans('lang.success'),$data));
     }
 
     public function myOrders(Request $request)

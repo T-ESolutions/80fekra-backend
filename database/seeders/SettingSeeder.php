@@ -99,8 +99,20 @@ class SettingSeeder extends Seeder
                 'value' => 'An educational system that works to raise your child',
                 'image' => null,
             ],
+            [
+                'id' => 15,
+                'key' => 'all_category_image',
+                'value' => null,
+                'image' => 'all_category_image.png',
+            ],
+            [
+                'id' => 16,
+                'key' => 'footer_image',
+                'value' => null,
+                'image' => 'footer_image.png',
+            ],
         ];
-        foreach ($data as $row){
+        foreach ($data as $row) {
             Setting::updateOrCreate($row);
         }
     }

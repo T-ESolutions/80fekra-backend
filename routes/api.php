@@ -81,6 +81,7 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
             Route::get('/delete-cart/{id}', [CartController::class, 'deleteCart']);
         });
         Route::group(['prefix' => "order"], function () {
+            Route::post('/apply-coupon', [OrderController::class, 'applyCoupon']);
             Route::post('/place-order', [OrderController::class, 'placeOrder']);
             Route::get('/my-orders', [OrderController::class, 'myOrders']);
             Route::get('/order-details/{id}', [OrderController::class, 'orderDetails']);

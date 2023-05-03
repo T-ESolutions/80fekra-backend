@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Inspheric\Fields\Url;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
@@ -37,7 +38,6 @@ class Slider extends Resource
     ];
 
 
-
     public static function label()
     {
         return "سلايدر";
@@ -58,7 +58,8 @@ class Slider extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('المنتج', 'product', Product::class)->rules('required'),
+//            BelongsTo::make('المنتج', 'product', Product::class)->rules('required'),
+            Url::make('الرابط', 'url')->rules('required', 'url'),
             Image::make('الصور ( 1526 * 664 )', 'image')->squared()->disk('public')->maxWidth(200)->creationRules('required', 'image')->updateRules('nullable', 'image'),
             Toggle::make('مفعل', 'is_active')->hideFromIndex()->hideFromDetail()
                 ->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
