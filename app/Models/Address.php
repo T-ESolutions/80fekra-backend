@@ -12,13 +12,14 @@ class Address extends Model
     protected $fillable = [
         'id',
         'user_id',
-        'lat',
-        'lng',
+//        'lat',
+//        'lng',
         'address',
         'f_name',
         'l_name',
         'phone',
         'country_id',
+        'city_id',
         'email',
         'is_default',
     ];
@@ -31,6 +32,11 @@ class Address extends Model
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
     }
 
     public function scopeDefault($query): void

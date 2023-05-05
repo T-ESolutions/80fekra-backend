@@ -133,7 +133,7 @@ class OrderRepository implements OrderRepositoryInterface
                 $discount = 0;
             }
         }
-        
+
         $result['sub_total'] = $sub_total;
         $result['discount'] = $discount;
         $result['final_total'] = $sub_total - $discount;

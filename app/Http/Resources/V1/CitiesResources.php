@@ -4,7 +4,7 @@ namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CountriesResources extends JsonResource
+class CitiesResources extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -27,7 +27,7 @@ class CountriesResources extends JsonResource
         return [
             'id' => (int)$this->id,
             'title' => (string)$this->title ? $this->title : "",
-//            'shipping_cost' => (double)$this->shipping_cost ? $this->shipping_cost : 0,
+            'shipping_cost' => (double)$this->shipping_cost ? $this->shipping_cost : 0,
         ];
     }
 

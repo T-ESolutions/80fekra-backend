@@ -19,15 +19,15 @@ class AddressesResources extends JsonResource
 
         return [
             'id' => (int)$this->id,
-            'lat' => (string)$this->lat,
-            'lng' => (string)$this->lng,
             'address' => (string)$this->address,
             'f_name' => (string)$this->f_name,
             'l_name' => (string)$this->l_name,
             'phone' => (string)$this->phone,
             'country_id' => (int)$this->country_id,
             'country_title' => $this->country ? (string)$this->country->title : '',
-            'country_shipping_cost' => $this->country ? (double)$this->country->shipping_cost : 0.0,
+            'city_id' => (int)$this->city_id,
+            'city_title' => $this->city ? (string)$this->city->title : '',
+            'city_shipping_cost' => $this->city ? (double)$this->city->shipping_cost : 0.0,
             'email' => (string)$this->email,
             'is_default' => (int)$this->is_default,
         ];

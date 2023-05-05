@@ -156,6 +156,7 @@
       <path value="$PROJECT_DIR$/vendor/namshi/jose" />
       <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
       <path value="$PROJECT_DIR$/vendor/inspheric/nova-url-field" />
+      <path value="$PROJECT_DIR$/vendor/orlyapps/nova-belongsto-depend" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

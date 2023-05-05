@@ -31,7 +31,7 @@ class Category extends Resource
      */
     public static $title = 'title_ar';
 
-    public static $priority = 2;
+    public static $priority = 3;
     /**
      * The columns that should be searched.
      *

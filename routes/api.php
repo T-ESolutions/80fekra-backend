@@ -35,6 +35,7 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
     Route::get('/settings', [HomeController::class, 'settings']);
     Route::get('/setting/{id}', [HomeController::class, 'setting']);
     Route::get('/helpers/countries', [HelpersController::class, 'countries']);
+    Route::get('/helpers/cities', [HelpersController::class, 'cities']);
 
     Route::group(['prefix' => "helpers"], function () {
         Route::get('/countries', [HelpersController::class, 'countries']);

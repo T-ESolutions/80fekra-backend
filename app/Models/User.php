@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -23,7 +22,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'f_name', 'l_name', 'email', 'image', 'is_active', 'email_verified_at', 'phone',
-        'password', 'type', 'whats_app', 'country_id'
+        'password', 'type', 'whats_app', 'country_id','city_id','shipping_free','discount'
     ];
 
     protected $appends =['name','image_path'];
@@ -71,6 +70,11 @@ class User extends Authenticatable implements JWTSubject
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
     }
 
     public function addresses()

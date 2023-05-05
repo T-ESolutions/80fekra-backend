@@ -66,9 +66,9 @@ class Address extends Resource
                 ->rules('required', 'email', 'max:255')->hideFromIndex(),
             BelongsTo::make('المدينة', 'country', Country::class)->rules('required'),
             Boolean::make('العنوان الاساسي؟', 'is_default'),
-            MapMarker::make("Location")
-                ->latitude('lat')
-                ->longitude('lng')->hideFromIndex(),
+//            MapMarker::make("Location")
+//                ->latitude('lat')
+//                ->longitude('lng')->hideFromIndex(),
 
 
         ];

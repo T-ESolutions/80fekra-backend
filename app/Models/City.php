@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ofcold\NovaSortable\SortableTrait;
 
-class Country extends Model
+class City extends Model
 {
     use HasFactory, SortableTrait;
 
     protected $fillable = [
-        'title_ar', 'title_en', 'is_active', 'sort_order'
+        'title_ar', 'title_en', 'is_active', 'sort_order', 'shipping_cost', 'country_id'
     ];
     protected $appends = ['title'];
 
@@ -30,18 +30,13 @@ class Country extends Model
         $query->where('is_active', 1);
     }
 
-    public function users()
-    {
-        return $this->hasMany(User::class, 'country_id');
-    }
-
     public function addresses()
     {
-        return $this->hasMany(Address::class, 'country_id');
+        return $this->hasMany(Address::class, 'city_id');
     }
 
-    public function cities()
+    public function country()
     {
-        return $this->hasMany(City::class, 'country_id');
+        return $this->belongsTo(Country::class, 'country_id');
     }
 }

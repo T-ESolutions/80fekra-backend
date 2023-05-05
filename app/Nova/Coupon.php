@@ -24,6 +24,7 @@ class Coupon extends Resource
      */
     public static $model = \App\Models\Coupon::class;
 
+    public static $priority = 9;
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

@@ -32,7 +32,7 @@ class Order extends Resource
      */
     public static $title = 'id';
 
-    public static $priority = 4;
+    public static $priority = 5;
     /**
      * The columns that should be searched.
      *

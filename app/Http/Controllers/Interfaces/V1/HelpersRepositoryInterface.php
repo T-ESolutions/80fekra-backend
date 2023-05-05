@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Interfaces\V1;
 interface HelpersRepositoryInterface
 {
     public function countries($request);
+    public function cities($request);
     public function pages($request);
     public function pageDetails($request);
 

@@ -2,86 +2,84 @@
 
 namespace App\Nova;
 
-use App\Models\User;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Text;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Naif\Toggle\Toggle;
 
-class Country extends Resource
+class City extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Country::class;
+    public static $model = \App\Models\City::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
+    public static $title = 'title_ar';
 
-    public static $priority = 1;
+    public static $priority = 2;
+
     public function title()
     {
         return $this->title_ar;
     }
-
     /**
      * The columns that should be searched.
      *
      * @var array
      */
     public static $search = [
-        'title_ar', 'title_en',
+        'id', 'title_ar', 'title_en'
     ];
 
     public static function label()
     {
-        return "المدن";
+        return "المحافظات";
     }
 
     public static function singularLabel()
     {
-        return "المدن";
+        return "المحافظات";
     }
-
-
-
     /**
      * Get the fields displayed by the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            BelongsTo::make("الدولة", 'country', Country::class),
             Text::make('الاسم بالعربية', 'title_ar')->rules('required')->sortable(),
             Text::make('الاسم بالانجليزية', 'title_en')->rules('required')->sortable(),
+            Number::make('تكلفة الشحن', 'shipping_cost')->rules('required')->sortable(),
             Toggle::make('مفعل', 'is_active')->hideFromIndex()->hideFromDetail()->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
             Boolean::make("مفعل", 'is_active')
                 ->sortable()
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
             ,
-            HasMany::make("المحافظات", 'cities', City::class),
-//            HasMany::make("المستخدمين", 'users', User::class),
             HasMany::make("العناوين", 'addresses', Address::class),
-
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -89,12 +87,14 @@ class Country extends Resource
         return [];
     }
 
+
     /**
      * Get the filters available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
+
     public function filters(Request $request)
     {
         return [];
@@ -103,7 +103,7 @@ class Country extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -114,7 +114,7 @@ class Country extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
@@ -132,6 +132,7 @@ class Country extends Resource
 
         return $query;
     }
+
 
     /**
      * Prepare the resource for JSON serialization.

@@ -32,7 +32,7 @@ class Slider extends Resource
      *
      * @var array
      */
-    public static $priority = 5;
+    public static $priority = 6;
     public static $search = [
 
     ];
