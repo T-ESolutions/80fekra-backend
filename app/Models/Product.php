@@ -13,11 +13,10 @@ class Product extends Model
 
     protected $fillable = [
         'title_ar', 'title_en', 'description_ar', 'description_en', 'is_active', 'sort_order', 'priceprice', 'discount', 'tags', 'attributes_ar', 'attributes_en',
-        'video_url','short_desc_ar','short_desc_en'
+        'video_url', 'short_desc_ar', 'short_desc_en'
     ];
 
-    protected $appends = ['title', 'description', 'attributes','rate'];
-
+    protected $appends = ['title', 'description', 'attributes', 'rate', 'short_description'];
 
 
     public function getTitleAttribute()
@@ -35,6 +34,15 @@ class Product extends Model
             return $this->description_en;
         } else {
             return $this->description_ar;
+        }
+    }
+
+    public function getShortDescriptionAttribute()
+    {
+        if (\app()->getLocale() == "en") {
+            return $this->short_desc_en;
+        } else {
+            return $this->short_desc_ar;
         }
     }
 
@@ -106,12 +114,12 @@ class Product extends Model
 
     public function getRateAttribute()
     {
-        $review_count =  $this->productReviewsApproved->count() ;
-        $review_sum =  $this->productReviewsApproved->sum('rate') ;
-        if($review_count == 0){
-            return 0 ;
-        }else{
-            return $review_sum /$review_count ;
+        $review_count = $this->productReviewsApproved->count();
+        $review_sum = $this->productReviewsApproved->sum('rate');
+        if ($review_count == 0) {
+            return 0;
+        } else {
+            return $review_sum / $review_count;
         }
     }
 
