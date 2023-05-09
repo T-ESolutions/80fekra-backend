@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Interfaces\V1;
 interface AddressesRepositoryInterface
 {
     public function index($request);
+    public function details($request);
     public function store($request);
     public function update($request);
     public function makeDefault($request);

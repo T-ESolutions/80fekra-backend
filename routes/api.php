@@ -66,6 +66,7 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
         Route::group(['prefix' => "addresses"], function () {
             //addresses
             Route::get('/', [AddressesController::class, 'index']);
+            Route::get('/details', [AddressesController::class, 'details']);
             Route::post('/store', [AddressesController::class, 'store']);
             Route::post('/update', [AddressesController::class, 'update'])->name('addresses.update');
             Route::post('/make-default', [AddressesController::class, 'makeDefault']);
