@@ -37,7 +37,7 @@ class AddressRequest extends FormRequest
             'l_name' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
             'country_id' => 'required|exists:countries,id',
-            'city_id' => 'required|exists:cities,id,country_id,' . $this->country_id,
+//            'city_id' => 'required|exists:cities,id,country_id,' . $this->country_id,
             'email' => 'required|email|max:255',
         ];
     }

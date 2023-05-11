@@ -205,7 +205,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             Category::class,
             Country::class,
             Page::class,
-            City::class,
+//            City::class,
             Coupon::class,
             CouponUsage::class,
             Order::class,

@@ -28,7 +28,7 @@ class City extends Resource
      */
     public static $title = 'title_ar';
 
-    public static $priority = 2;
+//    public static $priority = 0;
 
     public function title()
     {

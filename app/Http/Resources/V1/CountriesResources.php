@@ -27,7 +27,7 @@ class CountriesResources extends JsonResource
         return [
             'id' => (int)$this->id,
             'title' => (string)$this->title ? $this->title : "",
-//            'shipping_cost' => (double)$this->shipping_cost ? $this->shipping_cost : 0,
+            'shipping_cost' => (double)$this->shipping_cost ? $this->shipping_cost : 0,
         ];
     }
 

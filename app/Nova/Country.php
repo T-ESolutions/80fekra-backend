@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Models\User;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
@@ -43,12 +44,12 @@ class Country extends Resource
 
     public static function label()
     {
-        return "المدن";
+        return "المحافظات";
     }
 
     public static function singularLabel()
     {
-        return "المدن";
+        return "المحافظات";
     }
 
 
@@ -65,13 +66,14 @@ class Country extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Text::make('الاسم بالعربية', 'title_ar')->rules('required')->sortable(),
             Text::make('الاسم بالانجليزية', 'title_en')->rules('required')->sortable(),
+            Number::make('تكلفة الشحن', 'shipping_cost')->rules('required')->sortable(),
             Toggle::make('مفعل', 'is_active')->hideFromIndex()->hideFromDetail()->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
             Boolean::make("مفعل", 'is_active')
                 ->sortable()
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
             ,
-            HasMany::make("المحافظات", 'cities', City::class),
+//            HasMany::make("المحافظات", 'cities', City::class),
 //            HasMany::make("المستخدمين", 'users', User::class),
             HasMany::make("العناوين", 'addresses', Address::class),
 
