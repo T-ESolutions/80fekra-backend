@@ -114,14 +114,22 @@ class AuthController extends Controller
     {
         $data = $request->validated();
         $user = $this->userAuthRepository->checkEmailCodeToUpdate($data);
-        return response()->json(msgdata(success(), trans('lang.success'), $user));
+        if($user == false){
+            return response()->json(msg(failed(), trans('lang.code_not_valid')));
+        }else{
+            return response()->json(msgdata(success(), trans('lang.success'), $user));
+        }
     }
 
     public function checkPhoneCodeToUpdate(checkPhoneCodeToUpdateRequest $request)
     {
         $data = $request->validated();
         $user = $this->userAuthRepository->checkPhoneCodeToUpdate($data);
-        return response()->json(msgdata(success(), trans('lang.success'), $user));
+        if($user == false){
+            return response()->json(msg(failed(), trans('lang.code_not_valid')));
+        }else{
+            return response()->json(msgdata(success(), trans('lang.success'), $user));
+        }
     }
 
     public function verify(VerifyRequest $request)

@@ -5,6 +5,7 @@ namespace App\Nova;
 use BayAreaWebPro\NovaFieldCkEditor\CkEditor;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -60,6 +61,7 @@ class Page extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            Image::make('الصورة', 'image')->squared()->disk('public')->maxWidth(200)->creationRules('required', 'image')->updateRules('nullable', 'image'),
             Text::make('الاسم بالعربية', 'title_ar')->rules('required')->sortable(),
             Text::make('الاسم بالانجليزية', 'title_en')->rules('required')->sortable(),
             CkEditor::make('المحتوى بالعربية', 'body_ar')
