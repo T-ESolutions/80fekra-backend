@@ -46,21 +46,25 @@ class OrderRepository implements OrderRepositoryInterface
 
 
         $discount = 0;
-        if ($coupon) {
-            //check if user used coupon or not
-            $exists_usage = CouponUsage::where('user_id', $user_id)->where('coupon_id', $coupon->id)->first();
-            if ($exists_usage) {
-                return "coupon_used_before";
+        if ($user->discount == 0) {
+            if ($coupon) {
+                //check if user used coupon or not
+                $exists_usage = CouponUsage::where('user_id', $user_id)->where('coupon_id', $coupon->id)->first();
+                if ($exists_usage) {
+                    return "coupon_used_before";
+                }
+                if ($coupon->type == Coupon::PERCENTAGE) {
+                    $discount = $sub_total * $coupon->discount / 100;
+                }
+
             }
-            if ($coupon->type == Coupon::PERCENTAGE) {
-                $discount = $sub_total * $coupon->discount / 100;
-            }
+        } else {
+
+            $discount += $sub_total * $user->discount / 100;
 
         }
-       // $total = $sub_total - $discount;
-        if ($user->discount > 0) {
-            $discount += $sub_total * $user->discount / 100;
-        }
+        // $total = $sub_total - $discount;
+
         $total = $sub_total - $discount;
         $shipping_cost = $address->country->shipping_cost;
         if ($user->shipping_free) {
