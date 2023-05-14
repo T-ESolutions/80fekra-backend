@@ -173,6 +173,7 @@ class Order extends Resource
         return [
             (new Filters\FilterByPaymentStatus()),
             (new Filters\FilterByStatus()),
+            (new Filters\FilterByUser()),
         ];
     }
 
