@@ -26,13 +26,15 @@ class UsersResources extends JsonResource
 
         return [
             'id' => (int)$this->id,
-            'image' => (string)$this->image_path ,
+            'image' => (string)$this->image_path,
             'name' => (string)$this->f_name ? $this->name : "",
             'f_name' => (string)$this->f_name ? $this->f_name : "",
             'l_name' => (string)$this->l_name ? $this->l_name : "",
             'email' => (string)$this->email ? $this->email : "",
             'phone' => (string)$this->phone ? $this->phone : "",
             'whats_app' => (string)$this->whats_app ? $this->whats_app : "",
+            'discount' => (double)$this->discount,
+            'shipping_free' => (boolean)$this->shipping_free,
             'jwt' => $this->jwt ? $this->jwt : "",
         ];
     }
