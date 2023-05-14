@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cdb3aad9611f3dd06bbe9f04b80be5d",
+    "content-hash": "c4d1133dd36ed9b43fec8ad7af11b066",
     "packages": [
         {
             "name": "anaseqal/nova-sidebar-icons",
