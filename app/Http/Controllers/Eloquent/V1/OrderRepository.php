@@ -54,17 +54,14 @@ class OrderRepository implements OrderRepositoryInterface
             }
             if ($coupon->type == Coupon::PERCENTAGE) {
                 $discount = $sub_total * $coupon->discount / 100;
-            } else {
-                //amount
-                $discount = 0;
             }
 
         }
-        $total = $sub_total - $discount;
+       // $total = $sub_total - $discount;
         if ($user->discount > 0) {
-            $discount += $total * $user->discount / 100;
+            $discount += $sub_total * $user->discount / 100;
         }
-        $total = $total - $discount;
+        $total = $sub_total - $discount;
         $shipping_cost = $address->country->shipping_cost;
         if ($user->shipping_free) {
             $shipping_cost = 0;
