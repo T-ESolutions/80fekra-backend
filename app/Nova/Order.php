@@ -5,8 +5,9 @@ namespace App\Nova;
 use App\Nova\Actions\OrderPaymentStatus;
 use App\Nova\Actions\OrderStatus;
 use Armincms\Json\Json;
-use GeneaLabs\NovaMapMarkerField\MapMarker;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
@@ -15,6 +16,7 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class Order extends Resource
 {
@@ -117,7 +119,7 @@ class Order extends Resource
     {
         return [
             Json::make("coupon", [
-                Text::make('كود الخصم', 'code')->rules('required')->sortable(),
+                Text::make('كود الخصم', 'code')->rules('required')->sortable()->hideFromIndex(),
                 Select::make('نوع الخصم', 'type')->options([
                     \App\Models\Coupon::PERCENTAGE => 'نسبة %',
                     \App\Models\Coupon::AMOUNT => 'مبلغ $',
@@ -182,6 +184,10 @@ class Order extends Resource
                 ->confirmText('هل انت متأكد ؟')
                 ->confirmButtonText('نعم')
                 ->cancelButtonText("لا"),
+            (new DownloadExcel)
+                ->withFilename('Orders-' . Carbon::now()->translatedFormat("Y-m-d h:i:s a") . '.xlsx')
+                ->withHeadings()
+
         ];
     }
 

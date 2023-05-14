@@ -25,15 +25,16 @@
         "laravel/framework": "^8.0",
         "laravel/nova": "*",
         "laravel/tinker": "^2.0",
+        "maatwebsite/laravel-nova-excel": "^1.2",
         "naif/toggle": "^1.3",
         "nikaia/nova-rating-field": "^1.0",
         "ofcold/nova-sortable": "^1.0",
         "pishran/nova-rtl-theme": "^1.5",
         "runlinenl/nova-profile-tool": "^1.1",
         "simplesquid/nova-enum-field": "^2.7",
+        "spatie/laravel-permission": "^3.0|^4.0",
         "spatie/nova-tags-field": "^3.4",
         "superlatif/nova-tag-input": "3.0",
-        "spatie/laravel-permission": "^3.0|^4.0",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
