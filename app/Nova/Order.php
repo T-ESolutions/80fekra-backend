@@ -27,6 +27,7 @@ class Order extends Resource
      */
     public static $model = \App\Models\Order::class;
 
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -92,10 +93,20 @@ class Order extends Resource
             new Panel('تفاصيل كود الخصم', $this->couponFields()),
 
             HasMany::make('منتجات الطلب', 'orderDetails', OrderDetail::class),
+
+
+            Json::make("address", [
+
+                Text::make("رقم الجوال ", 'phone')->onlyOnIndex(),
+                Text::make("العنوان ", 'address')->onlyOnIndex(),
+                Json::make("country", [
+                    Text::make(" المدينة", 'title_ar')->onlyOnIndex(),
+                ])
+            ]),
             Text::make('اسماء المنتجات', function () {
                 return $this->orderDetails->map(function ($orderDetail) {
-                    return $orderDetail->product->title;
-                })->implode(', ');
+                    return $orderDetail->product->title . " الكمية: " . $orderDetail->qty;
+                })->implode(' || ');
             }),
 
 
@@ -158,7 +169,9 @@ class Order extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            (new Filters\FilterByPaymentStatus()),
+        ];
     }
 
     /**
