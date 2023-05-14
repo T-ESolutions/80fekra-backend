@@ -92,6 +92,11 @@ class Order extends Resource
             new Panel('تفاصيل كود الخصم', $this->couponFields()),
 
             HasMany::make('منتجات الطلب', 'orderDetails', OrderDetail::class),
+            Text::make('اسماء المنتجات', function () {
+                return $this->orderDetails->map(function ($orderDetail) {
+                    return $orderDetail->product->title;
+                })->implode(', ');
+            }),
 
 
         ];
@@ -185,8 +190,10 @@ class Order extends Resource
                 ->confirmButtonText('نعم')
                 ->cancelButtonText("لا"),
             (new DownloadExcel)
-                ->withFilename('Orders-' . Carbon::now()->translatedFormat("Y-m-d h:i:s a") . '.xlsx')
+//                ->withFilename('Orders-' . Carbon::now()->translatedFormat("Y-m-d h:i:s a") . '.xlsx')
                 ->withHeadings()
+                ->askForWriterType()
+                ->askForFilename()
 
         ];
     }
