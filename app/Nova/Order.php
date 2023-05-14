@@ -96,7 +96,8 @@ class Order extends Resource
 
 
             Json::make("address", [
-
+                Text::make(" الاسم الاول", 'f_name')->hideFromIndex(),
+                Text::make("الاسم الاخير ", 'l_name')->hideFromIndex(),
                 Text::make("رقم الجوال ", 'phone')->onlyOnIndex(),
                 Text::make("العنوان ", 'address')->onlyOnIndex(),
                 Json::make("country", [
@@ -105,7 +106,7 @@ class Order extends Resource
             ]),
             Text::make('اسماء المنتجات', function () {
                 return $this->orderDetails->map(function ($orderDetail) {
-                    return $orderDetail->product->title . " الكمية: " . $orderDetail->qty;
+                    return $orderDetail->product->title . "  - الكمية: " . $orderDetail->qty;
                 })->implode(' || ');
             }),
 
@@ -171,6 +172,7 @@ class Order extends Resource
     {
         return [
             (new Filters\FilterByPaymentStatus()),
+            (new Filters\FilterByStatus()),
         ];
     }
 

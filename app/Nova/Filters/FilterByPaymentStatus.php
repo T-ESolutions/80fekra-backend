@@ -42,5 +42,9 @@ class FilterByPaymentStatus extends Filter
         ];
     }
 
+    public function name()
+    {
+        return 'فلتر بحالة الدفع';
+    }
 
 }
