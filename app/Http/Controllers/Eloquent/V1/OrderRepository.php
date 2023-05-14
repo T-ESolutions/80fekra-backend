@@ -28,6 +28,7 @@ class OrderRepository implements OrderRepositoryInterface
     public function placeOrder($request)
     {
         $user_id = JWTAuth::user()->id;
+        $user = JWTAuth::user();
         $carts = Cart::where('user_id', JWTAuth::user()->id)->get();
         if ($carts->count() == 0) {
             return "cart_empty";
@@ -57,7 +58,18 @@ class OrderRepository implements OrderRepositoryInterface
                 //amount
                 $discount = 0;
             }
+
         }
+        $total = $sub_total - $discount;
+        if ($user->discount > 0) {
+            $discount += $total * $user->discount / 100;
+        }
+        $total = $total - $discount;
+        $shipping_cost = $address->country->shipping_cost;
+        if ($user->shipping_free) {
+            $shipping_cost = 0;
+        }
+        $total += $shipping_cost;
         if ($request->payment_type == Order::PAYMENT_TYPE_CASH) {
             $payment_status = Order::PAYMENT_STATUS_NOT_PAID;
         } else {
@@ -69,8 +81,8 @@ class OrderRepository implements OrderRepositoryInterface
             'coupon' => $coupon,
             'subtotal' => $sub_total,
             'discount' => $discount,
-            'shipping_cost' => $address->country->shipping_cost,
-            'total' => $sub_total + $address->country->shipping_cost - $discount,
+            'shipping_cost' => $shipping_cost,
+            'total' => $total,
             'payment_status' => $payment_status,
             'payment_type' => $request->payment_type,
             'status' => Order::STATUS_PENDING,
