@@ -2,6 +2,15 @@
 
 return [
 
+    'code_not_valid' => 'الكود غير صحيح',
+    'coupon_used_before' => 'تم استخدام الكوبون من قبل',
+    'pending' => 'طلب جديد',
+    'on_progress' => 'قيد التنفيذ',
+    'shipped' => 'تم الشحن',
+    'delivered' => 'تم التوصيل',
+    'rejected' => 'مرفوض',
+    'canceled_by_user' => 'تم الإلغاء عن طريق المستخدم',
+    'canceled_by_admin' => 'تم الإلغاء عن طريق الإدارة',
     'all_categories' => 'كل الأقسام',
     'email_not_verified' => 'لم يتم التحقق من البريد الإلكتروني بعد',
     'CodeSent' => 'تم ارسال الرمز بنجاح',

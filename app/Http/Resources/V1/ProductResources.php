@@ -24,20 +24,21 @@ class ProductResources extends JsonResource
             $final_price = $this->price - $discount_price;
         } else {
             $final_price = $this->price;
-
         }
 
         return [
             'id' => (int)$this->id,
             'title' => (string)$this->title,
             'description' => (string)$this->description,
+            'short_description' => (string)$this->short_description,
             'attributes' => (string)$this->attributes,
+            'video_url' => (string)$this->video_url,
+            'rate' => (double)$this->rate,
             'price' => (double)$this->price,
             'discount' => (double)$this->discount,
             'price_after_discount' => (double)$final_price,
             'categories' => $this->productCategories ? CategoryResources::collection($this->productCategories) : '',
             'images' => $this->productImages ? ProductImagesResources::collection($this->productImages) : '',
-
         ];
     }
 

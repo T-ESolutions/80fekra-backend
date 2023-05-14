@@ -13,6 +13,7 @@ class Slider extends Model
     protected $fillable = [
         'image',
         'is_active',
+        'url',
         'product_id',
         'sort_order',
     ];

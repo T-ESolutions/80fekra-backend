@@ -19,6 +19,7 @@ class Setting extends Resource
      */
     public static $model = \App\Models\Setting::class;
 
+    public static $priority = 11;
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

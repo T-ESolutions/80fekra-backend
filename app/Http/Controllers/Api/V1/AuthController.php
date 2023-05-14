@@ -6,6 +6,8 @@ use App\Http\Controllers\Interfaces\V1\AuthRepositoryInterface;
 use App\Http\Requests\V1\User\Auth\ChangePasswordRequest;
 use App\Http\Requests\V1\User\Auth\checkEmailCodeToUpdateRequest;
 use App\Http\Requests\V1\User\Auth\CheckEmailToUpdateRequest;
+use App\Http\Requests\V1\User\Auth\checkPhoneCodeToUpdateRequest;
+use App\Http\Requests\V1\User\Auth\CheckPhoneToUpdateRequest;
 use App\Http\Requests\V1\User\Auth\ForgetPasswordRequest;
 use App\Http\Requests\V1\User\Auth\UpdateProfileRequest;
 use App\Http\Requests\V1\User\Auth\ResendCodeRequest;
@@ -101,11 +103,33 @@ class AuthController extends Controller
         return response()->json(msg(success(), trans('lang.success')));
     }
 
+    public function checkPhoneToUpdate(CheckPhoneToUpdateRequest $request)
+    {
+        $data = $request->validated();
+        $this->userAuthRepository->checkPhoneToUpdate($data);
+        return response()->json(msg(success(), trans('lang.success')));
+    }
+
     public function checkEmailCodeToUpdate(checkEmailCodeToUpdateRequest $request)
     {
         $data = $request->validated();
         $user = $this->userAuthRepository->checkEmailCodeToUpdate($data);
-        return response()->json(msgdata(success(), trans('lang.success'), $user));
+        if($user == false){
+            return response()->json(msg(failed(), trans('lang.code_not_valid')));
+        }else{
+            return response()->json(msgdata(success(), trans('lang.success'), $user));
+        }
+    }
+
+    public function checkPhoneCodeToUpdate(checkPhoneCodeToUpdateRequest $request)
+    {
+        $data = $request->validated();
+        $user = $this->userAuthRepository->checkPhoneCodeToUpdate($data);
+        if($user == false){
+            return response()->json(msg(failed(), trans('lang.code_not_valid')));
+        }else{
+            return response()->json(msgdata(success(), trans('lang.success'), $user));
+        }
     }
 
     public function verify(VerifyRequest $request)

@@ -2,16 +2,15 @@
 
 namespace App\Nova;
 
-use BayAreaWebPro\NovaFieldCkEditor\CkEditor;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsToMany;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\ID;
+use App\Models\User;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Naif\Toggle\Toggle;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Text;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
+use Naif\Toggle\Toggle;
 
 class Country extends Resource
 {
@@ -45,12 +44,12 @@ class Country extends Resource
 
     public static function label()
     {
-        return "المدن";
+        return "المحافظات";
     }
 
     public static function singularLabel()
     {
-        return "المدن";
+        return "المحافظات";
     }
 
 
@@ -74,7 +73,8 @@ class Country extends Resource
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
             ,
-            HasMany::make("المستخدمين", 'users', User::class),
+//            HasMany::make("المحافظات", 'cities', City::class),
+//            HasMany::make("المستخدمين", 'users', User::class),
             HasMany::make("العناوين", 'addresses', Address::class),
 
         ];

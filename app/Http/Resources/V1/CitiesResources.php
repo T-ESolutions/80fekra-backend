@@ -4,7 +4,7 @@ namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SliderResources extends JsonResource
+class CitiesResources extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -12,6 +12,13 @@ class SliderResources extends JsonResource
      * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
+    protected $token;
+
+    public function token($value)
+    {
+        $this->token = $value;
+        return $this;
+    }
 
 
     public function toArray($request)
@@ -19,9 +26,8 @@ class SliderResources extends JsonResource
 
         return [
             'id' => (int)$this->id,
-            'image' => (string)$this->image ? $this->image_path : "",
-            'product_id' => (int)$this->product_id,
-            'url' => (string)$this->url ? $this->url : "",
+            'title' => (string)$this->title ? $this->title : "",
+            'shipping_cost' => (double)$this->shipping_cost ? $this->shipping_cost : 0,
         ];
     }
 

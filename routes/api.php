@@ -35,6 +35,7 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
     Route::get('/settings', [HomeController::class, 'settings']);
     Route::get('/setting/{id}', [HomeController::class, 'setting']);
     Route::get('/helpers/countries', [HelpersController::class, 'countries']);
+    Route::get('/helpers/cities', [HelpersController::class, 'cities']);
 
     Route::group(['prefix' => "helpers"], function () {
         Route::get('/countries', [HelpersController::class, 'countries']);
@@ -56,11 +57,16 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
             Route::post('/update-profile', [AuthController::class, 'updateProfile']);
             Route::post('/update-profile/check/email', [AuthController::class, 'checkEmailToUpdate']);
             Route::post('/update-profile/check/email/code', [AuthController::class, 'checkEmailCodeToUpdate']);
+
+            Route::post('/update-profile/check/phone', [AuthController::class, 'checkPhoneToUpdate']);
+            Route::post('/update-profile/check/phone/code', [AuthController::class, 'checkPhoneCodeToUpdate']);
+
             Route::post('/check_location', [AuthController::class, 'check_location']);
         });
         Route::group(['prefix' => "addresses"], function () {
             //addresses
             Route::get('/', [AddressesController::class, 'index']);
+            Route::get('/details', [AddressesController::class, 'details']);
             Route::post('/store', [AddressesController::class, 'store']);
             Route::post('/update', [AddressesController::class, 'update'])->name('addresses.update');
             Route::post('/make-default', [AddressesController::class, 'makeDefault']);
@@ -77,6 +83,7 @@ Route::group(['prefix' => "v1", 'namespace' => 'V1'], function () {
             Route::get('/delete-cart/{id}', [CartController::class, 'deleteCart']);
         });
         Route::group(['prefix' => "order"], function () {
+            Route::post('/apply-coupon', [OrderController::class, 'applyCoupon']);
             Route::post('/place-order', [OrderController::class, 'placeOrder']);
             Route::get('/my-orders', [OrderController::class, 'myOrders']);
             Route::get('/order-details/{id}', [OrderController::class, 'orderDetails']);

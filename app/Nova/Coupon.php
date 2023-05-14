@@ -24,6 +24,7 @@ class Coupon extends Resource
      */
     public static $model = \App\Models\Coupon::class;
 
+    public static $priority = 9;
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -70,6 +71,7 @@ class Coupon extends Resource
             ])->displayUsingLabels()->default( \App\Models\Coupon::PERCENTAGE),
 
             Number::make('الخصم', 'discount')->rules('required')->sortable(),
+            Text::make('عدد الاستخدامات ', 'usage_count')->hideWhenCreating()->hideWhenUpdating()->sortable(),
             Date::make('تاريخ البدء', 'start_date')->rules('required')->sortable(),
             Date::make('تاريخ النهاية', 'end_date')->rules('required','after:start_date')->sortable(),
             Toggle::make('مفعل', 'is_active')->hideFromIndex()->hideFromDetail()

@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Eloquent\V1;
 
 use App\Http\Controllers\Interfaces\V1\HelpersRepositoryInterface;
+use App\Models\City;
 use App\Models\Country;
 use App\Models\Page;
 
@@ -17,20 +18,27 @@ class HelpersRepository implements HelpersRepositoryInterface
 
     public function countries($request)
     {
-        $data = Country::active()->orderBy('sort_order','asc')
+        $data = Country::active()->orderBy('sort_order', 'asc')
             ->get();
         return $data;
     }
 
-   public function pages($request)
+    public function cities($request)
     {
-        $data = Page::orderBy('id','asc')->get();
+        $data = City::where('country_id', $request->country_id)->active()->orderBy('sort_order', 'asc')
+            ->get();
+        return $data;
+    }
+
+    public function pages($request)
+    {
+        $data = Page::orderBy('id', 'asc')->get();
         return $data;
     }
 
     public function pageDetails($request)
     {
-        $data = Page::where('id',$request['id'])->first();
+        $data = Page::where('id', $request['id'])->first();
         return $data;
     }
 

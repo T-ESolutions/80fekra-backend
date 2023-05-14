@@ -45,7 +45,7 @@ class AddressPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -57,7 +57,7 @@ class AddressPolicy
      */
     public function update(User $user, Address $address)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -69,7 +69,7 @@ class AddressPolicy
      */
     public function delete(User $user, Address $address)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -81,7 +81,7 @@ class AddressPolicy
      */
     public function restore(User $user, Address $address)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -93,6 +93,6 @@ class AddressPolicy
      */
     public function forceDelete(User $user, Address $address)
     {
-        return true;
+        return false;
     }
 }

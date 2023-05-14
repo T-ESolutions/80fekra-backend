@@ -32,13 +32,12 @@ class AddressRequest extends FormRequest
                 'exists:addresses,id',
                 Rule::requiredIf($this->routeIs('addresses.update')),
             ],
-            'lat' => 'required|string|max:255',
-            'lng' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'f_name' => 'required|string|max:255',
             'l_name' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
             'country_id' => 'required|exists:countries,id',
+//            'city_id' => 'required|exists:cities,id,country_id,' . $this->country_id,
             'email' => 'required|email|max:255',
         ];
     }

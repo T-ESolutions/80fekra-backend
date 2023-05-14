@@ -4,20 +4,16 @@ namespace App\Nova;
 
 use App\Nova\Actions\UserActive;
 use App\Nova\Actions\UserUnActive;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\PasswordConfirmation;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\ActionRequest;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Naif\Toggle\Toggle;
 
@@ -41,16 +37,16 @@ class User extends Resource
         'f_name', 'l_name', 'email', 'phone', 'whats_app',
     ];
 
-    public static $priority = 6;
+    public static $priority = 7;
 
     public static function label()
     {
-        return "المستخدمين";
+        return "العملاء";
     }
 
     public static function singularLabel()
     {
-        return "المستخدمين";
+        return "العملاء";
     }
 
     /**
@@ -78,6 +74,18 @@ class User extends Resource
                 ->rules('required', 'max:255')
                 ->creationRules('unique:users,whats_app')
                 ->updateRules('unique:users,whats_app,{{resourceId}}'),
+
+            Number::make('خصم ثابت (%)', 'discount')->sortable()
+                ->rules('required', 'min:0'),
+
+
+            Toggle::make('الشحن المجاني', 'shipping_free')->hideFromIndex()->hideFromDetail()
+                ->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
+            Boolean::make("الشحن المجاني", 'shipping_free')
+                ->sortable()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
             Toggle::make('مفعل', 'is_active')->hideFromIndex()->hideFromDetail()
                 ->default(1)->color('#7e3d2f')->onColor('#7a38eb')->offColor('#ae0f04'),
             Boolean::make("مفعل", 'is_active')
@@ -91,6 +99,7 @@ class User extends Resource
             PasswordConfirmation::make('تاكيد كلمة المرور')->rules('same:password')->onlyOnForms(),
 
             BelongsTo::make('المدينة', 'country', Country::class)->rules('required'),
+            BelongsTo::make('المحافظة', 'city', City::class)->rules('required'),
             HasMany::make('العناوين', 'addresses', Address::class),
             HasMany::make('الطلبات', 'orders', Order::class),
         ];

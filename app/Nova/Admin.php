@@ -28,6 +28,7 @@ class Admin extends Resource
      */
     public static $model = \App\Models\User::class;
 
+    public static $priority = 8;
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -50,7 +51,6 @@ class Admin extends Resource
     ];
 
 
-    public static $priority = 7;
 
     public static function label()
     {

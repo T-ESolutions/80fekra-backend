@@ -7,6 +7,8 @@ use App\Nova\Address;
 use App\Nova\Admin;
 use App\Nova\Category;
 use App\Nova\Country;
+use App\Nova\Page;
+use App\Nova\City;
 use App\Nova\Coupon;
 use App\Nova\CouponUsage;
 use App\Nova\Metrics\NewOrder;
@@ -26,7 +28,7 @@ use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Coroowicaksono\ChartJsIntegration\StackedChart;
-use Silvanite\NovaToolPermissions\NovaToolPermissions;
+//use Silvanite\NovaToolPermissions\NovaToolPermissions;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -73,7 +75,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             return $user->type == "user" ? false : true;
         });
     }
-
 
 
     /**
@@ -203,6 +204,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             Admin::class,
             Category::class,
             Country::class,
+            Page::class,
+//            City::class,
             Coupon::class,
             CouponUsage::class,
             Order::class,

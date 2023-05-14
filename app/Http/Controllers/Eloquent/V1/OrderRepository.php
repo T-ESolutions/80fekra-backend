@@ -13,6 +13,7 @@ use App\Http\Controllers\Interfaces\V1\OrderRepositoryInterface;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Coupon;
+use App\Models\CouponUsage;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Slider;
@@ -26,6 +27,7 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function placeOrder($request)
     {
+        $user_id = JWTAuth::user()->id;
         $carts = Cart::where('user_id', JWTAuth::user()->id)->get();
         if ($carts->count() == 0) {
             return "cart_empty";
@@ -44,9 +46,15 @@ class OrderRepository implements OrderRepositoryInterface
 
         $discount = 0;
         if ($coupon) {
+            //check if user used coupon or not
+            $exists_usage = CouponUsage::where('user_id', $user_id)->where('coupon_id', $coupon->id)->first();
+            if ($exists_usage) {
+                return "coupon_used_before";
+            }
             if ($coupon->type == Coupon::PERCENTAGE) {
                 $discount = $sub_total * $coupon->discount / 100;
-            } else {//amount
+            } else {
+                //amount
                 $discount = 0;
             }
         }
@@ -56,7 +64,7 @@ class OrderRepository implements OrderRepositoryInterface
             $payment_status = Order::PAYMENT_STATUS_PAID;
         }
         $order = Order::create([
-            'user_id' => JWTAuth::user()->id,
+            'user_id' => $user_id,
             'address' => $address,
             'coupon' => $coupon,
             'subtotal' => $sub_total,
@@ -80,28 +88,72 @@ class OrderRepository implements OrderRepositoryInterface
             ]);
         }
 
+        if ($order && $discount > 0) {
+            //TODO : make coupon usage
+            $coupon->usage_count = $coupon->usage_count + 1;
+            $coupon->save();
+
+            $coupon_usage_data['user_id'] = $user_id;
+            $coupon_usage_data['coupon_id'] = $coupon->id;
+            CouponUsage::create($coupon_usage_data);
+        }
+
         $cart->delete();
 
         return $order;
     }
 
+    public function applyCoupon($request)
+    {
+        $user_id = JWTAuth::user()->id;
+        $carts = Cart::where('user_id', $user_id)->get();
+        if ($carts->count() == 0) {
+            return "cart_empty";
+        }
+        $sub_total = 0;
+        foreach ($carts as $cart) {
+            $sub_total += ($cart->product->price - ($cart->product->price * $cart->product->discount / 100)) * $cart->qty;
+        }
+        $coupon = Coupon::where('code', $request->coupon_code)
+            ->active()
+            ->where('start_date', '<=', Carbon::now())
+            ->where('end_date', '>=', Carbon::now())
+            ->first();
+
+        $discount = 0;
+        if ($coupon) {
+            //check if user used coupon or not
+            $exists_usage = CouponUsage::where('user_id', $user_id)->where('coupon_id', $coupon->id)->first();
+            if ($exists_usage) {
+                return "coupon_used_before";
+            }
+            if ($coupon->type == Coupon::PERCENTAGE) {
+                $discount = $sub_total * $coupon->discount / 100;
+            } else {//amount
+                $discount = 0;
+            }
+        }
+
+        $result['sub_total'] = $sub_total;
+        $result['discount'] = $discount;
+        $result['final_total'] = $sub_total - $discount;
+        return $result;
+    }
+
     public function myOrders($request)
     {
-        $order = Order::where('user_id', JWTAuth::user()->id)
-            ->orderBy('id', 'desc');
+        $order = Order::Query();
         if ($request->status == 'current') {
-            $order->where('status', Order::STATUS_PENDING)
-                ->orWhere('status', Order::STATUS_ON_PROGRESS)
-                ->orWhere('status', Order::STATUS_SHIPPED);
+            $order = $order->whereIn('status', [Order::STATUS_PENDING, Order::STATUS_ON_PROGRESS, Order::STATUS_SHIPPED]);
+        } elseif ($request->status == 'previous') {
+            $order = $order->whereIn('status', [Order::STATUS_DELIVERED, Order::STATUS_REJECTED, Order::STATUS_CANCELLED_BY_USER, Order::STATUS_CANCELLED_BY_ADMIN]);
         } else {
-            $order->where('status', Order::STATUS_DELIVERED)
+            $order = $order->where('status', Order::STATUS_DELIVERED)
                 ->orWhere('status', Order::STATUS_REJECTED)
                 ->orWhere('status', Order::STATUS_CANCELLED_BY_USER)
                 ->orWhere('status', Order::STATUS_CANCELLED_BY_ADMIN);
         }
-
-        $order->paginate(Config('app.paginate'));
-
+        $order = $order->where('user_id', JWTAuth::user()->id)->orderBy('id', 'desc')->paginate(Config('app.paginate'));
         return $order;
     }
 

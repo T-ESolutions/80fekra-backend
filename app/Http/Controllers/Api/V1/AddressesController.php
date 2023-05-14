@@ -24,8 +24,13 @@ class AddressesController extends Controller
         $data = $this->targetRepo->index($request);
         $data = (AddressesResources::collection($data))->response()->getData(true);
         return response()->json(msgdata(success(), trans('lang.success'), $data));
+    }
 
-
+    public function details(AddressMakeDefaultRequest $request)
+    {
+        $data = $this->targetRepo->details($request);
+        $data = new AddressesResources($data);
+        return response()->json(msgdata(success(), trans('lang.success'), $data));
     }
 
     public function store(AddressRequest $request)
@@ -46,7 +51,7 @@ class AddressesController extends Controller
     {
         $request = $request->validated();
         $result = $this->targetRepo->makeDefault($request);
-        if($result == false){
+        if ($result == false) {
             return response()->json(msg(failed(), trans('lang.should_choose_your_address')));
         }
         return response()->json(msg(success(), trans('lang.updated_s')));
@@ -56,12 +61,11 @@ class AddressesController extends Controller
     {
         $request = $request->validated();
         $result = $this->targetRepo->delete($request);
-        if($result == false){
+        if ($result == false) {
             return response()->json(msg(failed(), trans('lang.should_choose_your_address')));
         }
         return response()->json(msg(success(), trans('lang.deleted_s')));
     }
-
 
 
 }

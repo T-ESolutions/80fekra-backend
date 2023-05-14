@@ -25,7 +25,6 @@ class CreateOrdersTable extends Migration
             $table->enum('payment_status',['paid','not_paid'])->default('not_paid');
             $table->enum('payment_type',['cash','visa'])->default('cash');
             $table->enum('status',['pending','on_progress','shipped','delivered','rejected','canceled_by_user','canceled_by_admin'])->default('pending');
-
             $table->timestamps();
         });
     }

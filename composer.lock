@@ -2241,6 +2241,60 @@
             "time": "2020-03-05T20:41:28+00:00"
         },
         {
+            "name": "inspheric/nova-url-field",
+            "version": "v1.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/inspheric/nova-url-field.git",
+                "reference": "e8badc5936b04a3a7c022770a747550a2efbed72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/inspheric/nova-url-field/zipball/e8badc5936b04a3a7c022770a747550a2efbed72",
+                "reference": "e8badc5936b04a3a7c022770a747550a2efbed72",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Inspheric\\Fields\\UrlFieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Inspheric\\Fields\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova url field.",
+            "keywords": [
+                "field",
+                "href",
+                "laravel",
+                "nova",
+                "url"
+            ],
+            "support": {
+                "issues": "https://github.com/inspheric/nova-url-field/issues",
+                "source": "https://github.com/inspheric/nova-url-field/tree/master"
+            },
+            "funding": [
+                {
+                    "url": "https://burtonsenior.com/donate/inspheric/nova-url-field",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-03-25T17:13:48+00:00"
+        },
+        {
             "name": "intervention/image",
             "version": "2.7.2",
             "source": {
@@ -4437,6 +4491,51 @@
                 "source": "https://github.com/opis/closure/tree/3.6.3"
             },
             "time": "2022-01-27T09:35:39+00:00"
+        },
+        {
+            "name": "orlyapps/nova-belongsto-depend",
+            "version": "3.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orlyapps/nova-belongsto-depend.git",
+                "reference": "796e6ec1d7447e94995b55236fa5a6b46749547f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orlyapps/nova-belongsto-depend/zipball/796e6ec1d7447e94995b55236fa5a6b46749547f",
+                "reference": "796e6ec1d7447e94995b55236fa5a6b46749547f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Orlyapps\\NovaBelongsToDepend\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orlyapps\\NovaBelongsToDepend\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "support": {
+                "issues": "https://github.com/orlyapps/nova-belongsto-depend/issues",
+                "source": "https://github.com/orlyapps/nova-belongsto-depend/tree/3.0.4"
+            },
+            "time": "2022-06-21T16:03:04+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
