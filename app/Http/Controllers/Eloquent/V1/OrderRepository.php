@@ -103,12 +103,14 @@ class OrderRepository implements OrderRepositoryInterface
 
         if ($order && $discount > 0) {
             //TODO : make coupon usage
-            $coupon->usage_count = $coupon->usage_count + 1;
-            $coupon->save();
+            if($coupon){
+                $coupon->usage_count = $coupon->usage_count + 1;
+                $coupon->save();
 
-            $coupon_usage_data['user_id'] = $user_id;
-            $coupon_usage_data['coupon_id'] = $coupon->id;
-            CouponUsage::create($coupon_usage_data);
+                $coupon_usage_data['user_id'] = $user_id;
+                $coupon_usage_data['coupon_id'] = $coupon->id;
+                CouponUsage::create($coupon_usage_data);
+            }
         }
 
         $cart->delete();
