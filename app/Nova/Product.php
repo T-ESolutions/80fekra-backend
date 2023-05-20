@@ -282,7 +282,7 @@ class Product extends Resource
                     'undo',
                     'redo'
                 ]),
-            Url::make('رابط الفيديو', 'video_url')->rules('url', /* ... */),
+            Url::make('رابط الفيديو', 'video_url')->hideFromIndex()->rules('url', /* ... */),
             Number::make('سعر المنتج', 'price')
                 ->sortable()->default(0)
                 ->rules('required', 'min:0'),
