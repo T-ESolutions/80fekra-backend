@@ -4,10 +4,12 @@ namespace App\Nova;
 
 use App\Nova\Actions\OrderPaymentStatus;
 use App\Nova\Actions\OrderStatus;
+use App\Nova\Actions\PrintOrder;
 use Armincms\Json\Json;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Laravel\Nova\Actions\Action;
+use Laravel\Nova\Actions\ActionResource;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
@@ -42,7 +44,7 @@ class Order extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'address'
     ];
 
     public static function label()
@@ -65,7 +67,7 @@ class Order extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            Number::make(__('ID'), 'id'),
             BelongsTo::make('المستخدم', 'user', User::class)->rules('required'),
 
             Date::make('تاريخ الطلب', 'created_at'),
@@ -97,8 +99,8 @@ class Order extends Resource
 
 
             Json::make("address", [
-                Text::make(" الاسم الاول", 'f_name')->hideFromIndex(),
-                Text::make("الاسم الاخير ", 'l_name')->hideFromIndex(),
+                Text::make(" الاسم الاول", 'f_name')->onlyOnIndex(),
+                Text::make("الاسم الاخير ", 'l_name')->onlyOnIndex(),
                 Text::make("رقم الجوال ", 'phone')->onlyOnIndex(),
                 Text::make("العنوان ", 'address')->onlyOnIndex(),
                 Json::make("country", [
@@ -110,6 +112,7 @@ class Order extends Resource
                     return $orderDetail->product->title . "  - الكمية: " . $orderDetail->qty;
                 })->implode(' || ');
             }),
+
 
 
         ];
@@ -147,9 +150,18 @@ class Order extends Resource
 //                Date::make('تاريخ البدء', 'start_date')->rules('required')->sortable()->hideFromIndex(),
 //                Date::make('تاريخ النهاية', 'end_date')->rules('required', 'after:start_date')->sortable()->hideFromIndex(),
 
+
+
             ])
         ];
 
+    }
+
+    public function detail(Request $request, $resource)
+    {
+        $this->withMeta(['print_url' => route('orders.print', $resource)]);
+
+        return parent::detail($request, $resource);
     }
 
     /**
@@ -197,7 +209,7 @@ class Order extends Resource
      */
     public function actions(Request $request)
     {
-        return [
+        $actions = [
             OrderStatus::make()
                 ->confirmText('هل انت متأكد ؟')
                 ->confirmButtonText('نعم')
@@ -207,13 +219,20 @@ class Order extends Resource
                 ->confirmButtonText('نعم')
                 ->cancelButtonText("لا"),
             (new DownloadExcel)
-//                ->withFilename('Orders-' . Carbon::now()->translatedFormat("Y-m-d h:i:s a") . '.xlsx')
-                ->withHeadings()
-                ->askForWriterType()
-                ->askForFilename()
+                ->withFilename('Orders-' . Carbon::now()->translatedFormat("Y-m-d h:i:s a") . '.xlsx')
+                ->withHeadings(),
+            new PrintOrder,
+
+            (new Action(__('Edit'), 'edit'))->canSee(function ($request) {
+                return false;
+            }),
 
         ];
+
+
+        return $actions;
     }
+
 
 
 }

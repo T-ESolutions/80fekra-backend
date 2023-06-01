@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Nova\Actions\UserActive;
 use App\Nova\Actions\UserUnActive;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
@@ -15,6 +16,7 @@ use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\PasswordConfirmation;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Naif\Toggle\Toggle;
 
 class User extends Resource
@@ -98,11 +100,18 @@ class User extends Resource
                 ->updateRules('nullable', 'string', 'min:6')->onlyOnForms(),
             PasswordConfirmation::make('تاكيد كلمة المرور')->rules('same:password')->onlyOnForms(),
 
-            BelongsTo::make('المحافظة', 'country', Country::class)->rules('required'),
+            BelongsTo::make('المحافظة', 'country', Country::class)
+                ->rules('required')->dontReorderAssociatables(),
 //            BelongsTo::make('المحافظة', 'city', City::class)->rules('required'),
             HasMany::make('العناوين', 'addresses', Address::class),
             HasMany::make('الطلبات', 'orders', Order::class),
         ];
+
+    }
+
+    public static function relatableCountries(NovaRequest $request, $query)
+    {
+        return $query->Active();
     }
 
     /**
@@ -155,6 +164,12 @@ class User extends Resource
                 ->confirmText('هل انت متأكد من الغاء التفعيل؟')
                 ->confirmButtonText('الغاء التفعيل')
                 ->cancelButtonText("لا"),
+
+
+            (new DownloadExcel)
+                ->withFilename('Users-' . Carbon::now()->translatedFormat("Y-m-d h:i:s a") . '.xlsx')
+                ->withHeadings()
+
         ];
 
 
@@ -165,5 +180,16 @@ class User extends Resource
         return $query->where('type', "user");
     }
 
+
+    public static function store(NovaRequest $request)
+    {
+        $user = $request->resource()->fill(
+            $request->all() + ['email_verified_at' => now()]
+        );
+
+        $user->save();
+
+        return static::redirectAfterCreate($request, $user);
+    }
 
 }

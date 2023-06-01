@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ofcold\NovaSortable\SortableTrait;
@@ -14,6 +15,32 @@ class Country extends Model
         'title_ar', 'title_en', 'is_active', 'sort_order'
     ];
     protected $appends = ['title'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($country) {
+            if ($country->users()->count() > 0) {
+                throw new \Exception('لايمكن الحذف لاستخدامها فى المستخدمين  .');
+            }
+
+            if ($country->addresses()->count() > 0) {
+
+                throw new \Exception('لايمكن الحذف لاستخدامها فى العناوين  .');
+            }
+
+            if ($country->cities()->count() > 0) {
+
+                throw new \Exception('لايمكن الحذف لاستخدامها فى المدن  .');
+            }
+        });
+
+
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('sort_order', 'asc');
+        });
+    }
 
     public function getTitleAttribute()
     {
@@ -30,6 +57,7 @@ class Country extends Model
         $query->where('is_active', 1);
     }
 
+
     public function users()
     {
         return $this->hasMany(User::class, 'country_id');
@@ -44,4 +72,6 @@ class Country extends Model
     {
         return $this->hasMany(City::class, 'country_id');
     }
+
+
 }

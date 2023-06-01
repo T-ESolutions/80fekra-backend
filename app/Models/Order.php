@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User;
 
 class Order extends Model
 {
@@ -41,6 +42,7 @@ class Order extends Model
     ];
 
 
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -53,12 +55,13 @@ class Order extends Model
 
     public function getAddressAttribute($value)
     {
-        if ($value != null ) {
+        if ($value != null) {
             return json_decode($value);
         }
         return "";
 
     }
+
 //
     public function setAddressAttribute($address)
     {
@@ -81,7 +84,6 @@ class Order extends Model
             $this->attributes['coupon'] = json_encode($coupon);
         }
     }
-
 
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,10 +23,21 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'f_name', 'l_name', 'email', 'image', 'is_active', 'email_verified_at', 'phone',
-        'password', 'type', 'whats_app', 'country_id','city_id','shipping_free','discount'
+        'password', 'type', 'whats_app', 'country_id', 'city_id', 'country', 'discount','email_verified_at'
     ];
 
-    protected $appends =['name','image_path'];
+    protected $appends = ['name', 'image_path'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+
+            $user->email_verified_at = now();
+
+        });
+    }
 
     public function getImagePathAttribute($image)
     {
@@ -37,7 +49,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function getNameAttribute()
     {
-        return $this->f_name.' '.$this->l_name;
+        return $this->f_name . ' ' . $this->l_name;
     }
 
     public function setPasswordAttribute($password)
@@ -45,7 +57,7 @@ class User extends Authenticatable implements JWTSubject
 
         if (!empty($password) && request()->is('api/*')) {
             $this->attributes['password'] = bcrypt($password);
-        }else{
+        } else {
             $this->attributes['password'] = $password;
         }
     }
@@ -74,6 +86,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo(Country::class, 'country_id');
     }
+
 
     public function city()
     {

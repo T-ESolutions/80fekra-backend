@@ -9,6 +9,7 @@ use App\Http\Requests\V1\User\AddressRequest;
 use App\Http\Requests\V1\User\Order\ApplyCouponRequest;
 use App\Http\Requests\V1\User\Order\OrderRequest;
 use App\Http\Resources\V1\User\Order\OrderResource;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 
@@ -42,7 +43,7 @@ class OrderController extends Controller
         if ($data == "coupon_used_before") {
             return response()->json(msg(failed(), trans('lang.coupon_used_before')));
         }
-        return response()->json(msgdata(success(), trans('lang.success'),$data));
+        return response()->json(msgdata(success(), trans('lang.success'), $data));
     }
 
     public function myOrders(Request $request)
@@ -73,6 +74,12 @@ class OrderController extends Controller
         }
         $data = OrderResource::make($data);
         return response()->json(msgdata(success(), trans('lang.success'), $data));
+    }
+
+
+    public function print_order(Order $order)
+    {
+        return view('exports.order_pdf', compact('order'));
     }
 
 

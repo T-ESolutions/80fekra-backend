@@ -11,6 +11,7 @@
         "php": "^7.3",
         "anaseqal/nova-sidebar-icons": "^0.0.3",
         "armincms/json": "^0.5.2",
+        "barryvdh/laravel-dompdf": "^2.0",
         "bayareawebpro/nova-field-ckeditor": "^1.1",
         "beyondcode/nova-theme": "*",
         "bytelaunch/readonly-on-update": "dev-main",

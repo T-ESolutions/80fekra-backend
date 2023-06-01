@@ -21,7 +21,7 @@ class OrdersPerDay extends Trend
      */
     public function calculate(NovaRequest $request)
     {
-        return $this->countByDays($request, Order::class);
+        return $this->countByDays($request, Order::class ,'created_at');
     }
 
     /**
@@ -48,7 +48,7 @@ class OrdersPerDay extends Trend
      */
     public function cacheFor()
     {
-        // return now()->addMinutes(5);
+         return now()->addSeconds(1);
     }
 
     /**
