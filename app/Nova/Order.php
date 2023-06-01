@@ -68,6 +68,7 @@ class Order extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('المستخدم', 'user', User::class)->rules('required'),
 
+            Date::make('تاريخ الطلب', 'created_at'),
             Number::make('الاجمالي الفرعي', 'subtotal')->rules('required', 'min:0'),
             Number::make('قيمة الخصم', 'discount')->rules('required', 'min:0'),
             Number::make('سعر الشحن', 'shipping_cost')->rules('required', 'min:0'),

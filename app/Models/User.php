@@ -42,8 +42,11 @@ class User extends Authenticatable implements JWTSubject
 
     public function setPasswordAttribute($password)
     {
-        if (!empty($password)) {
+
+        if (!empty($password) && request()->is('api/*')) {
             $this->attributes['password'] = bcrypt($password);
+        }else{
+            $this->attributes['password'] = $password;
         }
     }
 
