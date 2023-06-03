@@ -49,8 +49,11 @@ class AuthRepository implements AuthRepositoryInterface
 //            'user_phone' => $request['country_code'] . '' . $request['phone'],
 //            'active' => 0,
 //        ]);
+        $request['email_verified_at'] = Carbon::now();
         $user = User::create($request);
-        return $this->sendCode($request['email'], "activate");
+        //client stop it for now
+//        return $this->sendCode($request['email'], "activate");
+        return true;
     }
 
     public function sendCode($email, $type)

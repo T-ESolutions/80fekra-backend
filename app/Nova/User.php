@@ -77,7 +77,7 @@ class User extends Resource
                 ->creationRules('unique:users,whats_app')
                 ->updateRules('unique:users,whats_app,{{resourceId}}'),
 
-            Number::make('خصم ثابت (%)', 'discount')->sortable()
+            Number::make('خصم ثابت (%)', 'discount')->default(0)->sortable()
                 ->rules('required', 'min:0'),
 
 
