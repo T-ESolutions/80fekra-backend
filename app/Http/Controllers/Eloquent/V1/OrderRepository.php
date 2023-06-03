@@ -76,18 +76,22 @@ class OrderRepository implements OrderRepositoryInterface
         } else {
             $payment_status = Order::PAYMENT_STATUS_PAID;
         }
-        $order = Order::create([
-            'user_id' => $user_id,
-            'address' => $address,
-            'coupon' => $coupon,
-            'subtotal' => $sub_total,
-            'discount' => $discount,
-            'shipping_cost' => $shipping_cost,
-            'total' => $total,
-            'payment_status' => $payment_status,
-            'payment_type' => $request->payment_type,
-            'status' => Order::STATUS_PENDING,
-        ]);
+        $max_id = Order::get()->max('id');
+        if($max_id < 73000 ){
+            $order_id = 73000;
+            $order_data['id'] = $order_id ;
+        }
+        $order_data['user_id'] = $user_id ;
+        $order_data['address'] = $address ;
+        $order_data['coupon'] = $coupon ;
+        $order_data['subtotal'] = $sub_total ;
+        $order_data['discount'] = $discount ;
+        $order_data['shipping_cost'] = $shipping_cost ;
+        $order_data['total'] = $total ;
+        $order_data['payment_status'] = $payment_status ;
+        $order_data['payment_type'] =  $request->payment_type ;
+        $order_data['status'] = Order::STATUS_PENDING ;
+        $order = Order::create($order_data);
 
         foreach ($carts as $cart) {
             $price = $cart->product->price - ($cart->product->price * $cart->product->discount / 100);
