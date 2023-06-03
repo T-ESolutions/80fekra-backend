@@ -30,7 +30,7 @@ class HomeRepository implements HomeRepositoryInterface
     {
         $data['sliders'] = (SliderResources::collection(Slider::active()->orderBy('sort_order', 'asc')->get()));
         $data['categories'] = (CategoryResources::collection(Category::active()->orderBy('sort_order', 'asc')->get()));
-        $data['products'] = (ProductResources::collection(Product::active()->home()->orderBy('sort_order', 'asc')->get()->take(8)));
+        $data['products'] = (ProductResources::collection(Product::whereHas('productImages')->active()->home()->orderBy('sort_order', 'asc')->get()->take(8)));
         return $data;
     }
 
