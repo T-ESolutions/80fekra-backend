@@ -19,11 +19,36 @@ class AuthRepository implements AuthRepositoryInterface
 
     public function logIn($request)
     {
+        //to login by email first
         $credentials = [
             'email' => $request['email'],
             'password' => $request['password']
         ];
         if (!$jwt_token = JWTAuth::attempt($credentials, ['exp' => Carbon::now()->addDays(7)->timestamp])) {
+            //to login by phone too
+            $credentials = [
+                'phone' => $request['email'],
+                'password' => $request['password']
+            ];
+            if (!$jwt_token = JWTAuth::attempt($credentials, ['exp' => Carbon::now()->addDays(7)->timestamp])) {
+                return "phoneOrPasswordIncorrect";
+            } else {
+                $user = JWTAuth::user();
+
+//            if ($user->suspend == 1) {
+//                return "suspended";
+//            }
+            if ($user->active == 0) {
+                return "not_active";
+            }
+                if ($user->email_verified_at == null) {
+                    return "email_not_verified";
+                }
+                $user->save();
+                $user->jwt = $jwt_token;
+                return $user;
+            }
+
             return "phoneOrPasswordIncorrect";
         } else {
             $user = JWTAuth::user();
@@ -31,9 +56,9 @@ class AuthRepository implements AuthRepositoryInterface
 //            if ($user->suspend == 1) {
 //                return "suspended";
 //            }
-//            if ($user->active == 0) {
-//                return "not_active";
-//            }
+            if ($user->active == 0) {
+                return "not_active";
+            }
             if ($user->email_verified_at == null) {
                 return "email_not_verified";
             }

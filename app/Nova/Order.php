@@ -67,7 +67,7 @@ class Order extends Resource
     public function fields(Request $request)
     {
         return [
-            Number::make(__('ID'), 'id'),
+            Number::make('رقم الطلب', 'id'),
             BelongsTo::make('المستخدم', 'user', User::class)->rules('required'),
 
             Date::make('تاريخ الطلب', 'created_at'),
