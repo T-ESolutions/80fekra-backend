@@ -38,9 +38,9 @@ class AuthRepository implements AuthRepositoryInterface
 //            if ($user->suspend == 1) {
 //                return "suspended";
 //            }
-            if ($user->active == 0) {
-                return "not_active";
-            }
+                if ($user->is_active == 0) {
+                    return "not_active";
+                }
                 if ($user->email_verified_at == null) {
                     return "email_not_verified";
                 }
@@ -56,7 +56,7 @@ class AuthRepository implements AuthRepositoryInterface
 //            if ($user->suspend == 1) {
 //                return "suspended";
 //            }
-            if ($user->active == 0) {
+            if ($user->is_active == 0) {
                 return "not_active";
             }
             if ($user->email_verified_at == null) {
