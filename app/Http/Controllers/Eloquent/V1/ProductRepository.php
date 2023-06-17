@@ -24,7 +24,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function productDetails($request)
     {
-        $data['product'] = new ProductResources(Product::active()->whereId($request['id'])->first());
+        $data['product'] = new ProductResources(Product::whereHas('productImages')->active()->whereId($request['id'])->first());
         $reviews = ProductReview::approval()->where('product_id', $request['id'])->orderBy('created_at', 'desc')->paginate(Config('app.paginate'));
 
         $rates_one = ProductReview::approval()->where('product_id', $request['id'])->where('rate', 1)->get()->count();
@@ -47,7 +47,7 @@ class ProductRepository implements ProductRepositoryInterface
     {
         $main_product = Product::whereId($request['id'])->active()->first();
         $product_categories = $main_product->categories->toArray('category_id');
-        $products = Product::where('id', '!=', $request['id'])->active()->whereHas('categories', function ($q) use ($product_categories) {
+        $products = Product::where('id', '!=', $request['id'])->whereHas('productImages')->active()->whereHas('categories', function ($q) use ($product_categories) {
             $q->whereIn('category_id', $product_categories);
         })->paginate(Config('app.paginate'));
         $data = ProductResources::collection($products)->response()->getData(true);
@@ -80,7 +80,7 @@ class ProductRepository implements ProductRepositoryInterface
         } else {
             $products = $products->whereHas('categories');
         }
-        $products = $products->active()->paginate(Config('app.paginate'));
+        $products = $products->whereHas('productImages')->active()->paginate(Config('app.paginate'));
         $data['products'] = (ProductResources::collection($products))->response()->getData(true);
         return $data;
     }

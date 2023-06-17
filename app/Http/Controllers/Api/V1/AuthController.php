@@ -42,8 +42,8 @@ class AuthController extends Controller
         if (is_string($data)) {
             if ($data == "phoneOrPasswordIncorrect") {
                 return response()->json(msg(failed(), trans('lang.phoneOrPasswordIncorrect')));
-            } elseif ($data = "suspended") {
-                return response()->json(msg(suspend(), trans('lang.suspended')));
+//            } elseif ($data = "suspended") {
+//                return response()->json(msg(suspend(), trans('lang.suspended')));
             } elseif ($data = "not_active") {
                 return response()->json(msg(not_active(), trans('lang.not_active')));
             } elseif ($data = "email_not_verified") {

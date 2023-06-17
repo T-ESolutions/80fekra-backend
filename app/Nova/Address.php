@@ -62,8 +62,6 @@ class Address extends Resource
             Number::make('رقم الهاتف', 'phone')->sortable()
                 ->rules('required', 'max:255')
             ,
-            Text::make('البريد الالكتروني', 'email')->sortable()
-                ->rules('required', 'email', 'max:255')->hideFromIndex(),
             BelongsTo::make('المدينة', 'country', Country::class)->rules('required'),
             Boolean::make('العنوان الاساسي؟', 'is_default'),
 //            MapMarker::make("Location")

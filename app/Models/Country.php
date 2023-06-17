@@ -12,7 +12,7 @@ class Country extends Model
     use HasFactory, SortableTrait;
 
     protected $fillable = [
-        'title_ar', 'title_en', 'is_active', 'sort_order'
+        'title_ar', 'title_en', 'is_active', 'sort_order','shipping_cost'
     ];
     protected $appends = ['title'];
 

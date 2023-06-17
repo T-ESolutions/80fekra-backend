@@ -20,7 +20,6 @@ class Address extends Model
         'phone',
         'country_id',
         'city_id',
-        'email',
         'is_default',
     ];
 

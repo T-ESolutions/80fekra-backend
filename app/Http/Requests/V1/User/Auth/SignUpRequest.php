@@ -29,7 +29,7 @@ class SignUpRequest extends FormRequest
             'l_name' => 'required|string|max:255',
             'country_id' => 'required|exists:countries,id',
             'phone' => 'required|unique:users,phone',
-            'whats_app' => 'required|unique:users,whats_app',
+            'whats_app' => 'nullable',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
         ];
