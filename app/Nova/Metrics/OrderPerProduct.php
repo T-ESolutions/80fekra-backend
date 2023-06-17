@@ -3,15 +3,16 @@
 namespace App\Nova\Metrics;
 
 use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Product;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Metrics\Trend;
+use Laravel\Nova\Metrics\Partition;
 
-class OrdersPerDay extends Trend
+class OrderPerProduct extends Partition
 {
-
     public function name()
     {
-        return 'الطلبات باليوم';
+        return 'الطلبات بالمنتجات';
     }
     /**
      * Calculate the value of the metric.
@@ -21,24 +22,16 @@ class OrdersPerDay extends Trend
      */
     public function calculate(NovaRequest $request)
     {
-        return $this->countByDays($request, Order::class ,'created_at');
-    }
+        return $this->count($request, OrderDetail::class, 'product_id')
+            ->label(function ($value){
+                if ($value === null) {
+                    return 'None';
+                }
+                $product = Product::find($value);
+                return $product ? $product->title_ar : 'غير موجود';
+            });
 
-    /**
-     * Get the ranges available for the metric.
-     *
-     * @return array
-     */
-    public function ranges()
-    {
-        return [
-            30 => __('30 Days'),
-            60 => __('60 Days'),
-            365 => __('365 Days'),
-            1 => __('Today'),
-            120 => __('Quarter To Date'),
-            360 => __('Year To Date'),
-        ];
+
     }
 
     /**
@@ -48,7 +41,7 @@ class OrdersPerDay extends Trend
      */
     public function cacheFor()
     {
-         return now()->addSeconds(60);
+        // return now()->addMinutes(5);
     }
 
     /**
@@ -58,6 +51,6 @@ class OrdersPerDay extends Trend
      */
     public function uriKey()
     {
-        return 'orders-per-day';
+        return 'order-per-product';
     }
 }

@@ -7,6 +7,7 @@ use App\Nova\Address;
 use App\Nova\Admin;
 use App\Nova\Category;
 use App\Nova\Country;
+use App\Nova\Metrics\OrderPerProduct;
 use App\Nova\Page;
 use App\Nova\City;
 use App\Nova\Coupon;
@@ -23,11 +24,13 @@ use App\Nova\ProductReview;
 use App\Nova\Setting;
 use App\Nova\Slider;
 use App\Nova\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Coroowicaksono\ChartJsIntegration\StackedChart;
+
 //use Silvanite\NovaToolPermissions\NovaToolPermissions;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -98,6 +101,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             array_push($order_not_completed, $order);
         }
 
+
         $users = [];
         for ($x = 1; $x <= 12; $x++) {
             $order = \App\Models\User::whereYear('created_at', date('Y'))
@@ -107,18 +111,20 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         return [
 
+
             (new StackedChart())
                 ->title('الطلبيات')
                 ->animations([
                     'enabled' => true,
                     'easing' => 'easeinout',
                 ])
-                ->series(array([
-                    'barPercentage' => 0.8,
-                    'label' => 'الطلبات المكتملة',
-                    'backgroundColor' => '#6E0572',
-                    'data' => $order_completed,
-                ],
+                ->series(array(
+                    [
+                        'barPercentage' => 0.8,
+                        'label' => 'الطلبات المكتملة',
+                        'backgroundColor' => '#6E0572',
+                        'data' => $order_completed,
+                    ],
                     [
                         'barPercentage' => 0.8,
                         'label' => 'الطلبات الغير مكتملة',
@@ -136,6 +142,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
             new OrdersPerDay(),
             new OrderPerStatus(),
+            new OrderPerProduct(),
             new NewOrder(),
             new NewUsers(),
             (new StackedChart())
