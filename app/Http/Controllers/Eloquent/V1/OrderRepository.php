@@ -148,6 +148,8 @@ class OrderRepository implements OrderRepositoryInterface
             }
             if ($coupon->type == Coupon::PERCENTAGE) {
                 $discount = $sub_total * $coupon->discount / 100;
+            } elseif($coupon->type == Coupon::AMOUNT) {//amount
+                $discount = $coupon->discount;
             } else {//amount
                 $discount = 0;
             }
